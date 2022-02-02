@@ -8,6 +8,9 @@ import {
   FormLabel,
   Heading,
   Input,
+  InputGroup,
+  InputLeftAddon,
+  InputRightElement,
   Link,
   Switch,
   Text,
@@ -15,11 +18,14 @@ import {
 } from "@chakra-ui/react";
 // Assets
 import signInImage from "assets/img/signInImage.png";
+import ambulance from "assets/img/ambulance.png";
 
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
   return (
     <Flex position="relative" mb="40px">
       <Flex
@@ -54,31 +60,41 @@ function SignIn() {
               fontWeight="bold"
               fontSize="14px"
             >
-              Enter your email and password to sign in
+              Enter your phone number and password to sign in
             </Text>
             <FormControl>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Email
+                Phone Number
               </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="24px"
-                fontSize="sm"
-                type="text"
-                placeholder="Your email adress"
-                size="lg"
-              />
+              <InputGroup>
+                <InputLeftAddon children='+65'/>
+                <Input
+                  borderRadius="15px"
+                  mb="24px"
+                  fontSize="sm"
+                  type="text"
+                  placeholder="Your phone number"
+                  size="lg"
+                />
+              </InputGroup>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
                 Password
               </FormLabel>
-              <Input
-                borderRadius="15px"
-                mb="36px"
-                fontSize="sm"
-                type="password"
-                placeholder="Your password"
-                size="lg"
-              />
+              <InputGroup>
+                <Input
+                  borderRadius="15px"
+                  mb="36px"
+                  fontSize="sm"
+                  type={show? 'text': "password"}
+                  placeholder="Your password"
+                  size="lg"
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={handleClick}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
               <FormControl display="flex" alignItems="center">
                 <Switch id="remember-login" colorScheme="teal" me="10px" />
                 <FormLabel
@@ -109,20 +125,6 @@ function SignIn() {
                 SIGN IN
               </Button>
             </FormControl>
-            <Flex
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              maxW="100%"
-              mt="0px"
-            >
-              <Text color={textColor} fontWeight="medium">
-                Don't have an account?
-                <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
-                  Sign Up
-                </Link>
-              </Text>
-            </Flex>
           </Flex>
         </Flex>
         <Box
@@ -134,7 +136,7 @@ function SignIn() {
           right="0px"
         >
           <Box
-            bgImage={signInImage}
+            bgImage={ambulance}
             w="100%"
             h="100%"
             bgSize="cover"
