@@ -85,11 +85,11 @@ export const barChartOptions = {
 
 export const lineChartData = [
   {
-    name: "Mobile apps",
+    name: "Normal Users",
     data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
   },
   {
-    name: "Websites",
+    name: "Volunteers",
     data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
   },
 ];
