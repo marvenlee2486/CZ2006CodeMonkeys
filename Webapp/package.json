@@ -1,8 +1,8 @@
 {
-  "name": "purity-dashboard-react",
+  "name": "save-me-admin-dashboard",
   "version": "1.0.1",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/purity-ui-dashboard/#/",
+  "homepage": "https://demos.creative-tim.com/save-me-admin-dashboard/#/",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",

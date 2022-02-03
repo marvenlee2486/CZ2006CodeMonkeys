@@ -17,7 +17,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import IconBox from "components/Icons/IconBox";
+import { Image } from '@chakra-ui/react';
 import { CreativeTimLogo } from "components/Icons/Icons";
+import {CartIcon} from "components/Icons/Icons.js";
+import SaveMeLogo from "assets/img/SaveMeLogo.png";
 import { Separator } from "components/Separator/Separator";
 import { SidebarHelp } from "components/Sidebar/SidebarHelp";
 import PropTypes from "prop-types";
@@ -223,7 +226,8 @@ function Sidebar(props) {
         alignItems="center"
         fontSize="11px"
       >
-        <CreativeTimLogo w="32px" h="32px" me="10px" />
+        {/* <CreativeTimLogo w="32px" h="32px" me="10px" /> */}
+        <Image src={SaveMeLogo} w="32px" h="32px" me="10px"/>
         <Text fontSize="sm" mt="3px">
           {logoText}
         </Text>

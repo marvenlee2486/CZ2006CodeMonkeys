@@ -19,6 +19,7 @@ import {
 // Assets
 import signInImage from "assets/img/signInImage.png";
 import ambulance from "assets/img/ambulance.png";
+import { NavLink } from "react-router-dom";
 
 function SignIn() {
   // Chakra color mode
@@ -106,24 +107,26 @@ function SignIn() {
                   Remember me
                 </FormLabel>
               </FormControl>
-              <Button
-                fontSize="10px"
-                type="submit"
-                bg="teal.300"
-                w="100%"
-                h="45"
-                mb="20px"
-                color="white"
-                mt="20px"
-                _hover={{
-                  bg: "teal.200",
-                }}
-                _active={{
-                  bg: "teal.400",
-                }}
-              >
-                SIGN IN
-              </Button>
+              <NavLink to="/admin/dashboard">
+                <Button
+                  fontSize="15px"
+                  type="submit"
+                  bg="teal.300"
+                  w="100%"
+                  h="45"
+                  mb="20px"
+                  color="white"
+                  mt="20px"
+                  _hover={{
+                    bg: "teal.200",
+                  }}
+                  _active={{
+                    bg: "teal.400",
+                  }}
+                >
+                  SIGN IN
+                </Button>
+              </NavLink>
             </FormControl>
           </Flex>
         </Flex>

@@ -98,7 +98,11 @@ export default function Dashboard(props) {
     <ChakraProvider theme={theme} resetCss={false}>
       <Sidebar
         routes={routes}
+<<<<<<< HEAD
         logoText={"SAVE ME! Administrator"}
+=======
+        logoText={"SAVE ME dashboard"}
+>>>>>>> 4f5648a (added SAVE ME logo)
         display="none"
         sidebarVariant={sidebarVariant}
         {...rest}
@@ -130,7 +134,7 @@ export default function Dashboard(props) {
             </PanelContainer>
           </PanelContent>
         ) : null}
-        <Footer />
+        {/* <Footer /> */}
         <Portal>
           <FixedPlugin
             secondary={getActiveNavbar(routes)}
