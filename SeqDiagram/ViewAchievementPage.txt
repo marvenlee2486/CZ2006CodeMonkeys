@@ -1,0 +1,46 @@
+@startuml
+mainframe **sd ** User Views Personal Achievements
+actor User as u
+
+box "Android Application" 
+boundary MainPage as mp
+boundary RescuePageFrag as rpf
+boundary VolProfilePageFrag as vppf
+control UserController as uc
+control RequestUtil as ru
+end box
+
+box Server #lightblue
+control HTTPManager as hm
+control SaveMeRequestHandler as smrh
+control dbConnector as db
+end box
+
+activate hm
+activate smrh
+activate db
+
+u -> mp++: // opens app //
+mp -> rpf++: onRescueTabClicked()
+rpf -> vppf++: onVolProfilePageTabClicked()
+vppf -> vppf++: onTrophyAchievementButtonClicked()
+    vppf -> uc++: getPersonalInformation()
+    return (name, cred)
+    vppf -> ru++: postGetAchievements(name, cred)
+    ru -> hm++: // HTTP Post with data //
+    hm -> smrh++: newRequest(rawData) 
+    smrh -> db++: validateUser(name, cred)
+    return isValid
+    opt isValid
+        smrh -> db++: query(sql)
+        db --> smrh--: achievementInfo
+    end opt
+    smrh --> hm--: achievementInfo
+    hm --> ru--: // achievementInfo encoded in HTTP Post Response //
+    ru --> vppf: achievementInfo
+    vppf -> vppf++: renderAchievements()
+    vppf--
+    vppf --> rpf--
+    rpf --> mp --
+
+@enduml

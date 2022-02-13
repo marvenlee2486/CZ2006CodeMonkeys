@@ -1,0 +1,62 @@
+@startuml
+mainframe **sd ** Volunteer Registration
+actor User as u
+
+box "Android Application" #mintcream
+boundary MainPage as mp
+boundary RegVolPageFrag as rvpf
+boundary VolPledgePageFrag as vppf
+control android.content.ContentProvider as f
+control CertificateController as cc
+entity Certificate as c
+control RequestUtil as ru
+end box
+
+box Server #beige
+control HTTPManager as hm
+control SaveMeRequestHandler as smrh
+control dbConnector as db
+end box
+
+activate hm
+activate smrh
+activate db
+
+u -> mp++: onMoreButtonClicked()
+mp -> rvpf++: loadRegVolPageFrag()
+u -> rvpf++: onRegisterButtonClicked()
+rvpf -> f++: openFile()
+f --> rvpf--
+deactivate rvpf
+
+u -> rvpf: //enters personal information//
+alt information incorrect
+    rvpf --> u: //please retry//
+else information validated
+    rvpf -> vppf ++: showPledgeFrag()
+    u -> vppf: onAcceptButtonClicked()
+    vppf --> rvpf --
+    
+    rvpf -> cc++: addCertificate(photo, info)
+    cc -> c**: new(photo, info)
+    return
+    
+    rvpf -> ru++: postVolunteerRegistration(user, credential, photo, info)
+    
+    ru -> hm++: //HTTP post with data//
+    note right: client does not need to wait for server's completion after a POST.
+    ru --> rvpf--
+    rvpf --> mp--
+        hm -> smrh++: newRequest(rawData)
+            smrh -> db++: validateUser(user, credential)
+            return isValid
+        opt isValid
+        smrh -> db++: sqlWrite(sql)
+        db --> smrh--
+        end opt
+        smrh --> hm--
+        
+end
+deactivate rvpf
+mp--
+@enduml

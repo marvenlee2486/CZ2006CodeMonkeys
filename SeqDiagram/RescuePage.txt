@@ -1,0 +1,50 @@
+@startuml
+mainframe **sd** Candidate Volunteers Respond to a SaveMe! Request
+actor Volunteer as v
+
+box Android Application #mintcream
+    control BackgroundVolunteerService as ts
+    boundary MainPage as mp
+    boundary MapPageFrag as mpf
+    control RequestUtil as ru
+end box
+
+box Server #beige
+    control HTTPManager as hm
+    control SaveMeRequestHandler as smrh
+    control dbConnector as db
+end box
+
+activate hm
+activate smrh
+activate ts
+
+ts -> v: //notification on incoming alert//
+v -> mp++: showMainPage()
+mp -> mpf++: showRescuePage()
+mpf -> ts++: getLatestRescueRequest()
+return (name, location, possibleExactAddr, ETA, age, telephone)
+mpf -> mpf++: displayChoiceDialogue()
+mpf--
+alt Accept Request
+    mpf -> mpf++: displayExtraInformation()
+    mpf--
+    mpf -> ru++: postAcceptRequest(user, credential)
+    
+    ru -> hm++: // HTTP Post with data //
+    note right: client does not need to wait for server's completion after a POST.
+    ru --> mpf--
+    mpf --> mp--
+    mp--
+    hm -> smrh--: newRequest(rawData)
+    smrh -> db++: validateUser(user, cred)
+    return isValid
+    opt isValid
+        smrh -> db++: sqlWrite(sql)
+        db --> smrh--
+    end opt
+    smrh --> hm--
+    
+end 
+mpf--
+@enduml
