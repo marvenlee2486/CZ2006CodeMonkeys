@@ -14,7 +14,7 @@ import com.CodeMonkey.saveme.R;
  * The first page when user opened our app will see
  */
 
-public class RegSignPage extends AppCompatActivity implements View.OnClickListener{
+public class RegSignPage extends BaseActivity implements View.OnClickListener{
 
     private Button registerButton;
     private Button signButton;

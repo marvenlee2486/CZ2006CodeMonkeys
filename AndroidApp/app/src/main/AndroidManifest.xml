@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.CodeMonkey.saveme">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,12 @@
         android:theme="@style/Theme.SaveMe" >
 
         <activity android:name=".Boundary.RegSignPage" android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="true"/>
+
+        <activity android:name=".Boundary.LocaServPage" android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="true"/>
+
+        <activity android:name=".Boundary.TestActivity" android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

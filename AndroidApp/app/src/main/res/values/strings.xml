@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SaveMe</string>
+    <string name="register">Register</string>
+    <string name="signIn">Sign in</string>
+    <string name="enableLocationServices">Enable location services</string>
+    <string name="locationServiceExplain">To help rescuers and patients track your location, please enable location services</string>
+    <string name="allow">Allow</string>
 </resources>
