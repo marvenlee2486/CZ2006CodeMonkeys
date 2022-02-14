@@ -23,6 +23,19 @@
             android:text="Loca_Serv_Page"
             android:layout_marginBottom="20dp"/>
 
+        <Button
+            android:id="@+id/otp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="otp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/contactServPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="CONTACT_SERV_PAGE"
+            android:layout_marginBottom="20dp"/>
 
 
     </LinearLayout>

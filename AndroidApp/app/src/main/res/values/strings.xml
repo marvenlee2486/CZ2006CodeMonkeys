@@ -3,6 +3,13 @@
     <string name="register">Register</string>
     <string name="signIn">Sign in</string>
     <string name="enableLocationServices">Enable location services</string>
+    <string name="enableContactServices">Enable contact services</string>
     <string name="locationServiceExplain">To help rescuers and patients track your location, please enable location services</string>
+    <string name="contactServiceExplain">To enable us to contact emergency services/emergency contacts, please enable access to contacts. We will NOT share your contact information with unauthorised personnel.</string>
     <string name="allow">Allow</string>
+    <string name="confirm">Confirm</string>
+    <string name="resend">Resend</string>
+    <string name="otp">OTP</string>
+    <string name="enter_the_code_sent_to">Enter the code sent to</string>
+    <string name="update_contact_info">Update Contact Info</string>
 </resources>

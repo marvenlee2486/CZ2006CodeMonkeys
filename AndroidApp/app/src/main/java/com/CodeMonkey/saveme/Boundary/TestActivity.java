@@ -13,6 +13,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 
     private Button regSignButton;
     private Button locaServButton;
+    private Button otpButton;
+    private Button contactServButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
