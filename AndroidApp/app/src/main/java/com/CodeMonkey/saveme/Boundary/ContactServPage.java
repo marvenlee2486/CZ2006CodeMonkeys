@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.CodeMonkey.saveme.R;
 
-public class ContactServPage extends AppCompatActivity {
+public class ContactServPage extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

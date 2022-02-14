@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#9C9C9C</color>
+    <color name="saveMePageBarColor">#9F0000</color>
+    <color name="saveMePageBackgroundColor">#DA4E00</color>
+    <color name="rescuePageBackgroundColor">#0047FF</color>
 </resources>

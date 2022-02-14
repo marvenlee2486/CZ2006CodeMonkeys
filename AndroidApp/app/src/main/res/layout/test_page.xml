@@ -37,6 +37,13 @@
             android:text="CONTACT_SERV_PAGE"
             android:layout_marginBottom="20dp"/>
 
+        <Button
+            android:id="@+id/mainPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Main_Page"
+            android:layout_marginBottom="20dp"/>
+
 
     </LinearLayout>
 

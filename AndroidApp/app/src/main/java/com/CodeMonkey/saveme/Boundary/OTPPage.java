@@ -14,7 +14,7 @@ import com.CodeMonkey.saveme.R;
  * The OTP page for user to input the sent OTP
  */
 
-public class OTPPage extends AppCompatActivity implements View.OnClickListener{
+public class OTPPage extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
