@@ -31,10 +31,10 @@ vppf -> vppf++: onTrophyAchievementButtonClicked()
     hm -> smrh++: newRequest(rawData) 
     smrh -> db++: validateUser(name, cred)
     return isValid
-    opt isValid
+    alt isValid
         smrh -> db++: query(sql)
         db --> smrh--: achievementInfo
-    end opt
+    end alt
     smrh --> hm--: achievementInfo
     hm --> ru--: // achievementInfo encoded in HTTP Post Response //
     ru --> vppf: achievementInfo

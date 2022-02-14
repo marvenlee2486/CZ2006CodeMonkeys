@@ -50,10 +50,10 @@ else information validated
         hm -> smrh++: newRequest(rawData)
             smrh -> db++: validateUser(user, credential)
             return isValid
-        opt isValid
+        alt isValid
         smrh -> db++: sqlWrite(sql)
         db --> smrh--
-        end opt
+        end alt
         smrh --> hm--
         
 end

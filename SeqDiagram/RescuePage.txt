@@ -39,10 +39,10 @@ alt Accept Request
     hm -> smrh--: newRequest(rawData)
     smrh -> db++: validateUser(user, cred)
     return isValid
-    opt isValid
+    alt isValid
         smrh -> db++: sqlWrite(sql)
         db --> smrh--
-    end opt
+    end alt
     smrh --> hm--
     
 end 
