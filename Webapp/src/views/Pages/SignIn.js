@@ -61,20 +61,19 @@ function SignIn() {
               fontWeight="bold"
               fontSize="14px"
             >
-              Enter your phone number and password to sign in
+              Enter your username and password to sign in
             </Text>
             <FormControl>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Phone Number
+                Username
               </FormLabel>
               <InputGroup>
-                <InputLeftAddon children='+65'/>
                 <Input
                   borderRadius="15px"
                   mb="24px"
                   fontSize="sm"
                   type="text"
-                  placeholder="Your phone number"
+                  placeholder="Your username"
                   size="lg"
                 />
               </InputGroup>
@@ -91,22 +90,11 @@ function SignIn() {
                   size="lg"
                 />
                 <InputRightElement width='4.5rem'>
-                  <Button h='1.75rem' size='sm' onClick={handleClick}>
+                  <Button h='1.5rem' size='sm' onClick={handleClick}>
                     {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              <FormControl display="flex" alignItems="center">
-                <Switch id="remember-login" colorScheme="teal" me="10px" />
-                <FormLabel
-                  htmlFor="remember-login"
-                  mb="0"
-                  ms="1"
-                  fontWeight="normal"
-                >
-                  Remember me
-                </FormLabel>
-              </FormControl>
               <NavLink to="/admin/dashboard">
                 <Button
                   fontSize="15px"

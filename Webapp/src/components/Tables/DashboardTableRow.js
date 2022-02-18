@@ -12,7 +12,7 @@ import {
 import React from "react";
 
 function DashboardTableRow(props) {
-  const { location, time, userName, responedVolunteerNumber } = props;
+  const { location, time, userName, logo,responedVolunteerNumber } = props;
   const textColor = useColorModeValue("gray.700", "white");
   return (
     <Tr>
@@ -46,15 +46,15 @@ function DashboardTableRow(props) {
 
       <Td minWidth={{ sm: "250px" }} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-          
-          <Text
-            fontSize="md"
-            color={textColor}
-            fontWeight="bold"
-            minWidth="100%"
-          >
-            {userName}
-          </Text>
+            <Avatar src={logo} w="50px" borderRadius="12px" me="18px" />
+            <Text
+              fontSize="md"
+              color={textColor}
+              fontWeight="bold"
+              minWidth="100%"
+            >
+              {userName}
+            </Text>
         </Flex>
       </Td>
 
