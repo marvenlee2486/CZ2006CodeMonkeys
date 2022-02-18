@@ -164,7 +164,7 @@ return (
 		</Card>
 	</SimpleGrid>
 
-	{/* Ongoing Resuce Table */}
+	{/* Ongoing Rescue Table */}
 	<Grid
 		templateColumns={{ md: "1fr", lg: "1fr" }}
 		templateRows={{ md: "1fr auto", lg: "1fr" }}
@@ -215,6 +215,7 @@ return (
 					location={row.location}
 					time={row.time}
 					userName={row.userName}
+					logo={row.logo}
 					responedVolunteerNumber={row.responedVolunteerNumber}
 				/>
 				);

@@ -16,7 +16,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import TablesProjectRow from "components/Tables/TablesProjectRow";
 import TablesTableRow from "components/Tables/TablesTableRow";
-import { tablesProjectData, tablesTableData } from "variables/general";
+import { certificatesTableData, tablesTableData } from "variables/general";
 
 function Tables() {
   const textColor = useColorModeValue("gray.700", "white");
@@ -26,19 +26,16 @@ function Tables() {
       <Card overflowX={{ sm: "scroll", xl: "hidden" }}>
         <CardHeader p="6px 0px 22px 0px">
           <Text fontSize="xl" color={textColor} fontWeight="bold">
-            Rescuers Table
+            Users Table
           </Text>
         </CardHeader>
         <CardBody>
           <Table variant="simple" color={textColor}>
             <Thead>
               <Tr my=".8rem" pl="0px" color="gray.400">
-                <Th pl="0px" color="gray.400">
-                Rescuer
-                </Th>
-                <Th color="gray.400">Function</Th>
+                <Th pl="0px" color="gray.400">Username</Th>
                 <Th color="gray.400">Status</Th>
-                <Th color="gray.400">Employed</Th>
+                <Th color="gray.400">Registered Date</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -48,9 +45,9 @@ function Tables() {
                   <TablesTableRow
                     name={row.name}
                     logo={row.logo}
-                    email={row.email}
-                    subdomain={row.subdomain}
-                    domain={row.domain}
+                    // email={row.email}
+                    // subdomain={row.subdomain}
+                    // domain={row.domain}
                     status={row.status}
                     date={row.date}
                   />
@@ -67,7 +64,7 @@ function Tables() {
         <CardHeader p="6px 0px 22px 0px">
           <Flex direction="column">
             <Text fontSize="lg" color={textColor} fontWeight="bold" pb=".5rem">
-              Certificates Table
+              Pending Certificates Table
             </Text>
           </Flex>
         </CardHeader>
@@ -76,23 +73,22 @@ function Tables() {
             <Thead>
               <Tr my=".8rem" pl="0px">
                 <Th pl="0px" color="gray.400">
-                  Certificates
+                  Username
                 </Th>
-                <Th color="gray.400">Budget</Th>
-                <Th color="gray.400">Status</Th>
-                <Th color="gray.400">Completion</Th>
+                <Th color="gray.400">Upload Date</Th>
                 <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
-              {tablesProjectData.map((row) => {
+              {certificatesTableData.map((row) => {
                 return (
                   <TablesProjectRow
-                    name={row.name}
+                    name={row.username}
                     logo={row.logo}
-                    status={row.status}
-                    budget={row.budget}
-                    progression={row.progression}
+                    // status={row.status}
+                    // budget={row.budget}
+                    date={row.date}
+                    // progression={row.progression}
                   />
                 );
               })}

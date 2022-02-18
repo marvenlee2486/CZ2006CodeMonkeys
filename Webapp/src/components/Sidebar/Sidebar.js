@@ -19,7 +19,6 @@ import {
 import IconBox from "components/Icons/IconBox";
 import { Image } from '@chakra-ui/react';
 import { CreativeTimLogo } from "components/Icons/Icons";
-import {CartIcon} from "components/Icons/Icons.js";
 import SaveMeLogo from "assets/img/SaveMeLogo.png";
 import { Separator } from "components/Separator/Separator";
 import { SidebarHelp } from "components/Sidebar/SidebarHelp";

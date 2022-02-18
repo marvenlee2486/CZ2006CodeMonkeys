@@ -33,30 +33,43 @@ export const dashboardTableData = [
   {
     location: "NTU Hall 12 Block 12 (66°33'38 N, 66°33'38 E)",
     time: "02/02/2022 7:30 pm",
-    userName: "Jack Smith",
+    userName: "Esthera Jackson",
+    logo: avatar1,
     responedVolunteerNumber: "12",
   },
   {
     location: "NTU Hall 12",
     time: "02/02/2022 7:30 pm",
-    userName: "Jack asd",
+    userName: "Alexa Liras",
+    logo: avatar2,
     responedVolunteerNumber: "12",
   },
   {
     location: "NTU Hall 12",
     time: "02/02/2022 7:30 pm",
-    userName: "das daJack",
+    userName: "Laurent Michael",
+    logo: avatar3,
     responedVolunteerNumber: "12",
   },  {
     location: "NTU",
     time: "02/02/2022 7:30 pm",
-    userName: "John Jack",
+    userName: "Janice Jackson",
+    logo: avatar4,
     responedVolunteerNumber: "12",
   },  {
     location: "NTU",
     time: "02/02/2022 7:30 pm",
     userName: "Jack",
+    logo: avatar5,
     responedVolunteerNumber: "12",
+  },
+];
+
+export const certificatesTableData = [
+  {
+    date: "02/02/2022",
+    username: "Jack Smith",
+    logo: avatar9,
   },
 ];
 

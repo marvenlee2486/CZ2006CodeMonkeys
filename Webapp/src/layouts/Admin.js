@@ -98,15 +98,7 @@ export default function Dashboard(props) {
     <ChakraProvider theme={theme} resetCss={false}>
       <Sidebar
         routes={routes}
-<<<<<<< HEAD
-<<<<<<< HEAD
         logoText={"SAVE ME! Administrator"}
-=======
-        logoText={"SAVE ME dashboard"}
->>>>>>> 4f5648a (added SAVE ME logo)
-=======
-        logoText={"SAVE ME! Administrator"}
->>>>>>> daa0377 (Change Dashboard, homescreen, footer and sidebar)
         display="none"
         sidebarVariant={sidebarVariant}
         {...rest}
