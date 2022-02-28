@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const gap = require("gulp-append-prepend");
 
-gulp.task("licenses", async function () {
+ async function license() {
   // this is to add Creative Tim licenses in the production mode for the minified js
   gulp
     .src("build/static/js/*chunk.js", { base: "./" })
@@ -76,7 +76,7 @@ gulp.task("licenses", async function () {
     )
     .pipe(gulp.dest("./", { overwrite: true }));
   return;
-});
+}
 
-
+gulp.task("licenses",license);
 gulp.task("default", license);
