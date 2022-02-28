@@ -42,7 +42,7 @@
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run-script build",
+    "deploy": "npm run build",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
     "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
@@ -65,10 +65,6 @@
       "not dead",
       "not op_mini all"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "development": []
   }
 }
