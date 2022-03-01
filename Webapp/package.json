@@ -37,11 +37,11 @@
     "stylis-plugin-rtl": "^2.1.0"
   },
   "scripts": {
-    "start": "react start",
-    "build": "react build && gulp licenses",
-    "test": "react test --env=jsdom",
-    "eject": "react eject",
-    "deploy": "npm run build",
+    "start": "react-scripts start",
+    "build": "react-scripts build && gulp licenses",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "npm run-scripts build",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
     "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
