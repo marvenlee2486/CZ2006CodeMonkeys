@@ -2,15 +2,12 @@
   "name": "save-me-admin-dashboard",
   "version": "1.0.1",
   "private": true,
-<<<<<<< HEAD
-=======
->>>>>>> 55804a7 (github pages deploy)
+  "homepage": "http://marvenlee2486.github.io/CZ2006CodeMonkeys/",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",
     "@chakra-ui/theme-tools": "^1.1.9",
     "@emotion/cache": "^11.4.0",
-    "@emotion/react": "^11.4.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/open-sans": "^4.5.0",
