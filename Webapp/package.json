@@ -2,6 +2,7 @@
   "name": "save-me-admin-dashboard",
   "version": "1.0.1",
   "private": true,
+  "homepage": "http://marvenlee2486.github.io/CZ2006CodeMonkeys/",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",
@@ -41,7 +42,8 @@
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
     "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
@@ -54,6 +56,7 @@
     "@babel/plugin-transform-react-jsx-source": "^7.14.5",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
+    "gh-pages": "^3.2.3",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
     "prettier": "2.2.1"
