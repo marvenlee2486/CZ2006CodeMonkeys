@@ -2,7 +2,6 @@
   "name": "save-me-admin-dashboard",
   "version": "1.0.1",
   "private": true,
-  "homepage": "http://marvenlee2486.github.io/CZ2006CodeMonkeys/",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",
