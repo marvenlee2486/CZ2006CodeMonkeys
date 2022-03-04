@@ -19,37 +19,59 @@ import {
 // Assets
 import signInImage from "assets/img/signInImage.png";
 import ambulance from "assets/img/ambulance.png";
+import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
+
 Amplify.configure(awsconfig);
 
-function SignIn() {
+function NewPassword(props) {
+  const history = useHistory();
+  const { state } = props.location
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
-  const history = useHistory();
   //useState variables
   const [show, setShow] = React.useState(false)
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [newpassword, setNewPassword] = React.useState('')
+  const [confirmpassword, setConfirmPassword] = React.useState('')
   //util functions
   const handleClick = () => setShow(!show)
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const user = await Auth.signIn(username, password);
-      const current_authed = await Auth.currentAuthenticatedUser();
-      if (current_authed.username === user.username) history.push("/admin/dashboard");
-      else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') history.push({pathname:"/auth/newpassword",state:{user}})
-    } catch (error) {
-      console.log('error signing in', error);
-      history.push({
-        pathname: "/auth/signin",
-        state: {user}
-      })
+    if (newpassword!==confirmpassword) console.log("Invalid");
+    else{
+      const user = state.user;
+      console.log(user)
+        if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+          Auth.completeNewPassword(
+            user,               // the Cognito User Object
+            newpassword,       // the new password
+            // OPTIONAL, the required attributes
+            {
+              email: 'xxxx@example.com',
+            }
+          ).then(user => {
+            // at this time the user is logged in if no MFA required
+            console.log(user);
+            history.push("admin/dashboard")
+          }).catch(e => {
+            console.log(e);
+          });
+        } else {
+            history.push('auth/signin')// other situations
+        }
     }
   };
+  async function signIn() {
+    try {
+      const user = await Auth.signIn(username, password);
+      console.log(user)
+    } catch (error) {
+        console.log('error signing in', error);
+    }
+  }
 
   return (
     <Flex position="relative" mb="40px">
@@ -63,6 +85,8 @@ function SignIn() {
         pt={{ sm: "100px", md: "0px" }}
       >
         <Flex
+          alignItems="center"
+          justifyContent="start"
           style={{ userSelect: "none" }}
           w={{ base: "100%", md: "50%", lg: "42%" }}
         >
@@ -72,10 +96,9 @@ function SignIn() {
             background="transparent"
             p="48px"
             mt={{ md: "150px", lg: "80px" }}
-            justifyContent='center'
           >
             <Heading color={titleColor} fontSize="32px" mb="10px">
-              Welcome Back
+              First time logging in?
             </Heading>
             <Text
               mb="36px"
@@ -84,26 +107,12 @@ function SignIn() {
               fontWeight="bold"
               fontSize="14px"
             >
-              Enter your username and password to sign in
+              Enter your new password 
             </Text>
             <form onSubmit={handleSubmit}>
             <FormControl>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Username
-              </FormLabel>
-              <InputGroup>
-                <Input
-                  borderRadius="15px"
-                  mb="24px"
-                  fontSize="sm"
-                  type="text"
-                  placeholder="Your username"
-                  size="lg"
-                  onChange={event => setUsername(event.currentTarget.value)}
-                />
-              </InputGroup>
-              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
-                Password
+                New Password
               </FormLabel>
               <InputGroup>
                 <Input
@@ -111,12 +120,31 @@ function SignIn() {
                   mb="36px"
                   fontSize="sm"
                   type={show? 'text': "password"}
-                  placeholder="Your password"
+                  placeholder="Your new password"
                   size="lg"
-                  onChange={event => setPassword(event.currentTarget.value)}
+                  onChange={event => setNewPassword(event.currentTarget.value)}
                 />
-                <InputRightElement width='4.5rem' style={{marginTop:3.5}}>
-                  <Button h='1.75rem' size='sm' onClick={handleClick}>
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.5rem' size='sm' onClick={handleClick}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+                Confirm Password
+              </FormLabel>
+              <InputGroup>
+                <Input
+                  borderRadius="15px"
+                  mb="36px"
+                  fontSize="sm"
+                  type={show? 'text': "password"}
+                  placeholder="Confirm password"
+                  size="lg"
+                  onChange={event => setConfirmPassword(event.currentTarget.value)}
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.5rem' size='sm' onClick={handleClick}>
                     {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
@@ -166,4 +194,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default NewPassword;

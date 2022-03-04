@@ -6,6 +6,7 @@ import RTLPage from "views/RTL/RTLPage.js";
 import Profile from "views/Dashboard/Profile.js";
 import SignIn from "views/Pages/SignIn.js";
 import SignUp from "views/Pages/SignUp.js";
+import NewPassword from "views/Pages/NewPassword";
 
 import {
   HomeIcon,
@@ -55,6 +56,14 @@ var dashRoutes = [
         rtlName: "لوحة القيادة",
         icon: <DocumentIcon color="inherit" />,
         component: SignIn,
+        layout: "/auth",
+      },
+      {
+        path: "/newpassword",
+        name: "New Password",
+        rtlName: "لوحة القيادة",
+        icon: <DocumentIcon color="inherit" />,
+        component: NewPassword,
         layout: "/auth",
       },
     ],
