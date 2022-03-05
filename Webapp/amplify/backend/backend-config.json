@@ -1,1 +1,11 @@
-{}
+{
+  "auth": {
+    "cz2006codemonkeysweb": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
