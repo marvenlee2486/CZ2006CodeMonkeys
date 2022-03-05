@@ -21,5 +21,18 @@
         }
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cz2006codemonkeysweb-dev-223746-authRole",
+      "UnauthRoleArn": "arn:aws:iam::775226495607:role/amplify-cz2006codemonkeysweb-dev-223746-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::775226495607:role/amplify-cz2006codemonkeysweb-dev-223746-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-cz2006codemonkeysweb-dev-223746-deployment",
+      "UnauthRoleName": "amplify-cz2006codemonkeysweb-dev-223746-unauthRole",
+      "StackName": "amplify-cz2006codemonkeysweb-dev-223746",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:775226495607:stack/amplify-cz2006codemonkeysweb-dev-223746/d3e405d0-9c91-11ec-9f2b-0a49dcb9c5b4",
+      "AmplifyAppId": "d3p8qrw5ep1dpe"
+    }
   }
 }
