@@ -10,16 +10,6 @@
       "StackName": "amplify-amplify715c20740b8e4-staging-32348",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:775226495607:stack/amplify-amplify715c20740b8e4-staging-32348/ac3cbe90-9c33-11ec-a75f-0abcbdc53aa8",
       "AmplifyAppId": "d3p8qrw5ep1dpe"
-    },
-    "categories": {
-      "auth": {
-        "cz2006codemonkeysweb": {
-          "userPoolId": "ap-southeast-1_kLiKlr37Y",
-          "userPoolName": "webapp5145f19c_userpool_5145f19c-dev",
-          "webClientId": "14e4j95brj1bo4o4ll5nngbcev",
-          "nativeClientId": "28v7el52lq94t32p71g3ikde5r"
-        }
-      }
     }
   }
 }
