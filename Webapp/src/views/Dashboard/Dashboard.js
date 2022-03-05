@@ -50,7 +50,25 @@ import { BsArrowRight } from "react-icons/bs";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { dashboardTableData, timelineData } from "variables/general";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+	const { state } = props.location
+	const requestOptions = {
+        method: 'GET',
+        headers: {
+			'Content-Type': 'application/json',
+			'Authorization': state.user.signInUserSession.idToken.jwtToken,
+		 },
+    };
+    fetch('https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging', requestOptions)
+	.then(response => {
+		console.log(response)
+		response.json()
+	})
+	.then(data => {
+		console.log(data);
+		alert(data);
+	});
+
 const value = "$100.000";
 // Chakra Color Mode
 const { colorMode, toggleColorMode } = useColorMode();
