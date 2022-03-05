@@ -40,10 +40,14 @@ function SignIn() {
     try {
       const user = await Auth.signIn(username, password);
       const current_authed = await Auth.currentAuthenticatedUser();
-      if (current_authed.username === user.username) history.push({pathname:"/admin/dashboard",state:{user}});
+      if (current_authed.username === user.username) history.push("/admin/dashboard");
       else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') history.push({pathname:"/auth/newpassword",state:{user}})
     } catch (error) {
       console.log('error signing in', error);
+      history.push({
+        pathname: "/auth/signin",
+        state: {user}
+      })
     }
   };
 
