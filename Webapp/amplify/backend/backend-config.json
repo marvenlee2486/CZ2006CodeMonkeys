@@ -1,6 +1,6 @@
 {
   "auth": {
-    "cz2006codemonkeysweb": {
+    "cz2006codemonkeyswebba918e3c": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",

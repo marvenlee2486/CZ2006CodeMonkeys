@@ -48,10 +48,6 @@ function NewPassword(props) {
           Auth.completeNewPassword(
             user,               // the Cognito User Object
             newpassword,       // the new password
-            // OPTIONAL, the required attributes
-            {
-              email: 'xxxx@example.com',
-            }
           ).then(user => {
             // at this time the user is logged in if no MFA required
             console.log(user);

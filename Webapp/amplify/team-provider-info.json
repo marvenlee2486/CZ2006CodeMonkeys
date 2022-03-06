@@ -13,11 +13,18 @@
     },
     "categories": {
       "auth": {
-        "cz2006codemonkeysweb": {
-          "userPoolId": "ap-southeast-1_kLiKlr37Y",
-          "userPoolName": "webapp5145f19c_userpool_5145f19c-dev",
-          "webClientId": "14e4j95brj1bo4o4ll5nngbcev",
-          "nativeClientId": "28v7el52lq94t32p71g3ikde5r"
+        "cz2006codemonkeyswebba918e3c": {
+          "userPoolId": "ap-southeast-1_K3Kdcwfok",
+          "userPoolName": "webapp_users",
+          "webClientId": "2eva8bfkikn55bp2gi2codvc2r",
+          "nativeClientId": "2e7aq109bt8djh8b4dd36f3iro",
+          "identityPoolId": "ap-southeast-1:6ce70ff3-3957-420c-aeef-abc23759d4de",
+          "identityPoolName": "webapp_idpool",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::775226495607:role/Cognito_webapp_idpoolAuth_Role",
+          "authRoleName": "Cognito_webapp_idpoolAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::775226495607:role/Cognito_webapp_idpoolUnauth_Role",
+          "unauthRoleName": "Cognito_webapp_idpoolUnauth_Role"
         }
       }
     }
