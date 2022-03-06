@@ -1,0 +1,4 @@
+{
+  "modules": "captcha-create-challenge,boilerplate-create-challenge",
+  "resourceName": "defaultCreateAuthChallenge"
+}

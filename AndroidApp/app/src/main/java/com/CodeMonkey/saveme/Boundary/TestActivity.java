@@ -2,12 +2,18 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Entity.NewsRspAll;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
+
+import rx.Observer;
 
 
 /***
@@ -38,6 +44,31 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         mainPageButton.setOnClickListener(this);
         OTPPageButton.setOnClickListener(this);
         contactServButton.setOnClickListener(this);
+        initData();
+//        try {
+//            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+//            Amplify.configure(getApplicationContext());
+//            Log.i("MyAmplifyApp", "Initialized Amplify");
+//        } catch (AmplifyException error) {
+//            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+//        }
+//        Amplify.Auth.fetchAuthSession(
+//                result -> Log.i("AmplifyQuickstart", result.toString()),
+//                error -> Log.e("AmplifyQuickstart", error.toString())
+//        );
+//        AuthSignUpOptions options = AuthSignUpOptions.builder()
+//                .userAttribute(AuthUserAttributeKey.phoneNumber(), "+6500000000")
+//                .build();
+//        Amplify.Auth.signUp("+6500000000", "test1234", options,
+//                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
+//                error -> Log.e("AuthQuickStart", "Sign up failed", error)
+//        );
+//        Amplify.Auth.confirmSignUp(
+//                "+6500000000",
+//                "t1234",
+//                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
+//                error -> Log.e("AuthQuickstart", error.toString())
+//        );
     }
 
     @Override
@@ -61,5 +92,26 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 break;
         }
         startActivity(intent);
+    }
+
+    private void initData() {
+        RequestUtil.getNews(new Observer<NewsRspAll>() {
+            @Override
+            public void onCompleted() {
+                //完成
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                //失败
+                Log.i("retrofit==111=", "Error："+e.getMessage());
+            }
+
+            @Override
+            public void onNext(NewsRspAll newsRspAll) {
+                //成功
+                Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

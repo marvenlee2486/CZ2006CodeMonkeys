@@ -1,0 +1,4 @@
+{
+  "modules": "email-filter-denylist,email-filter-allowlist",
+  "resourceName": "defaultPreSignup"
+}

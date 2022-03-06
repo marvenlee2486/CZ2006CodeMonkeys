@@ -1,0 +1,20 @@
+{
+  "trigger": true,
+  "modules": [
+    "email-filter-denylist",
+    "email-filter-allowlist"
+  ],
+  "parentResource": "default",
+  "functionName": "defaultPreSignup",
+  "resourceName": "defaultPreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "C:\\Users\\Wang Tianyu\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "defaultPreSignup",
+  "skipEdit": true,
+  "DOMAINALLOWLIST": "n",
+  "DOMAINDENYLIST": "n",
+  "enableCors": false
+}

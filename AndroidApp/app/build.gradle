@@ -34,4 +34,24 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.amplifyframework:core:1.32.0'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.32.0'
+    // Mobile Client for initializing the SDK
+    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.8.+@aar') { transitive = true }
+    // Cognito UserPools for SignIn
+    implementation('com.amazonaws:aws-android-sdk-auth-userpools:2.8.+@aar') { transitive = true }
+    // Sign in UI Library
+    implementation('com.amazonaws:aws-android-sdk-auth-ui:2.8.+@aar') { transitive = true }
+    //RxJava
+    implementation 'io.reactivex:rxjava:1.1.3'
+    //RxAndroid
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
+    //retrofit dependence Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    //OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    //retrofit dependence RxJava
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
 }
