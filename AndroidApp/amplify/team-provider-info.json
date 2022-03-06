@@ -1,0 +1,55 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-androidapp-dev-104738-authRole",
+      "UnauthRoleArn": "arn:aws:iam::775226495607:role/amplify-androidapp-dev-104738-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::775226495607:role/amplify-androidapp-dev-104738-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+      "UnauthRoleName": "amplify-androidapp-dev-104738-unauthRole",
+      "StackName": "amplify-androidapp-dev-104738",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:775226495607:stack/amplify-androidapp-dev-104738/4c0bcc20-9a9c-11ec-b3aa-029a9970eeea",
+      "AmplifyAppId": "d2yuyxw0mqju4v",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-androidapp-dev-104738-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "defaultDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultDefineAuthChallenge-334f4f6f36565448656e-build.zip"
+        },
+        "defaultCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultCreateAuthChallenge-70693345347159653078-build.zip"
+        },
+        "defaultVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "n",
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultVerifyAuthChallengeResponse-56424d54534364647259-build.zip"
+        },
+        "defaultCustomMessage": {
+          "REDIRECTURL": "n",
+          "EMAILSUBJECT": "n",
+          "EMAILMESSAGE": "n",
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultCustomMessage-6f4e665947516e7a5a57-build.zip"
+        },
+        "defaultPostConfirmation": {
+          "GROUP": "n",
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultPostConfirmation-367a34584d487839726d-build.zip"
+        },
+        "defaultPreSignup": {
+          "DOMAINALLOWLIST": "n",
+          "DOMAINDENYLIST": "n",
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultPreSignup-59515a55547464636a6b-build.zip"
+        },
+        "defaultPreTokenGeneration": {
+          "deploymentBucketName": "amplify-androidapp-dev-104738-deployment",
+          "s3Key": "amplify-builds/defaultPreTokenGeneration-4f434d5a74466a757332-build.zip"
+        }
+      }
+    }
+  }
+}
