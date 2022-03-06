@@ -26,7 +26,9 @@ import { ItemContent } from "components/Menu/ItemContent";
 import { SidebarResponsive } from "components/Sidebar/Sidebar";
 import PropTypes from "prop-types";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from '../../aws-exports';
+Amplify.configure(awsconfig);
 import routes from "routes.js";
 
 export default function HeaderLinks(props) {
@@ -93,31 +95,37 @@ export default function HeaderLinks(props) {
           borderRadius="inherit"
         />
       </InputGroup>
-      <NavLink to="/auth/signin">
-        <Button
-          ms="0px"
-          px="0px"
-          me={{ sm: "2px", md: "16px" }}
-          color={navbarIcon}
-          variant="transparent-with-icon"
-          rightIcon={
-            document.documentElement.dir ? (
-              ""
-            ) : (
-              <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
-            )
+      <Button
+        ms="0px"
+        px="0px"
+        me={{ sm: "2px", md: "16px" }}
+        color={navbarIcon}
+        variant="transparent-with-icon"
+        rightIcon={
+          document.documentElement.dir ? (
+            ""
+          ) : (
+            <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
+          )
+        }
+        leftIcon={
+          document.documentElement.dir ? (
+            <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
+          ) : (
+            ""
+          )
+        }
+        onClick = {async ()=>{
+          try {
+            console.log("signing out");
+            await Auth.signOut();
+            window.location.reload(false);
           }
-          leftIcon={
-            document.documentElement.dir ? (
-              <ProfileIcon color={navbarIcon} w="22px" h="22px" me="0px" />
-            ) : (
-              ""
-            )
-          }
-        >
-          <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
-        </Button>
-      </NavLink>
+          catch (e){console.log("error signing out ", e)}
+        }}
+      >
+        <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
+      </Button>
       <SidebarResponsive
         logoText={props.logoText}
         secondary={props.secondary}

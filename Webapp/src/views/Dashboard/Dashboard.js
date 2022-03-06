@@ -49,6 +49,10 @@ import React, { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { dashboardTableData, timelineData } from "variables/general";
+import { useHistory } from "react-router-dom";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from '../../aws-exports';
+Amplify.configure(awsconfig);
 
 export default function Dashboard() {
 const value = "$100.000";
@@ -69,8 +73,10 @@ const [series, setSeries] = useState([
 	data: [400, 291, 121, 117, 25, 133, 121, 211, 147, 25, 201, 203],
 	},
 ]);
-const overlayRef = React.useRef();
-
+const history = useHistory();
+Auth.currentUserInfo().then(current_user => {
+	if (current_user===null) history.push("/auth/signin");
+})
 return (
 	<Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
 		

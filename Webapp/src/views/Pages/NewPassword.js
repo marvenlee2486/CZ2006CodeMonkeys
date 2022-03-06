@@ -40,24 +40,22 @@ function NewPassword(props) {
   const handleClick = () => setShow(!show)
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (newpassword!==confirmpassword) console.log("Invalid");
+    if (newpassword!==confirmpassword) alert("Passwords don't match");
     else{
-      const user = state.user;
-      console.log(user)
-        if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-          Auth.completeNewPassword(
-            user,               // the Cognito User Object
-            newpassword,       // the new password
-          ).then(user => {
-            // at this time the user is logged in if no MFA required
-            console.log(user);
-            history.push("admin/dashboard")
-          }).catch(e => {
-            console.log(e);
-          });
-        } else {
-            history.push('auth/signin')// other situations
-        }
+      if (state.user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+        Auth.completeNewPassword(
+          state.user,               // the Cognito User Object
+          newpassword,       // the new password
+        ).then(user => {
+          // at this time the user is logged in if no MFA required
+          console.log(user);
+          history.push({pathname:"/admin/dashboard",state:{user}});
+        }).catch(e => {
+          console.log(e);
+        });
+      } else {
+          history.push('/auth/signin')// other situations
+      }
     }
   };
   async function signIn() {

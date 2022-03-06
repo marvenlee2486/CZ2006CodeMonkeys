@@ -22,13 +22,15 @@ import ambulance from "assets/img/ambulance.png";
 import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
+import { AiOutlineConsoleSql } from "react-icons/ai";
+
 Amplify.configure(awsconfig);
 // Auth.configure(awsconfig);
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
-  const history = useHistory();
+ const history = useHistory(); 
   //useState variables
   const [show, setShow] = React.useState(false)
   const [username, setUsername] = React.useState('')
@@ -39,14 +41,15 @@ function SignIn() {
     event.preventDefault();
     try {
       const user = await Auth.signIn(username, password);
-      const current_authed = await Auth.currentAuthenticatedUser();
-      if (current_authed.username === user.username) history.push("/admin/dashboard");
+      console.log(user);
+      const current_authed = await Auth.currentUserInfo();
+      console.log(current_authed);
+      if (current_authed!=null) history.push({pathname:"/admin/dashboard",state:{user}});
       else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') history.push({pathname:"/auth/newpassword",state:{user}})
     } catch (error) {
       console.log('error signing in', error);
       history.push({
         pathname: "/auth/signin",
-        state: {user}
       })
     }
   };
