@@ -23,7 +23,7 @@ import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
-Auth.configure(awsconfig);
+// Auth.configure(awsconfig);
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("teal.300", "teal.200");
