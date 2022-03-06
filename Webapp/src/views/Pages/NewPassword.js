@@ -48,10 +48,10 @@ function NewPassword(props) {
           newpassword,       // the new password
         ).then(user => {
           // at this time the user is logged in if no MFA required
-          console.log(user);
-          history.push({pathname:"/admin/dashboard",state:{user}});
+          alert("logging in");
+          history.push("/admin/dashboard");
         }).catch(e => {
-          console.log(e);
+          alert(e.log);
         });
       } else {
           history.push('/auth/signin')// other situations

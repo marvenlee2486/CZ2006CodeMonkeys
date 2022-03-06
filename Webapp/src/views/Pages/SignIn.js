@@ -41,16 +41,11 @@ function SignIn() {
     event.preventDefault();
     try {
       const user = await Auth.signIn(username, password);
-      console.log(user);
       const current_authed = await Auth.currentUserInfo();
-      console.log(current_authed);
-      if (current_authed!=null) history.push({pathname:"/admin/dashboard",state:{user}});
+      if (current_authed!=null) history.push("/admin/dashboard");
       else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') history.push({pathname:"/auth/newpassword",state:{user}})
     } catch (error) {
-      console.log('error signing in', error);
-      history.push({
-        pathname: "/auth/signin",
-      })
+      alert(error.log);
     }
   };
 
