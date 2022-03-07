@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rescuePageBackgroundColor">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/rescuePageMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20">
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/topNavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:background="@color/rescuePageBarColor">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/mapButton">
+
+                <ImageView
+                    android:id="@+id/mapLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="3dp"
+                    android:src="@drawable/select_line"
+                    android:layout_alignParentTop="true"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/rescuePageBarColor"
+                        android:src="@drawable/map_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/map_icon_string"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/trainButton">
+
+                <ImageView
+                    android:id="@+id/trainLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="3dp"
+                    android:src="@drawable/select_line"
+                    android:layout_alignParentTop="true"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/rescuePageBarColor"
+                        android:src="@drawable/train_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/train_icon_string"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/busButton">
+
+                <ImageView
+                    android:id="@+id/busLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="3dp"
+                    android:src="@drawable/select_line"
+                    android:layout_alignParentTop="true"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/rescuePageBarColor"
+                        android:src="@drawable/bus_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bus_icon_string"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/instructionButton">
+
+                <ImageView
+                    android:id="@+id/instructionLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="3dp"
+                    android:src="@drawable/select_line"
+                    android:layout_alignParentTop="true"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/rescuePageBarColor"
+                        android:src="@drawable/instruction_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/instruction_icon_string"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

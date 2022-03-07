@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.CodeMonkey.saveme.Boundary.RegSignPage;
 import com.CodeMonkey.saveme.R;
 
 /***
- * RegSignPage created by Wang Tianyu 14/02/2022
+ * RegVolPageFrag created by Wang Tianyu 14/02/2022
  * Page for user to register to be a rescuer
  */
 public class RegVolPageFrag extends Fragment {

@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 import com.CodeMonkey.saveme.R;
 
 /***
- * ConfigPageFrag created by Wang Tianyu 14/02/2022
- * Page for configs
+ * TrainPageFrag created by Wang Tianyu 07/03/2022
+ * Train information page
  */
-public class ConfigPageFrag extends Fragment {
 
-    public ConfigPageFrag(){}
+public class TrainPageFrag extends Fragment {
+    public TrainPageFrag(){};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +27,8 @@ public class ConfigPageFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.config_page_fragment, container, false);
+        View view= inflater.inflate(R.layout.train_page_fragment, container, false);
         return view;
     }
+
 }
