@@ -3,15 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/drawable/more_page_mask.xml" value="0.104" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_otp_page.xml" value="0.18" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/bus_page_fragment.xml" value="0.2791666666666667" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/config_page_fragment.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/instruc_page_fragment.xml" value="0.2791666666666667" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/loca_serv_page.xml" value="0.22" />
-        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/main_page.xml" value="0.18" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/main_page.xml" value="0.125" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/map_page_fragment.xml" value="0.2791666666666667" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/reg_sign_page.xml" value="0.125" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/reg_vol_page_fragment.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/rescue_page_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/save_page_fragment.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/test_page.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/text_page.xml" value="0.25" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/train_page_fragment.xml" value="0.2791666666666667" />
       </map>
     </option>
   </component>

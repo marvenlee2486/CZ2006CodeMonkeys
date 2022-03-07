@@ -15,4 +15,8 @@
     <string name="enter_the_code_sent_to">Enter the code sent to</string>
     <string name="update_contact_info">Update Contact Info</string>
     <string name="contactServiceExplain">To enable us to contact emergency services/emergency contacts, please enable access to contacts. We will NOT share your contact information with unauthorised personnel.</string>
+    <string name="bus_icon_string">Bus</string>
+    <string name="map_icon_string">Map</string>
+    <string name="train_icon_string">Train</string>
+    <string name="instruction_icon_string">FAQ</string>
 </resources>
