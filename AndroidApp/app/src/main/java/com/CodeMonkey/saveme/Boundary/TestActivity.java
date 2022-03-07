@@ -27,6 +27,9 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     private Button mainPageButton;
     private Button OTPPageButton;
     private Button contactServButton;
+    private Button registerPageButton;
+    private Button registerSubPageButton;
+    private Button signInPageButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,12 +41,19 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         mainPageButton = findViewById(R.id.mainPage);
         OTPPageButton = findViewById(R.id.otp);
         contactServButton = findViewById(R.id.contactServPage);
+        registerPageButton = findViewById((R.id.registerPage));
+        registerSubPageButton = findViewById((R.id.registerSubPage));
+        signInPageButton = findViewById((R.id.sigInPage));
 
         regSignButton.setOnClickListener(this);
         locaServButton.setOnClickListener(this);
         mainPageButton.setOnClickListener(this);
         OTPPageButton.setOnClickListener(this);
         contactServButton.setOnClickListener(this);
+        registerPageButton.setOnClickListener(this);
+        registerSubPageButton.setOnClickListener(this);
+        signInPageButton.setOnClickListener(this);
+
         initData();
 //        try {
 //            Amplify.addPlugin(new AWSCognitoAuthPlugin());
@@ -90,9 +100,19 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
             case R.id.contactServPage:
                 intent = new Intent(TestActivity.this, ContactServPage.class);
                 break;
+            case R.id.registerPage:
+                intent = new Intent(TestActivity.this, RegisterMainPage.class);
+                break;
+            case R.id.registerSubPage:
+                intent = new Intent(TestActivity.this, RegisterSubPage.class);
+                break;
+            case R.id.sigInPage:
+                intent = new Intent(TestActivity.this, SignInPage.class);
+                break;
         }
         startActivity(intent);
     }
+
 
     private void initData() {
         RequestUtil.getNews(new Observer<NewsRspAll>() {

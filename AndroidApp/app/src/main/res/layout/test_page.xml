@@ -44,6 +44,26 @@
             android:text="Main_Page"
             android:layout_marginBottom="20dp"/>
 
+        <Button
+            android:id="@+id/registerPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_page"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/registerSubPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_subpage"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/sigInPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_subpage"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 
@@ -51,7 +71,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
 
     </LinearLayout>
 
