@@ -27,4 +27,10 @@
     <string name="password_hint">Password*</string>
     <string name="phone_number_hint">Phone Number*</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="don_t_worry_help_is_on_the_way">Don\'t worry, help is on the way</string>
+    <string name="signal_is_being_broadcast">Signal is being broadcast</string>
+    <string name="hold_button_to_cancel">Hold button to cancel</string>
+    <string name="an_ambulance_will_be_called_signal_will_be_sen_to_nearby_rescuers_in">An ambulance will be called. Signal will be sen to nearby rescuers in</string>
+    <string name="press_to_send_sos_signal">Press to send SOS signal!</string>
+    <string name="additional_information_for_rescuers">Additional information for rescuers</string>
 </resources>
