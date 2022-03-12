@@ -54,7 +54,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         registerSubPageButton.setOnClickListener(this);
         signInPageButton.setOnClickListener(this);
 
-        initData();
+//        initData();
 //        try {
 //            Amplify.addPlugin(new AWSCognitoAuthPlugin());
 //            Amplify.configure(getApplicationContext());
