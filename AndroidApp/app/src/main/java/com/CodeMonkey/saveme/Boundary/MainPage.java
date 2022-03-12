@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.CodeMonkey.saveme.Fragment.ConfigPageFrag;
+import com.CodeMonkey.saveme.Fragment.NoRequestRescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.RegVolPageFrag;
 import com.CodeMonkey.saveme.Fragment.RescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.SaveMePageFrag;
@@ -32,6 +33,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private ConfigPageFrag configPageFrag = new ConfigPageFrag();
     private RescuePageFrag rescuePageFrag = new RescuePageFrag();
     private VolPledgePageFrag volPledgePageFrag = new VolPledgePageFrag();
+    private NoRequestRescuePageFrag noRequestRescuePageFrag = new NoRequestRescuePageFrag();
     private Button saveMePageButton;
     private Button regVolPageButton;
     private Button configPageButton;
@@ -60,6 +62,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.hide(configPageFrag);
         fragmentTransaction.hide(rescuePageFrag);
         fragmentTransaction.hide(volPledgePageFrag);
+        fragmentTransaction.hide(noRequestRescuePageFrag);
         fragmentTransaction.commit();
         fragmentSwitch(saveMePageFrag);
 
@@ -118,6 +121,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private void stateDetect(){
 //        fragmentSwitch(regVolPageFrag);
 //        fragmentSwitch(rescuePageFrag);
-        fragmentSwitch(volPledgePageFrag);
+//        fragmentSwitch(volPledgePageFrag);
+        fragmentSwitch(noRequestRescuePageFrag);
     }
 }

@@ -12,11 +12,11 @@ import com.CodeMonkey.saveme.R;
 
 /***
  * RegVolPageFrag created by Wang Tianyu 12/03/2022
- * Page for user to confirm registering as a volunteer
+ * Page for rescuer when no request
  */
-public class VolPledgePageFrag extends Fragment {
+public class NoRequestRescuePageFrag extends Fragment {
 
-    public VolPledgePageFrag(){};
+    public NoRequestRescuePageFrag(){};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class VolPledgePageFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.vol_pledge_page_frag, container, false);
+        View view= inflater.inflate(R.layout.request_searching_page_frag, container, false);
         return view;
     }
 }

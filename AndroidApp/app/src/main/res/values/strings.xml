@@ -41,4 +41,5 @@
     <string name="volunteer_pledge">Volunteer pledge</string>
     <string name="vol_pledge_explain">I pledge the following when I agree to sign up as a volunteer:\n 1. I will try my best to help any users in need to the best of my capabilities\n 2. I will not try to administer aid that I am not familiar with\n 3. I assume all responsibility when attempting to aid another user and do not hold the developers of this app responsible\n\n\n Disclaimer: This app is intended to ONLY provide the most convenient way to connect people in need and people with rescue capabilities.</string>
     <string name="vol_pledge_button_string">I pledge the above and agree\nto sign up as a volunteer!</string>
+    <string name="no_requests_currently">No requests currently</string>
 </resources>
