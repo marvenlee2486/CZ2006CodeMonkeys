@@ -33,4 +33,12 @@
     <string name="an_ambulance_will_be_called_signal_will_be_sen_to_nearby_rescuers_in">An ambulance will be called. Signal will be sen to nearby rescuers in</string>
     <string name="press_to_send_sos_signal">Press to send SOS signal!</string>
     <string name="additional_information_for_rescuers">Additional information for rescuers</string>
+    <string name="sign_up_as_a_volunteer">Sign up as a volunteer</string>
+    <string name="vol_register_explain">Upload photo of your CPR certification card to start rescuing people as one of our volunteers!</string>
+    <string name="cpr_certificate">CPR certificate</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="photo_verification_required">Photo verification required</string>
+    <string name="volunteer_pledge">Volunteer pledge</string>
+    <string name="vol_pledge_explain">I pledge the following when I agree to sign up as a volunteer:\n 1. I will try my best to help any users in need to the best of my capabilities\n 2. I will not try to administer aid that I am not familiar with\n 3. I assume all responsibility when attempting to aid another user and do not hold the developers of this app responsible\n\n\n Disclaimer: This app is intended to ONLY provide the most convenient way to connect people in need and people with rescue capabilities.</string>
+    <string name="vol_pledge_button_string">I pledge the above and agree\nto sign up as a volunteer!</string>
 </resources>
