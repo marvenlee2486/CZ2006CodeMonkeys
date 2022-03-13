@@ -2,10 +2,12 @@ import psycopg2
 import socket
 import http.server
 import socketserver
-import datetime
+import datetime 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 from math import *
+import websockets
+import asyncio
 # username must be unique
 # username & crendential must not have special characters etc. especially,
 
@@ -68,7 +70,7 @@ class TCPManager: # perform all TCP Requests
 
     def run(self):
         self.sck.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sck.bind(('127.0.0.1', 3392))
+        self.sck.bind(('127.0.0.1', 3391))
         self.sck.listen()
         while True:
             newSck, addr = self.sck.accept()
@@ -148,8 +150,23 @@ class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
     def errorResponse(self):
         self.wfile.write("ERROR".encode('utf-8'))
 
-if __name__ == "__main__":
-    Thread(target=tcpdaemon.run).start()
+class websocketsManager:
+    @staticmethod
+    async def reply(ws):
+        while True:
+            await asyncio.sleep(5)
+            await ws.send('testData')
 
-    daemon = HTTPServer(('', 3393), HTTPManager)
-    daemon.serve_forever()
+    @staticmethod
+    async def run():
+        while True:
+            async with websockets.serve(websocketsManager.reply, "localhost", 3392):
+                await asyncio.Future()
+
+
+if __name__ == "__main__":
+    # Thread(target=tcpdaemon.run).start() # 3391
+
+    # daemon = HTTPServer(('', 3393), HTTPManager)
+    # daemon.serve_forever()
+    asyncio.run(websocketsManager.run())
