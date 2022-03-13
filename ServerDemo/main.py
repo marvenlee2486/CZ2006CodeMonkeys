@@ -155,7 +155,7 @@ class websocketsManager:
     async def reply(ws):
         while True:
             await asyncio.sleep(5)
-            await ws.send('testData')
+            await ws.send('yup you got this')
 
     @staticmethod
     async def run():
