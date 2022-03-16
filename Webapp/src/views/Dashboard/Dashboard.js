@@ -63,6 +63,7 @@ export default function Dashboard() {
   	const dispatch = useDispatch()
 	
 	const [counter, setCounter] = useState(0);
+	const [locationdata, setLocationData] = useState({"state":"disconnected","data":[]});
 
 	// Chakra Color Mode
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -90,7 +91,27 @@ export default function Dashboard() {
 			if (current_user===null) history.push("/auth/signin");
 		})
         getinfo();
+		if (locationdata.state=="disconnected") getlocationdata();
     }, []);
+
+	const getlocationdata = () => {
+		var ws = new WebSocket("ws://54.255.235.80:3392");
+
+		ws.onopen = function () {
+			console.log('connected to websocket');
+			setConnect({"state":"connected","data":[]});
+		};
+
+		ws.onmessage = function (evt) {  
+			console.log(evt.data);
+		};
+
+		ws.onclose = function () {
+			console.log('socket closed');
+			setConnect({"state":"disconnected","data":[]});
+		};
+	}
+	
 
 	const getinfo = async() => {
 		const current_sessiontoken = await Auth.currentSession();
@@ -335,7 +356,7 @@ export default function Dashboard() {
 					fontWeight="bold"
 					mb="6px"
 					>
-					Recuse Events
+					Rescue Events
 					</Text>
 					<Text fontSize="md" fontWeight="medium" color="gray.400">
 					<Text as="span" color="gray.500" fontWeight="bold">
