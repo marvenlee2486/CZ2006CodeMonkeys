@@ -54,7 +54,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment, incrementByAmount } from '../../features/counterSlice'
+import { updateUsers } from '../../features/counterSlice'
 
 export default function Dashboard() {
 	//variables--------------------------------------------------------------
@@ -103,8 +103,9 @@ export default function Dashboard() {
 			)
 		var res = await res.json()
 		console.log(res)
-		incrementByAmount(res.length);
-		alert(res.length)
+		setCounter(res.length)
+		dispatch(updateUsers(res.length));
+		// alert(res.length)
 	}
 	return (
 		<Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
@@ -132,7 +133,6 @@ export default function Dashboard() {
 				<IconBox as="box" h={"45px"} w={"45px"} bg={iconTeal}>
 					<DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
 				</IconBox>
-				<Button onClick={() => dispatch(incrementByAmount(1))}/>
 				</Flex>
 			</CardBody>
 			</Card>
