@@ -44,7 +44,7 @@ WalletIcon,
 } from "components/Icons/Icons.js";
 import DashboardTableRow from "components/Tables/DashboardTableRow";
 import TimelineRow from "components/Tables/TimelineRow";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // react icons
 import { BsArrowRight } from "react-icons/bs";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
@@ -53,22 +53,17 @@ import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment, incrementByAmount } from '../../features/counterSlice'
 
 export default function Dashboard() {
-	const value = "$100.000";
-	const getinfo = async() => {
-		const current_sessiontoken = await Auth.currentSession();
-		// console.log(current_sessiontoken.idToken.jwtToken);
-		var res = await fetch(
-				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/tf',
-				{
-					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
-				},
-			)
-		var res = await res.json()
-		alert(res.body)
-	}
-	getinfo();
+	//variables--------------------------------------------------------------
+	const count = useSelector((state) => state.counter.value)
+	const userdata = useSelector((state) => state.counter.userdata)
+  	const dispatch = useDispatch()
+	
+	const [counter, setCounter] = useState(0);
+
 	// Chakra Color Mode
 	const { colorMode, toggleColorMode } = useColorMode();
 	const iconTeal = useColorModeValue("teal.300", "teal.300");
@@ -86,10 +81,31 @@ export default function Dashboard() {
 		data: [400, 291, 121, 117, 25, 133, 121, 211, 147, 25, 201, 203],
 		},
 	]);
+
 	const history = useHistory();
-	Auth.currentUserInfo().then(current_user => {
-		if (current_user===null) history.push("/auth/signin");
-	})
+	
+	//Functions-----------------------------------------------------------------
+	useEffect(() => {
+		Auth.currentUserInfo().then(current_user => {
+			if (current_user===null) history.push("/auth/signin");
+		})
+        getinfo();
+    }, []);
+
+	const getinfo = async() => {
+		const current_sessiontoken = await Auth.currentSession();
+		// console.log(current_sessiontoken.idToken.jwtToken);
+		var res = await fetch(
+				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging',
+				{
+					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
+				},
+			)
+		var res = await res.json()
+		console.log(res)
+		incrementByAmount(res.length);
+		alert(res.length)
+	}
 	return (
 		<Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
 			
@@ -109,13 +125,14 @@ export default function Dashboard() {
 					</StatLabel>
 					<Flex>
 					<StatNumber fontSize="lg" color={textColor}>
-						18
+						{count}
 					</StatNumber>
 					</Flex>
 				</Stat>
 				<IconBox as="box" h={"45px"} w={"45px"} bg={iconTeal}>
 					<DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
 				</IconBox>
+				<Button onClick={() => dispatch(incrementByAmount(1))}/>
 				</Flex>
 			</CardBody>
 			</Card>

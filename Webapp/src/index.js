@@ -23,7 +23,11 @@ import AuthLayout from "layouts/Auth.js";
 import AdminLayout from "layouts/Admin.js";
 import RTLLayout from "layouts/RTL.js";
 
+import store from './store'
+import { Provider } from 'react-redux'
+
 ReactDOM.render(
+  <Provider store={store}>
   <HashRouter>
     <Switch>
       <Route path={`/auth`} component={AuthLayout} />
@@ -31,6 +35,7 @@ ReactDOM.render(
       <Route path={`/rtl`} component={RTLLayout} />
       <Redirect from={`/`} to="/auth/signin" />
     </Switch>
-  </HashRouter>,
+  </HashRouter>
+  </Provider>,
   document.getElementById("root")
 );
