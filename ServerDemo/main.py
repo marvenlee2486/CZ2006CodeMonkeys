@@ -25,7 +25,7 @@ def geoDistance(lat1, lon1, lat2, lon2): # return geometry distance of 2 points 
 
 class dbConnector:
     def connect(self):
-        self.conn = psycopg2.connect("dbname=saveMeDB user=postgres password=postgres")
+        self.conn = psycopg2.connect("dbname=saveMeDB user=postgres")
         self.cur = self.conn.cursor()
 
         self.cur.execute('SELECT version()')
@@ -156,6 +156,7 @@ class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
 class websocketsManager:
     @staticmethod
     async def reply(ws):
+        print("new ws client connected.")
         while True:
             dummyLocation = {"dummy": (1.3503, 103.6811)}
             await ws.send(json.dumps(dummyLocation))
@@ -164,8 +165,9 @@ class websocketsManager:
             
     @staticmethod
     async def run():
+        print("websocket server is up.")
         while True:
-            async with websockets.serve(websocketsManager.reply, "localhost", 3392):
+            async with websockets.serve(websocketsManager.reply, "0.0.0.0", 3392):
                 await asyncio.Future()
 
 
