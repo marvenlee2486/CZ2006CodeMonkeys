@@ -8,6 +8,7 @@ from threading import Thread
 from math import *
 import websockets
 import asyncio
+import json
 # username must be unique
 # username & crendential must not have special characters etc. especially,
 
@@ -67,6 +68,7 @@ class userValidator:
 class TCPManager: # perform all TCP Requests
     sck = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connectedUsers = {} # username: socketHandle
+    userLocs = {} # username: (lat, lon)
 
     def run(self):
         self.sck.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -90,7 +92,8 @@ class TCPManager: # perform all TCP Requests
                 # if user is not recognized, add it to list
                 if username not in self.connectedUsers:
                     self.connectedUsers[username] = clientSocket
-
+                    self.userLocs[username] = (lat, lon)
+                
                 # 2. update location
                 currTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 db.do("UPDATE Users SET LocLat = '%s', LocLon = '%s', lastOnLineTime = '%s' WHERE name = '%s'" % (lat, lon, currTime, username))
@@ -154,9 +157,11 @@ class websocketsManager:
     @staticmethod
     async def reply(ws):
         while True:
-            await asyncio.sleep(5)
-            await ws.send('yup you got this')
-
+            dummyLocation = {"dummy": (1.3503, 103.6811)}
+            await ws.send(json.dumps(dummyLocation))
+            print("Location updated.")
+            await asyncio.sleep(10)
+            
     @staticmethod
     async def run():
         while True:
