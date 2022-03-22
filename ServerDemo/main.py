@@ -71,18 +71,23 @@ class TCPManager: # perform all TCP Requests
     userLocs = {} # username: (lat, lon)
 
     def run(self):
+        print("TCPManager started.")
         self.sck.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sck.bind(('127.0.0.1', 3391))
+        self.sck.bind(('0.0.0.0', 3391))
         self.sck.listen()
         while True:
             newSck, addr = self.sck.accept()
+            print("new TCP client.")
             Thread(target=TCPManager.clientLocationHandler, args=(self, newSck, addr)).start()
         self.sck.close()
 
     def clientLocationHandler(self, clientSocket, addr): # receives user location
+        # TODO debug reply
+        clientSocket.send("yup you got this".encode("utf-8"))
         while True:
             try:
                 msg = clientSocket.recv(1024).decode('utf-8')
+                if not msg: break
                 print("User location info received: ", msg)
                 # 1. Validate User
                 [username, cred, lat, lon] = msg.split(",")
@@ -172,7 +177,7 @@ class websocketsManager:
 
 
 if __name__ == "__main__":
-    # Thread(target=tcpdaemon.run).start() # 3391
+    Thread(target=tcpdaemon.run).start() # 3391
 
     # daemon = HTTPServer(('', 3393), HTTPManager)
     # daemon.serve_forever()
