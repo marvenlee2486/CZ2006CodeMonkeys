@@ -52,9 +52,18 @@ public class TCPManager{
                     if (mSocket != null) {
                         mOutputStream = mSocket.getOutputStream();
                         mInputStream = mSocket.getInputStream();
-                        mOutputStream.write("Connected".getBytes());
-                        mOutputStream.flush();
-                        receive(mSocket);
+                        send("Connect");
+//                        receive(mSocket);
+                        DataInputStream input = new DataInputStream(mInputStream);
+                        while (true) {
+                            if (mSocket.isConnected()) {
+                                if (!mSocket.isInputShutdown()) {
+                                    input.read(mBuffer);
+                                    Log.e(TAG, new String(mBuffer));
+                                    mBuffer = new byte[4096];
+                                }
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -75,8 +84,7 @@ public class TCPManager{
             public void run() {
                 try {
                     mOutputStream.write(msg.getBytes());
-                    mOutputStream.flush();
-                    mOutputStream.close();
+                    Log.i(TAG, "Sent " + msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -84,25 +92,25 @@ public class TCPManager{
         }).start();
     }
 
-    public void receive(Socket mSocket){
-        DataInputStream input = new DataInputStream(mInputStream);
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        if (mSocket.isConnected()) {
-                            if (!mSocket.isInputShutdown()) {
-                                input.read(mBuffer);
-                                Log.e(TAG, mBuffer.length+"");
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
+//    public void receive(Socket mSocket){
+//        DataInputStream input = new DataInputStream(mInputStream);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while (true) {
+//                        if (mSocket.isConnected()) {
+//                            if (!mSocket.isInputShutdown()) {
+//                                input.read(mBuffer);
+//                                Log.e(TAG, mBuffer.length+"");
+//                            }
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+//    }
 
 }

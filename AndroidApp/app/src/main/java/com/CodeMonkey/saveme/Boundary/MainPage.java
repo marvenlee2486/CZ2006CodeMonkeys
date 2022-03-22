@@ -31,7 +31,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private SaveMePageFrag saveMePageFrag = new SaveMePageFrag();
     private RegVolPageFrag regVolPageFrag = new RegVolPageFrag();
     private ConfigPageFrag configPageFrag = new ConfigPageFrag();
-    private RescuePageFrag rescuePageFrag = new RescuePageFrag();
+    private RescuePageFrag rescuePageFrag;
     private VolPledgePageFrag volPledgePageFrag = new VolPledgePageFrag();
     private NoRequestRescuePageFrag noRequestRescuePageFrag = new NoRequestRescuePageFrag();
     private Button saveMePageButton;
@@ -49,6 +49,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+        rescuePageFrag = new RescuePageFrag(this);
         init();
 
     }
@@ -120,8 +121,8 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
     private void stateDetect(){
 //        fragmentSwitch(regVolPageFrag);
-//        fragmentSwitch(rescuePageFrag);
+        fragmentSwitch(rescuePageFrag);
 //        fragmentSwitch(volPledgePageFrag);
-        fragmentSwitch(noRequestRescuePageFrag);
+//        fragmentSwitch(noRequestRescuePageFrag);
     }
 }

@@ -50,75 +50,95 @@
         android:layout_marginTop="20dp">
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
-            android:hint="Name*"
+            android:hint="@string/register_hint_name"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:inputType="textPersonName"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 
         <EditText
+            android:id="@+id/NRIC"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
-            android:hint="NRIC*"
+            android:hint="@string/register_nric"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="14sp"
+            android:maxLength="9"
             android:layout_marginBottom="30dp"/>
 
         <EditText
+            android:id="@+id/homeAddress"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
-            android:hint="Home Address*"
+            android:hint="@string/register_home_address"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 
         <EditText
+            android:id="@+id/workAddress"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/custom_input_box"
-            android:hint="Work Address*"
+            android:hint="@string/register_work_address"
             android:inputType="text"
             android:paddingStart="12dp"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
-            android:hint="Age*"
+            android:hint="@string/register_age"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 
         <EditText
+            android:id="@+id/emergencyContactName"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
-            android:hint="Emergency Contact Number*"
+            android:hint="@string/register_emergency_contact_name"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/emergencyContactNum"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_emergency_contact_number"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="text"
+            android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 
         <RelativeLayout
@@ -129,7 +149,6 @@
             <Button
                 android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="20dp"
                 android:background="@drawable/white_button"
                 android:text="back"
                 android:textColor="@color/black"
@@ -140,7 +159,6 @@
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
                 android:background="@drawable/orange_button"
                 android:text="@string/next"
                 android:textColor="@color/white"
