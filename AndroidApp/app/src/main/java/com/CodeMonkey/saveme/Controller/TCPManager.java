@@ -1,9 +1,13 @@
 package com.CodeMonkey.saveme.Controller;
 
 
+import android.content.Context;
+import android.location.Location;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.URLUtil;
 
 import java.io.DataInputStream;
@@ -23,20 +27,21 @@ public class TCPManager{
     private InputStream mInputStream;
     private OutputStream mOutputStream;
     private Socket mSocket;
-    private byte[] mBuffer = new byte[4096];
+    private byte[] mBuffer;
     private boolean isRunning = true;
     private Thread mThread;
-    private Handler mHandler;
+    private Handler handler;
 
-    private TCPManager(){
+    private TCPManager(Handler handler){
+        this.handler = handler;
         connect();
     }
 
-    public static TCPManager getTCPManager(){
-        if (mTCPManager == null){
-            synchronized (TCPManager.class){
-                if (mTCPManager == null){
-                    mTCPManager = new TCPManager();
+    public static TCPManager getTCPManager(Handler handler) {
+        if (mTCPManager == null) {
+            synchronized (TCPManager.class) {
+                if (mTCPManager == null) {
+                    mTCPManager = new TCPManager(handler);
                 }
             }
         }
@@ -44,6 +49,8 @@ public class TCPManager{
     }
 
     private void connect() {
+        if (mSocket != null)
+            return;
         new Thread() {
             @Override
             public void run() {
@@ -52,9 +59,29 @@ public class TCPManager{
                     if (mSocket != null) {
                         mOutputStream = mSocket.getOutputStream();
                         mInputStream = mSocket.getInputStream();
-                        mOutputStream.write("Connected".getBytes());
-                        mOutputStream.flush();
-                        receive(mSocket);
+                        send("Connect");
+//                        receive(mSocket);
+                        DataInputStream input = new DataInputStream(mInputStream);
+                        while (true) {
+                            if (mSocket.isConnected()) {
+                                if (!mSocket.isInputShutdown()) {
+                                    mBuffer = new byte[input.available()];
+                                    if (mBuffer.length != 0){
+                                        input.read(mBuffer);
+                                        String string = new String(mBuffer);
+                                        Log.e(TAG, string);
+                                        if (string.equals("ojbk")){
+                                            Message msg = new Message();
+                                            msg.what = 1;
+                                            msg.obj = "test";
+                                            handler.sendMessage(msg);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                                connect();
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,7 +103,7 @@ public class TCPManager{
                 try {
                     mOutputStream.write(msg.getBytes());
                     mOutputStream.flush();
-                    mOutputStream.close();
+                    Log.i(TAG, "Sent " + msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -84,25 +111,49 @@ public class TCPManager{
         }).start();
     }
 
-    public void receive(Socket mSocket){
-        DataInputStream input = new DataInputStream(mInputStream);
-        new Thread() {
+    public void sendLocation(Context context){
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    while (true) {
-                        if (mSocket.isConnected()) {
-                            if (!mSocket.isInputShutdown()) {
-                                input.read(mBuffer);
-                                Log.e(TAG, mBuffer.length+"");
-                            }
-                        }
+                Location location;
+                while (true){
+                    try {
+                        location  = LocationUtils.getBestLocation(context, null);
+                        String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
+                        Thread.sleep(4000);
+                        mOutputStream = mSocket.getOutputStream();
+                        mOutputStream.write(msg.getBytes());
+                        mOutputStream.flush();
+                        Log.i(TAG, "Sent " + msg);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
-        }.start();
+        }).start();
     }
+
+//    public void receive(Socket mSocket){
+//        DataInputStream input = new DataInputStream(mInputStream);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while (true) {
+//                        if (mSocket.isConnected()) {
+//                            if (!mSocket.isInputShutdown()) {
+//                                input.read(mBuffer);
+//                                Log.e(TAG, mBuffer.length+"");
+//                            }
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+//    }
 
 }

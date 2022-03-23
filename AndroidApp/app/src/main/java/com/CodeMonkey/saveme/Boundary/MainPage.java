@@ -2,17 +2,22 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Fragment.ConfigPageFrag;
 import com.CodeMonkey.saveme.Fragment.NoRequestRescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.RegVolPageFrag;
@@ -28,10 +33,12 @@ import com.CodeMonkey.saveme.R;
  */
 public class MainPage extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = MainPage.class.getSimpleName();
+
     private SaveMePageFrag saveMePageFrag = new SaveMePageFrag();
     private RegVolPageFrag regVolPageFrag = new RegVolPageFrag();
     private ConfigPageFrag configPageFrag = new ConfigPageFrag();
-    private RescuePageFrag rescuePageFrag = new RescuePageFrag();
+    private RescuePageFrag rescuePageFrag;
     private VolPledgePageFrag volPledgePageFrag = new VolPledgePageFrag();
     private NoRequestRescuePageFrag noRequestRescuePageFrag = new NoRequestRescuePageFrag();
     private Button saveMePageButton;
@@ -40,6 +47,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment = saveMePageFrag;
+    private Handler handler;
 
     private FrameLayout mainPageContent;
     private LinearLayout morePageMask;
@@ -49,6 +57,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+        rescuePageFrag = new RescuePageFrag(this);
         init();
 
     }
@@ -77,6 +86,25 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         mainPageContent = findViewById(R.id.mainPageContent);
         morePageContainer = findViewById(R.id.morePageContainer);
         morePageMask = findViewById(R.id.morePageMask);
+
+        handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        Log.e(TAG, "Rescue: " + msg.obj + " Received.");
+                        break;
+                }
+            }
+        };
+
+        TCPManager tcpManager = TCPManager.getTCPManager(handler);
+
+
+
+        tcpManager.sendLocation(this);
+
     }
 
     private void fragmentSwitch(Fragment fragment){
@@ -120,8 +148,10 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
     private void stateDetect(){
 //        fragmentSwitch(regVolPageFrag);
-//        fragmentSwitch(rescuePageFrag);
+        fragmentSwitch(rescuePageFrag);
 //        fragmentSwitch(volPledgePageFrag);
-        fragmentSwitch(noRequestRescuePageFrag);
+//        fragmentSwitch(noRequestRescuePageFrag);
     }
+
+
 }

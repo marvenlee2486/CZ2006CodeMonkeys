@@ -30,6 +30,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     private Button registerPageButton;
     private Button registerSubPageButton;
     private Button signInPageButton;
+    private Button mapTest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         registerPageButton = findViewById((R.id.registerPage));
         registerSubPageButton = findViewById((R.id.registerSubPage));
         signInPageButton = findViewById((R.id.sigInPage));
+        mapTest = findViewById(R.id.mapTest);
 
         regSignButton.setOnClickListener(this);
         locaServButton.setOnClickListener(this);
@@ -53,6 +55,9 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         registerPageButton.setOnClickListener(this);
         registerSubPageButton.setOnClickListener(this);
         signInPageButton.setOnClickListener(this);
+        mapTest.setOnClickListener(this);
+
+
 
 //        initData();
 //        try {
@@ -79,6 +84,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 //                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
 //                error -> Log.e("AuthQuickstart", error.toString())
 //        );
+
     }
 
     @Override
@@ -109,8 +115,13 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
             case R.id.sigInPage:
                 intent = new Intent(TestActivity.this, SignInPage.class);
                 break;
+            case R.id.mapTest:
+//                intent = new Intent(TestActivity.this, MapsActivity.class);
+//                TCPManager.getTCPManager().send("test");
+                break;
         }
-        startActivity(intent);
+        if (view.getId() != R.id.mapTest)
+            startActivity(intent);
     }
 
 
@@ -118,18 +129,15 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         RequestUtil.getNews(new Observer<NewsRspAll>() {
             @Override
             public void onCompleted() {
-                //完成
             }
 
             @Override
             public void onError(Throwable e) {
-                //失败
                 Log.i("retrofit==111=", "Error："+e.getMessage());
             }
 
             @Override
             public void onNext(NewsRspAll newsRspAll) {
-                //成功
                 Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
             }
         });

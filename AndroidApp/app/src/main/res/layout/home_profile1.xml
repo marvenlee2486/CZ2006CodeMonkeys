@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/userProfileImage" />
+                app:srcCompat="@drawable/user_profile_image" />
 
             <ImageView
                 android:id="@+id/trophyImage"
@@ -45,7 +45,7 @@
                 android:layout_marginStart="-31dp"
                 android:layout_marginTop="-43dp"
                 android:layout_toEndOf="@+id/userProfileImage"
-                app:srcCompat="@drawable/Trophy" />
+                app:srcCompat="@drawable/trophy" />
 
             <Button
                 android:id="@+id/btnReturnHome"
@@ -53,7 +53,7 @@
                 android:layout_height="37dp"
                 android:layout_marginEnd="79dp"
                 android:layout_toStartOf="@+id/userProfileImage"
-                android:text="<-" />
+                android:text="" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/textView6"
-                        app:srcCompat="@drawable/editIcon" />
+                        app:srcCompat="@drawable/edit_icon" />
 
                 </RelativeLayout>
 

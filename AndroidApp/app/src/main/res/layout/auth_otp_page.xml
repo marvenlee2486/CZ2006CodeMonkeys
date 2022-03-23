@@ -52,7 +52,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/resend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -78,13 +78,15 @@
                 android:letterSpacing="1.48"
                 android:maxLength="6"
                 android:padding="5dp"
+                android:textColorHint="@android:color/darker_gray"
                 android:textColor="@color/black"
                 android:textIsSelectable="false"
                 android:textSize="22sp" />
 
         </LinearLayout>
+
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/updateContactInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

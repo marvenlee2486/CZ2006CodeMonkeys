@@ -8,7 +8,6 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.Controller.TCPClient;
-import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.R;
 
 /***
@@ -20,12 +19,12 @@ public class RegSignPage extends BaseActivity implements View.OnClickListener{
 
     private Button registerButton;
     private Button signButton;
-    private TCPManager tcpManager;
+//    private TCPManager tcpManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tcpManager = TCPManager.getTCPManager();
+//        tcpManager = TCPManager.getTCPManager();
         setContentView(R.layout.reg_sign_page);
         TCPClient.startClient();
         autoSignIn();
@@ -40,7 +39,7 @@ public class RegSignPage extends BaseActivity implements View.OnClickListener{
         registerButton.setOnClickListener(this);
         signButton.setOnClickListener(this);
 
-        TCPClient.sendTcpMessage("test");
+//        TCPClient.sendTcpMessage("test");
 //        tcpManager.send("1234");
 
 

@@ -20,12 +20,12 @@
     <string name="bus_icon_string">Bus</string>
     <string name="map_icon_string">Map</string>
     <string name="train_icon_string">Train</string>
-    <string name="instruction_icon_string">FAQ</string>
+    <string name="instruction_icon_string">AEDs</string>
     <string name="welcome_back">Welcome back</string>
     <string name="sign_in">Sign in</string>
     <string name="confirm_password_hint">Confirm Password*</string>
-    <string name="password_hint">Password*</string>
-    <string name="phone_number_hint">Phone Number*</string>
+    <string name="password_hint">Password*: at least 6 characters</string>
+    <string name="phone_number_hint">Phone Number*: 8 digits</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="don_t_worry_help_is_on_the_way">Don\'t worry, help is on the way</string>
     <string name="signal_is_being_broadcast">Signal is being broadcast</string>
@@ -42,4 +42,17 @@
     <string name="vol_pledge_explain">I pledge the following when I agree to sign up as a volunteer:\n 1. I will try my best to help any users in need to the best of my capabilities\n 2. I will not try to administer aid that I am not familiar with\n 3. I assume all responsibility when attempting to aid another user and do not hold the developers of this app responsible\n\n\n Disclaimer: This app is intended to ONLY provide the most convenient way to connect people in need and people with rescue capabilities.</string>
     <string name="vol_pledge_button_string">I pledge the above and agree\nto sign up as a volunteer!</string>
     <string name="no_requests_currently">No requests currently</string>
+    <string name="heart_attack">Heart Attack</string>
+    <string name="heart_attack_instruc">1. Start CPR. ...\n 2. Get somebody to call an ambulance and somebody else to retrieve an AED kit\n 3. If AED kit is available, ...</string>
+    <string name="phoneNumNotCorrect">Phone number not in correct format!</string>
+    <string name="pswTooShort">Password too short!</string>
+    <string name="pswNotTheSameAsConfirmPassword">Confirm password is different from password!</string>
+    <string name="register_hint_name">Name*</string>
+    <string name="register_nric">NRIC*</string>
+    <string name="register_home_address">Home Address*</string>
+    <string name="register_work_address">Work Address*</string>
+    <string name="register_age">Age</string>
+    <string name="register_emergency_contact_number">Emergency Contact Number</string>
+    <string name="register_emergency_contact_name">Emergency Contact Name</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

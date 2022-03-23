@@ -1,5 +1,6 @@
 package com.CodeMonkey.saveme.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private MapPageFrag mapPageFrag = new MapPageFrag();
     private BusPageFrag busPageFrag = new BusPageFrag();
     private TrainPageFrag trainPageFrag = new TrainPageFrag();
-    private InstrucPageFrag instrucPageFrag = new InstrucPageFrag();
+//    private InstrucPageFrag instrucPageFrag = new InstrucPageFrag();
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment = mapPageFrag;
@@ -34,10 +35,13 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private RelativeLayout trainButton;
     private RelativeLayout instrucButton;
     private ImageView currentLine;
+    private Context context;
 
     private FrameLayout mainPageContent;
 
-    public RescuePageFrag(){};
+    public RescuePageFrag(Context context){
+        this.context = context;
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,11 +65,11 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private void init(){
         //Initiate fragments
         fragmentManager = getChildFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.rescuePageMainContent, mapPageFrag);
         fragmentTransaction.show(mapPageFrag);
         fragmentTransaction.hide(busPageFrag);
         fragmentTransaction.hide(trainPageFrag);
-        fragmentTransaction.hide(instrucPageFrag);
+//        fragmentTransaction.hide(instrucPageFrag);
         fragmentTransaction.commit();
 
         //Initiate buttons
@@ -102,6 +106,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
         switch (view.getId()){
             case R.id.mapButton:
+                mapPageFrag.removeKmlLayer();
                 fragmentSwitch(mapPageFrag);
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.mapLine);
@@ -120,7 +125,8 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                 currentLine.setVisibility(View.VISIBLE);
                 break;
             case R.id.instructionButton:
-                fragmentSwitch(instrucPageFrag);
+                mapPageFrag.setKmlLayer();
+                fragmentSwitch(mapPageFrag);
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.instructionLine);
                 currentLine.setVisibility(View.VISIBLE);

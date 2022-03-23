@@ -14,5 +14,6 @@
     <color name="saveMePageBackgroundColor">#DA4E00</color>
     <color name="rescuePageBackgroundColor">#0047FF</color>
     <color name="configPageBackgroundColor">#00FF19</color>
+    <color name="rescueInstructionBackgroundColor">#00A3FF</color>
 
 </resources>

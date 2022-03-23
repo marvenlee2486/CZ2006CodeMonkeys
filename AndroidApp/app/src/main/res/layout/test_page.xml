@@ -65,6 +65,13 @@
             android:text="Register_subpage"
             android:layout_marginBottom="20dp"/>
 
+        <Button
+            android:id="@+id/mapTest"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="MapTest"
+            android:layout_marginBottom="20dp"/>
+
     </LinearLayout>
 
     <LinearLayout
