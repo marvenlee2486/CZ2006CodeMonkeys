@@ -82,17 +82,13 @@ class TCPManager: # perform all TCP Requests
         self.sck.close()
 
     def clientLocationHandler(self, clientSocket, addr): # receives user location
-        # TODO debug reply
-        clientSocket.send("yup you got this".encode("utf-8"))
         while True:
             try:
                 msg = clientSocket.recv(1024).decode('utf-8')
                 if not msg: break
+                clientSocket.send(("I received: " + msg).encode('utf-8'))
                 print("User location info received: ", msg)
-                # 1. Validate User
-                [username, cred, lat, lon] = msg.split(",")
-                if not userValidator.checkCredentials(username, cred):
-                    continue
+                [username, lat, lon] = msg.split(";")
 
                 # if user is not recognized, add it to list
                 if username not in self.connectedUsers:
@@ -103,6 +99,7 @@ class TCPManager: # perform all TCP Requests
                 currTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 db.do("UPDATE Users SET LocLat = '%s', LocLon = '%s', lastOnLineTime = '%s' WHERE name = '%s'" % (lat, lon, currTime, username))
                 print("User location updated.")
+                clientSocket.send("ojbk".encode('utf-8'))
             except:
                 print("Malformed input data on IO::onNewClient.")
 
@@ -119,7 +116,7 @@ class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
 
     def do_POST(self): # reply to requests
         post_data = self.rfile.read(int(self.headers['Content-Length']) ).decode('utf-8')
-        data = post_data.split(",")
+        data = post_data.split(";")
 
         self._set_response()
 
