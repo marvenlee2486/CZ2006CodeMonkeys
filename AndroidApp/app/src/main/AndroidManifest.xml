@@ -24,10 +24,6 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".Fragment.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name=".Boundary.SignInPage"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

@@ -12,7 +12,7 @@
     <string name="moreButtonText">More</string>
     <string name="confirm">Confirm</string>
     <string name="resend">Resend</string>
-    <string name="otp">OTP</string>
+    <string name="otp" translatable="false">OTP</string>
     <string name="enter_the_code_sent_to">Enter the code sent to</string>
     <string name="update_contact_info">Update Contact Info</string>
     <string name="jump_to_log_in">Already have an account? Sign in</string>
@@ -20,7 +20,7 @@
     <string name="bus_icon_string">Bus</string>
     <string name="map_icon_string">Map</string>
     <string name="train_icon_string">Train</string>
-    <string name="instruction_icon_string">AEDs</string>
+    <string name="instruction_icon_string" translatable="false">AEDs</string>
     <string name="welcome_back">Welcome back</string>
     <string name="sign_in">Sign in</string>
     <string name="confirm_password_hint">Confirm Password*</string>
@@ -48,11 +48,11 @@
     <string name="pswTooShort">Password too short!</string>
     <string name="pswNotTheSameAsConfirmPassword">Confirm password is different from password!</string>
     <string name="register_hint_name">Name*</string>
-    <string name="register_nric">NRIC*</string>
+    <string name="register_nric" translatable="false">NRIC*</string>
     <string name="register_home_address">Home Address*</string>
     <string name="register_work_address">Work Address*</string>
     <string name="register_age">Age</string>
     <string name="register_emergency_contact_number">Emergency Contact Number</string>
     <string name="register_emergency_contact_name">Emergency Contact Name</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
 </resources>

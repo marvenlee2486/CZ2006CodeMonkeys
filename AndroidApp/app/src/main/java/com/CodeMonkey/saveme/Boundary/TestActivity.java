@@ -1,8 +1,15 @@
 package com.CodeMonkey.saveme.Boundary;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +23,8 @@ import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
+import java.util.Locale;
+
 import rx.Observer;
 
 
@@ -24,7 +33,6 @@ import rx.Observer;
  * Debugging page for testing
  */
 public class TestActivity extends BaseActivity implements View.OnClickListener{
-
     private Button regSignButton;
     private Button locaServButton;
     private Button mainPageButton;
@@ -34,6 +42,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     private Button registerSubPageButton;
     private Button signInPageButton;
     private Button mapTest;
+    private Button changeLanguageButton;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +59,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         registerSubPageButton = findViewById((R.id.registerSubPage));
         signInPageButton = findViewById((R.id.sigInPage));
         mapTest = findViewById(R.id.mapTest);
+        changeLanguageButton = findViewById(R.id.changeLanguage);
 
         regSignButton.setOnClickListener(this);
         locaServButton.setOnClickListener(this);
@@ -62,21 +73,20 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 
         TCPManager tcpManager = TCPManager.getTCPManager();
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Location location = LocationUtils.getBestLocation(TestActivity.this, null);
-                    TCPManager.getTCPManager().send("Bruce;" + location.getLatitude() + ";" + location.getLongitude());
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true){
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Location location = LocationUtils.getBestLocation(TestActivity.this, null);
+//                    TCPManager.getTCPManager().send("Bruce;" + location.getLatitude() + ";" + location.getLongitude());
+//                }
+//            }
+//        }).start();
 
 //        initData();
 //        try {
@@ -104,6 +114,33 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 //                error -> Log.e("AuthQuickstart", error.toString())
 //        );
 
+        // Start - Language Change
+        setLanguage();
+        changeLanguageButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
+                builder.setSingleChoiceItems(new String[]{"English", "简体中文"},
+                        getSharedPreferences("language", Context.MODE_PRIVATE).getInt("language", 0),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences preferences = getSharedPreferences("language", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putInt("language", i);
+                                editor.apply();
+                                dialog.dismiss();
+
+                                // Re Render current page
+                                Intent intent = new Intent(TestActivity.this, TestActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        });
+
+                dialog = builder.create();
+                dialog.show();
+            }
+        });
+        // End - Language Change
     }
 
     @Override
@@ -160,5 +197,29 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setLanguage() {
+
+        SharedPreferences preferences = getSharedPreferences("language", Context.MODE_PRIVATE);
+        int language = preferences.getInt("language", 0);
+
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+
+        switch (language){
+            case 0:
+                configuration.setLocale(Locale.ENGLISH);
+                break;
+            case 1:
+                configuration.setLocale(Locale.CHINESE);
+                break;
+            default:
+                break;
+        }
+
+        resources.updateConfiguration(configuration,displayMetrics);
+
     }
 }

@@ -72,6 +72,13 @@
             android:text="MapTest"
             android:layout_marginBottom="20dp"/>
 
+        <Button
+            android:id="@+id/changeLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Change Language"
+            android:layout_marginBottom="20dp"/>
+
     </LinearLayout>
 
     <LinearLayout
