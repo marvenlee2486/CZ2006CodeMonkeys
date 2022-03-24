@@ -107,7 +107,7 @@ class TCPManager: # perform all TCP Requests
         sck.send(msg.encode('utf-8'))
 
 tcpdaemon = TCPManager()
-
+onlineEvents = []
 class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
     def _set_response(self):
         self.send_response(200)
@@ -143,7 +143,7 @@ class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
                 message.append("NA")
 
             # filter available individuals
-            availableVolunteers = db.query("SELECT name, lastOnLineTime, LocLat, LocLon FROM Users WHERE (LocLat - %s) * (LocLat - %s) + (LocLon - %s) * (LocLon - %s) <= 0.00203 AND name != '%s' AND isVolunteer = true" % (loclat, loclat, loclon, loclon, name)) # ref: https://www.usna.edu/Users/oceano/pguth/md_help/html/approx_equivalents.htm
+            availableVolunteers = db.query("SELECT name, lastOnLineTime, LocLat, LocLon FROM Users WHERE (LocLat - %s) * (LocLat - %s) + (LocLon - %s) * (LocLon - %s) <= 0.04 AND name != '%s' AND isVolunteer = true" % (loclat, loclat, loclon, loclon, name)) # ref: https://www.usna.edu/Users/oceano/pguth/md_help/html/approx_equivalents.htm
             cnt = 0
             for (name, onlineTime, volunteerLat, volunteerLon) in availableVolunteers:
                 print("  %s is a candidate rescuer. Distance = %f meters." % (name, geoDistance(float(volunteerLat), float(volunteerLon), float(loclat), float(loclon))))
@@ -151,7 +151,8 @@ class HTTPManager(BaseHTTPRequestHandler): # perform all HTTP requests
                     tcpdaemon.sendRequest(tcpdaemon.connectedUsers[name], ','.join(message))
                     cnt += 1
             print("A new emergency request received. %d volunteers online. %d volunteers fulfilled requirement." % (len(tcpdaemon.connectedUsers), cnt))
-        
+            td = {"latitude": loclat, "longitude": loclon, "timeStarted": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "victim": name, "respondedVolunteers": cnt} # should not be cnt TODO
+            onlineEvents.append(td)
     def errorResponse(self):
         self.wfile.write("ERROR".encode('utf-8'))
 
@@ -160,9 +161,11 @@ class websocketsManager:
     async def reply(ws):
         print("new ws client connected.")
         while True:
-            dummyLocation = {"dummy": (1.3503, 103.6811)}
+            dummyLocation = [{"latitude": 1.0, "longitude": 1.0, "timeStarted": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "victim": "foo", "respondedVolunteers": 1}]
             await ws.send(json.dumps(dummyLocation))
             print("Location updated.")
+
+
             await asyncio.sleep(10)
             
     @staticmethod
