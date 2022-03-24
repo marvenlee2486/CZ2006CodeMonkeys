@@ -118,9 +118,9 @@ public class TCPManager{
                 Location location;
                 while (true){
                     try {
-                        location  = LocationUtils.getBestLocation(context, null);
+                        location  = LocationUtils.getBestLocation(context);
                         String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
-                        Thread.sleep(4000);
+                        Thread.sleep(30000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();

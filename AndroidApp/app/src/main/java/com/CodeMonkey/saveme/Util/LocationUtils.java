@@ -53,12 +53,10 @@ public class LocationUtils {
     /**
      * Best location
      */
-    public static Location getBestLocation(Context context, Criteria criteria) {
+    public static Location getBestLocation(Context context) {
         Location location;
         LocationManager manager = getLocationManager(context);
-        if (criteria == null) {
-            criteria = new Criteria();
-        }
+        Criteria criteria = new Criteria();
         String provider = manager.getBestProvider(criteria, true);
         if (TextUtils.isEmpty(provider)) {
             location = getNetWorkLocation(context);

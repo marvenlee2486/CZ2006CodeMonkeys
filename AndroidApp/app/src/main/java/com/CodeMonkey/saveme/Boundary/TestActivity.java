@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,10 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Entity.NewsRspAll;
 import com.CodeMonkey.saveme.R;
-import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
 import java.util.Locale;
@@ -71,7 +68,6 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
         signInPageButton.setOnClickListener(this);
         mapTest.setOnClickListener(this);
 
-        TCPManager tcpManager = TCPManager.getTCPManager();
 
 //        new Thread(new Runnable() {
 //            @Override
@@ -172,12 +168,11 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 intent = new Intent(TestActivity.this, SignInPage.class);
                 break;
             case R.id.mapTest:
-//                intent = new Intent(TestActivity.this, MapsActivity.class);
-                TCPManager.getTCPManager().send("test");
+                intent = new Intent(TestActivity.this, SelectLocationPage.class);
+
                 break;
         }
-        if (view.getId() != R.id.mapTest)
-            startActivity(intent);
+        startActivity(intent);
     }
 
 

@@ -89,6 +89,19 @@
             android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 
+        <TextView
+            android:id="@+id/homeAddressLocation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/home_address_location"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="30dp"/>
+
         <EditText
             android:id="@+id/workAddress"
             android:layout_width="match_parent"
@@ -102,6 +115,19 @@
             android:textColorHint="@android:color/darker_gray"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/workAddressLocation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/custom_input_box"
+            android:hint="@string/work_address_location"
+            android:paddingStart="12dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp" />
+
         <EditText
             android:id="@+id/age"
             android:layout_width="match_parent"
@@ -111,9 +137,10 @@
             android:hint="@string/register_age"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
+
 
         <EditText
             android:id="@+id/emergencyContactName"
@@ -137,7 +164,7 @@
             android:hint="@string/register_emergency_contact_number"
             android:textColor="@color/black"
             android:textColorHint="@android:color/darker_gray"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="14sp"
             android:layout_marginBottom="30dp"/>
 

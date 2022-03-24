@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
-import com.CodeMonkey.saveme.Controller.TCPClient;
 import com.CodeMonkey.saveme.R;
 
 /***
@@ -26,7 +25,6 @@ public class RegSignPage extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 //        tcpManager = TCPManager.getTCPManager();
         setContentView(R.layout.reg_sign_page);
-        TCPClient.startClient();
         autoSignIn();
         init();
     }

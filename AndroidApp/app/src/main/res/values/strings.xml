@@ -55,4 +55,7 @@
     <string name="register_emergency_contact_number">Emergency Contact Number</string>
     <string name="register_emergency_contact_name">Emergency Contact Name</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="home_address_location">Home Address Location*</string>
+    <string name="work_address_location">Work Address Location*</string>
+    <string name="back">back</string>
 </resources>

@@ -14,27 +14,17 @@
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_sign_in_page.xml" value="0.20625" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/config_page_fragment.xml" value="0.21014492753623187" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/contact_serv_page.xml" value="0.16485507246376813" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/home_navigation.xml" value="0.1490036231884058" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/home_profile1.xml" value="0.1490036231884058" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/home_profile2.xml" value="0.1490036231884058" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/home_profile3.xml" value="0.1490036231884058" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/instruc_page_fragment.xml" value="0.1490036231884058" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/loca_serv_page.xml" value="0.16485507246376813" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/main_page.xml" value="0.21014492753623187" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/map_page_fragment.xml" value="0.1" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/reg_sign_page.xml" value="0.10400000000000001" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/reg_vol_page_fragment.xml" value="0.21014492753623187" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/request_searching_page_frag.xml" value="0.1490036231884058" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/rescue_page_fragment.xml" value="0.1490036231884058" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/save_page_fragment.xml" value="0.21014492753623187" />
         <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/test_page.xml" value="0.2" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/train_page_fragment.xml" value="0.1" />
-        <entry key="..\:/Projects/Shcool/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/vol_pledge_page_frag.xml" value="0.1490036231884058" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/drawable/custom_input_box.xml" value="0.1215" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/drawable/gray_outline.xml" value="0.1215" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_otp_page.xml" value="0.18" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_register_main_page.xml" value="0.25" />
-        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_register_sub_page.xml" value="0.1" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_register_sub_page.xml" value="0.25" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/auth_sign_in_page.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/bus_page_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/config_home_top_addbutton.xml" value="0.12916666666666668" />
@@ -55,6 +45,7 @@
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/request_searching_page_frag.xml" value="0.165" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/rescue_page_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/save_page_fragment.xml" value="0.165" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/select_location_page.xml" value="0.2791666666666667" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/test.xml" value="0.2791666666666667" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/test_page.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/text_page.xml" value="0.25" />
