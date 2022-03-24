@@ -1,0 +1,7 @@
+ESSENTIAL
+-Add google maps api integration
+-Update class diagram and seq diagram
+REFACTOR
+-Split up functions
+-Replace some states with useReducer
+-Remove redux lol

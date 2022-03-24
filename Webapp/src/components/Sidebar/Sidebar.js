@@ -296,6 +296,7 @@ export function SidebarResponsive(props) {
         return (
           <>
             <Text
+              key = {key}
               color={activeColor}
               fontWeight="bold"
               mb={{
@@ -317,7 +318,7 @@ export function SidebarResponsive(props) {
         );
       }
       return (
-        <NavLink to={prop.layout + prop.path}>
+        <NavLink to={prop.layout + prop.path} key={key}>
           {activeRoute(prop.layout + prop.path) === "active" ? (
             <Button
               boxSize="initial"

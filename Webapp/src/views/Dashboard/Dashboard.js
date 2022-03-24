@@ -5,8 +5,6 @@ Button,
 Flex,
 Grid,
 Icon,
-Image,
-Portal,
 Progress,
 SimpleGrid,
 Spacer,
@@ -23,9 +21,6 @@ Tr,
 useColorMode,
 useColorModeValue,
 } from "@chakra-ui/react";
-// assets
-import googleImage from "assets/img/google_map.png";
-import logoChakra from "assets/svg/logo-white.svg";
 // Custom components
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
@@ -33,20 +28,16 @@ import CardHeader from "components/Card/CardHeader.js";
 import BarChart from "components/Charts/BarChart";
 import LineChart from "components/Charts/LineChart";
 import IconBox from "components/Icons/IconBox";
+import RescueMap from "components/Map/RescueMap";
 // Custom icons
 import {
-CartIcon,
 DocumentIcon,
-GlobeIcon,
 RocketIcon,
-StatsIcon,
-WalletIcon,
 } from "components/Icons/Icons.js";
 import DashboardTableRow from "components/Tables/DashboardTableRow";
 import TimelineRow from "components/Tables/TimelineRow";
 import React, { useEffect, useState } from "react";
 // react icons
-import { BsArrowRight } from "react-icons/bs";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { dashboardTableData, timelineData } from "variables/general";
 import { useHistory } from "react-router-dom";
@@ -54,80 +45,153 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
 import { useSelector, useDispatch } from 'react-redux'
-import { updateUsers } from '../../features/counterSlice'
+import { updateUsers } from "features/userData";
+import { lineChartOptions } from "variables/charts";
+import { barChartOptions } from "variables/charts";
+
 
 export default function Dashboard() {
 	//variables--------------------------------------------------------------
-	const count = useSelector((state) => state.counter.value)
-	const userdata = useSelector((state) => state.counter.userdata)
+	const userdata = useSelector((state) => state.userdata.data)
   	const dispatch = useDispatch()
 	
-	const [counter, setCounter] = useState(0);
-	const [locationdata, setLocationData] = useState({"state":"disconnected","data":[]});
+	const [locationdata, setLocationData] = useState({state:"disconnected",data:[]});
 
 	// Chakra Color Mode
 	const { colorMode, toggleColorMode } = useColorMode();
 	const iconTeal = useColorModeValue("teal.300", "teal.300");
 	const iconBoxInside = useColorModeValue("white", "white");
 	const textColor = useColorModeValue("gray.700", "white");
-	const [series, setSeries] = useState([
-		{
-		type: "area",
-		name: "Mobile apps",
-		data: [190, 220, 205, 350, 370, 450, 400, 360, 210, 250, 292, 150],
-		},
-		{
-		type: "area",
-		name: "Websites",
-		data: [400, 291, 121, 117, 25, 133, 121, 211, 147, 25, 201, 203],
-		},
-	]);
-
 	const history = useHistory();
-	
+	const [dateofthing, setDateshow] = useState(0);
+	const [lineChartData, setLineChartData] = useState([
+		{
+		  name: "Normal Users",
+		  data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+		},
+		{
+		  name: "Volunteers",
+		  data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+		},
+	])
+	const [lineChartOptionsnew, setLineChartOptions] = useState(lineChartOptions);
+	const [barChartData , setBarChartData] = useState([{
+		name: "Responded Volunteers",
+		data: [2,3,10,20,20,30,40,40,45],
+	}])
+	const [barChartOptionsnew, setBarChartOptions] = useState(barChartOptions);
+
 	//Functions-----------------------------------------------------------------
 	useEffect(() => {
-		Auth.currentUserInfo().then(current_user => {
-			if (current_user===null) history.push("/auth/signin");
-		})
-        getinfo();
-		if (locationdata.state=="disconnected") getlocationdata();
+		Auth.currentUserInfo().then(current_user => {if (current_user===null) history.push("/auth/signin");})
+		// setUsersInfo();
+		// setRescueInfo();
+		getlocationdata();
     }, []);
 
-	const getlocationdata = () => {
+	
+	const getlocationdata = async () => {
 		var ws = new WebSocket("ws://54.255.235.80:3392");
-
+		
 		ws.onopen = function () {
 			console.log('connected to websocket');
-			setConnect({"state":"connected","data":[]});
+			setLocationData(prevlocationdata => ({...prevlocationdata, state:"connected, retrieving info..."}));
 		};
 
-		ws.onmessage = function (evt) {  
-			console.log(evt.data);
+		ws.onmessage = (evt) => {
+			// console.log(evt.data);
+			setLocationData(prevlocationdata => ({state:"connected",data:JSON.parse(evt.data)}));
 		};
 
 		ws.onclose = function () {
 			console.log('socket closed');
-			setConnect({"state":"disconnected","data":[]});
+			setLocationData({"state":"disconnected","data":[]});
 		};
 	}
-	
 
-	const getinfo = async() => {
+
+	const setUsersInfo = async() => {
+		//fetch data
 		const current_sessiontoken = await Auth.currentSession();
-		// console.log(current_sessiontoken.idToken.jwtToken);
 		var res = await fetch(
-				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging',
+				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/appusers',
 				{
 					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
 				},
 			)
 		var res = await res.json()
 		console.log(res)
-		setCounter(res.length)
-		dispatch(updateUsers(res.length));
-		// alert(res.length)
+
+		//Set user monthly statistics
+		let monthlyUserData = [0,0,0,0,0,0,0,0,0];
+		let monthlyVolunteerData = [0,0,0,0,0,0,0,0,0];
+		let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+		let monthsSet = []
+		res.forEach(data=>{
+			let dj = new Date(data.date_joined);
+			let monthcheck = new Date()
+			monthcheck.setDate(1);
+			monthcheck.setMonth(monthcheck.getMonth() - 8);
+			console.log(monthcheck)
+			if (dj>=monthcheck){
+				for (let i=0;i<9;i++){
+					monthsSet.push(months[monthcheck.getMonth()]);
+					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
+						if (data.volunteer) monthlyVolunteerData[i]+=1;
+						else monthlyUserData[i]+=1;
+						break;
+					}
+				}
+			}
+		});
+		setLineChartData([
+			{name:"Normal Users",data:monthlyUserData},
+			{name:"Volunteers",data:monthlyVolunteerData},
+		]);
+		setLineChartOptions({ ...lineChartOptionsnew, xaxis:{categories:monthsSet}});
+	};
+
+	const setRescueInfo = async() => {
+		//fetch data
+		const current_sessiontoken = await Auth.currentSession();
+		var res = await fetch(
+				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/rescueevents',
+				{
+					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
+				},
+			)
+		var res = await res.json()
+		console.log(res)
+
+		//Set rescue monthly statistics
+		let monthlyRescueData = [0,0,0,0,0,0,0,0,0];
+		let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+		let monthsSet = []
+		res.forEach(data=>{
+			let date = data.dateTimeStarted.split("#")[0]
+			let dj = new Date(date);
+			console.log(dj)
+			let monthcheck = new Date()
+			monthcheck.setDate(1);
+			monthcheck.setMonth(monthcheck.getMonth() - 8);
+			if (dj>=monthcheck){
+				for (let i=0;i<9;i++){
+					monthsSet.push(months[monthcheck.getMonth()]);
+					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
+						monthlyRescueData[i]+=1;
+						break;
+					}
+				}
+			}
+		});
+		setBarChartData([
+			{name:"Responded Volunteers",data:monthlyRescueData},
+		]);
+		setBarChartOptions({ ...barChartOptionsnew, xaxis:{categories:monthsSet}});
 	}
+
+	
+	
 	return (
 		<Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
 			
@@ -147,7 +211,7 @@ export default function Dashboard() {
 					</StatLabel>
 					<Flex>
 					<StatNumber fontSize="lg" color={textColor}>
-						{count}
+						{locationdata.data.length}
 					</StatNumber>
 					</Flex>
 				</Stat>
@@ -168,11 +232,11 @@ export default function Dashboard() {
 					fontWeight="bold"
 					pb=".1rem"
 					>
-					Today's Volunteer
+					Today's rescue events
 					</StatLabel>
 					<Flex>
 					<StatNumber fontSize="lg" color={textColor}>
-						2,300
+						999999
 					</StatNumber>
 					<StatHelpText
 						alignSelf="flex-end"
@@ -249,7 +313,7 @@ export default function Dashboard() {
 					/>
 					<Text fontSize="sm" color="gray.400" fontWeight="normal">
 					<Text fontWeight="bold" as="span">
-						30
+						{locationdata.data.length}
 					</Text>{" "}
 						in total.
 					</Text>
@@ -310,7 +374,7 @@ export default function Dashboard() {
 					/>
 					<Text fontSize="sm" color="gray.400" fontWeight="normal">
 					<Text fontWeight="bold" as="span">
-						30
+						{locationdata.data.length}
 					</Text>{" "}
 						in total.
 					</Text>
@@ -319,7 +383,6 @@ export default function Dashboard() {
 			</CardHeader>
 				<CardBody
 					p="0px"
-					backgroundImage={googleImage}
 					bgPosition="center"
 					bgRepeat="no-repeat"
 					w="100%"
@@ -327,7 +390,10 @@ export default function Dashboard() {
 					bgSize="contain"
 					position="relative"
 					borderRadius="15px"
+					justifyContent="center"
+					alignItems="center"
 				>
+					<RescueMap markers={locationdata.data}/>
 				</CardBody>
 			</Card>
 		</Grid>
@@ -342,7 +408,7 @@ export default function Dashboard() {
 			<Card p="16px">
 			<CardBody>
 				<Flex direction="column" w="100%">
-				<BarChart />
+				<BarChart data={barChartData} barChartOptions={barChartOptionsnew}/>
 
 				<Flex
 					direction="column"
@@ -477,9 +543,11 @@ export default function Dashboard() {
 					In 2022
 				</Text>
 				</Flex>
+				{/* <Button onClick={()=>setLineChartData([])}/> */}
+				<Text>{dateofthing}</Text>
 			</CardHeader>
 			<Box w="100%" h={{ sm: "300px" }} ps="8px">
-				<LineChart />
+				<LineChart data={lineChartData} lineChartOptions={lineChartOptionsnew}/>
 			</Box>
 			</Card>
 

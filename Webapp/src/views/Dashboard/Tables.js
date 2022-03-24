@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Chakra imports
 import {
   Flex,
@@ -17,9 +17,35 @@ import CardBody from "components/Card/CardBody.js";
 import TablesProjectRow from "components/Tables/TablesProjectRow";
 import TablesTableRow from "components/Tables/TablesTableRow";
 import { certificatesTableData, tablesTableData } from "variables/general";
+import { useSelector } from 'react-redux'
+import { Auth } from "aws-amplify";
+
 
 function Tables() {
   const textColor = useColorModeValue("gray.700", "white");
+  const userdata = useSelector((state) => state.userdata.data)
+  const [usersData, setusersData] = useState([]);
+  
+  useEffect(()=>{
+    getinfo();
+  },[])
+
+
+  const getinfo = async() => {
+		//fetch data
+		const current_sessiontoken = await Auth.currentSession();
+		// console.log(current_sessiontoken.idToken.jwtToken);
+		var res = await fetch(
+				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/appusers',
+				{
+					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
+				},
+			)
+		var res = await res.json()
+		console.log(res)
+    setusersData(res)
+  }
+
 
   return (
     <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
@@ -33,23 +59,23 @@ function Tables() {
           <Table variant="simple" color={textColor}>
             <Thead>
               <Tr my=".8rem" pl="0px" color="gray.400">
-                <Th pl="0px" color="gray.400">Username</Th>
-                <Th color="gray.400">Status</Th>
-                <Th color="gray.400">Registered Date</Th>
+                <Th pl="0px" color="gray.400">Phone Number</Th>
+                <Th pl="0px" color="gray.400">Name</Th>
+                <Th pl="0px" color="gray.400">Age</Th>
+                <Th color="gray.400">Date Joined</Th>
+                <Th color="gray.400">Volunteer</Th>
                 <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
-              {tablesTableData.map((row) => {
+              {usersData.map((row) => {
                 return (
                   <TablesTableRow
+                    phonenumber={row.phoneNumber}
                     name={row.name}
-                    logo={row.logo}
-                    // email={row.email}
-                    // subdomain={row.subdomain}
-                    // domain={row.domain}
-                    status={row.status}
-                    date={row.date}
+                    age={row.age}
+                    status={row.volunteer}
+                    date={row.date_joined}
                   />
                 );
               })}
