@@ -1,8 +1,8 @@
 from geotool import *
-from dbConnector import initDB
-from tcpManager import initTCP
-from websocketManager import initWebsocket
+import dbConnector
+import tcpManager
+import websocketManager
 
 if __name__ == "__main__":
-    initDB(); initTCP(); initWebsocket()
+    dbConnector.initDB(); tcpManager.initTCP(); websocketManager.initWebsocket()
     

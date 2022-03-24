@@ -1,7 +1,7 @@
 import socket
 import datetime 
 from threading import Thread
-from dbConnector import db
+import dbConnector
 from geotool import geoDistance
 
 
@@ -37,7 +37,7 @@ class TCPManager: # perform all TCP Requests
                 
                 # 2. update location
                 currTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                db.do("UPDATE Users SET LocLat = '%s', LocLon = '%s', lastOnLineTime = '%s' WHERE name = '%s'" % (lat, lon, currTime, username))
+                dbConnector.db.do("UPDATE Users SET LocLat = '%s', LocLon = '%s', lastOnLineTime = '%s' WHERE name = '%s'" % (lat, lon, currTime, username))
                 print("User location updated.")
                 clientSocket.send("ojbk".encode('utf-8'))
             except:
@@ -46,14 +46,14 @@ class TCPManager: # perform all TCP Requests
     def initiateSaveMeRequest(self):
         data = [] # TODO connect with Lambda for data
         if (data[0] == "ACHIEVEMENTS"): # Query user achievements: ACHIEVEMENTS user cred
-            a = db.query("SELECT nBeingSaved, keepOpen, nSaved FROM Users WHERE name = '%s'" % data[1])[0]
+            a = dbConnector.db.query("SELECT nBeingSaved, keepOpen, nSaved FROM Users WHERE name = '%s'" % data[1])[0]
             print("Achievement request handled for user = %s." % (data[1]))
             self.wfile.write(("%s, %s, %s" % (a[0], a[1], a[2])).encode('utf-8'))
         
         elif (data[0] == "RESCUE"): # rescue request: RESCUE user cred loclat loclon => sendmsg
             loclat = data[3]; loclon = data[4]
-            (homeLat, homeLon, name, telephone, medicalinfo) = db.query("SELECT homeLoc, homeLon, name, telephone, medicalInfo FROM Users WHERE name = '%s'" % data[1])[0]
-            (homeAddrDesc) = db.query("SELECT homeDesc FROM Users WHERE name = '%s'" % data[1])[0]
+            (homeLat, homeLon, name, telephone, medicalinfo) = dbConnector.db.query("SELECT homeLoc, homeLon, name, telephone, medicalInfo FROM Users WHERE name = '%s'" % data[1])[0]
+            (homeAddrDesc) = dbConnector.db.query("SELECT homeDesc FROM Users WHERE name = '%s'" % data[1])[0]
             
             # compose emergency message
             message = ['REQUEST', name, telephone, medicalinfo, loclat, loclon]
@@ -64,7 +64,7 @@ class TCPManager: # perform all TCP Requests
                 message.append("NA")
 
             # filter available individuals
-            availableVolunteers = db.query("SELECT name, lastOnLineTime, LocLat, LocLon FROM Users WHERE (LocLat - %s) * (LocLat - %s) + (LocLon - %s) * (LocLon - %s) <= 0.04 AND name != '%s' AND isVolunteer = true" % (loclat, loclat, loclon, loclon, name)) # ref: https://www.usna.edu/Users/oceano/pguth/md_help/html/approx_equivalents.htm
+            availableVolunteers = dbConnector.db.query("SELECT name, lastOnLineTime, LocLat, LocLon FROM Users WHERE (LocLat - %s) * (LocLat - %s) + (LocLon - %s) * (LocLon - %s) <= 0.04 AND name != '%s' AND isVolunteer = true" % (loclat, loclat, loclon, loclon, name)) # ref: https://www.usna.edu/Users/oceano/pguth/md_help/html/approx_equivalents.htm
             cnt = 0
             for (name, onlineTime, volunteerLat, volunteerLon) in availableVolunteers:
                 print("  %s is a candidate rescuer. Distance = %f meters." % (name, geoDistance(float(volunteerLat), float(volunteerLon), float(loclat), float(loclon))))
