@@ -1,5 +1,5 @@
 from geotool import *
-from dbConnector import dbConnector, initDB, db
+from dbConnector import dbConnector, initDB
 from tcpManager import TCPManager, initTCP, initiateSaveMeRequest, tcpdaemon, onlineEvents
 from websocketManager import websocketsManager, initWebsocket
 
