@@ -20,6 +20,10 @@ public class RequestUtil {
         setSubscribe(service.getNews(), observer);
     }
 
+    public static void getUserData(Observer<String> observer){
+        setSubscribe(service.getUserData(), observer);
+    }
+
     private static <T> void setSubscribe(Observable<T> observable, Observer<T> observer) {
         observable.subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
