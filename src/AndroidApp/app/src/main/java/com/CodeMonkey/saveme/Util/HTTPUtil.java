@@ -2,7 +2,9 @@ package com.CodeMonkey.saveme.Util;
 
 import com.CodeMonkey.saveme.Entity.NewsRspAll;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import rx.Observable;
 
 /***
@@ -13,4 +15,11 @@ public interface HTTPUtil {
 
     @GET(URLUtil.testAPI)
     Observable<NewsRspAll> getNews();
+
+    @GET(URLUtil.userData)
+    Observable<String> getUserData();
+
+    @Headers("AccountKey:"+ URLUtil.LTAKey)
+    @GET(URLUtil.busArrival)
+    Observable<ResponseBody> getBusArrivals();
 }

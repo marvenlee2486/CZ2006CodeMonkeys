@@ -1,5 +1,7 @@
 package com.CodeMonkey.saveme.Controller;
 
+import com.CodeMonkey.saveme.Util.URLUtil;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -18,10 +20,11 @@ public class RetrofitManager {
     private static final int DEFAULT_WRITE_TIME = 30;
     private static final int DEFAULT_READ_TIME = 30;
     private final OkHttpClient okHttpClient;
-    private static final String REQUEST_PATH = "https://newsapi.org/";
+    private String requestPath = URLUtil.dynamoDBAPIBase;
     private final Retrofit retrofit;
 
     private RetrofitManager() {
+
 
         okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_CONNECT_TIME, TimeUnit.SECONDS)
@@ -31,7 +34,7 @@ public class RetrofitManager {
 
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(REQUEST_PATH)
+                .baseUrl(requestPath)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

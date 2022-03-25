@@ -12,4 +12,14 @@ public class URLUtil {
 
     public static final int tcpPort = 3391;
 
+    public static final String dynamoDBAPIBase = "https://w75577htk6.execute-api.ap-southeast-1.amazonaws.com/";
+
+    public static final String userData = "production";
+
+    public static final String LTABase = "http://datamall2.mytransport.sg/";
+
+    public static final String LTAKey = "F1eO4/3GQby/pelqdMU7Cg==";
+
+    public static final String busArrival = "ltaodataservice/BusArrivalv2";
+
 }
