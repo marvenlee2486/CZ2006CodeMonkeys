@@ -35,11 +35,11 @@ DocumentIcon,
 RocketIcon,
 } from "components/Icons/Icons.js";
 import DashboardTableRow from "components/Tables/DashboardTableRow";
-import TimelineRow from "components/Tables/TimelineRow";
 import React, { useEffect, useState } from "react";
 // react icons
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
-import { dashboardTableData, timelineData } from "variables/general";
+import { BiBroadcast, BiUserPlus ,BiTask } from "react-icons/bi";
+// other imports
 import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
@@ -64,6 +64,7 @@ export default function Dashboard() {
 	const textColor = useColorModeValue("gray.700", "white");
 	const history = useHistory();
 	const [dateofthing, setDateshow] = useState(0);
+	const [usersData, setUsersData] = useState();
 	const [lineChartData, setLineChartData] = useState([
 		{
 		  name: "Normal Users",
@@ -80,12 +81,13 @@ export default function Dashboard() {
 		data: [2,3,10,20,20,30,40,40,45],
 	}])
 	const [barChartOptionsnew, setBarChartOptions] = useState(barChartOptions);
+	const [totalRescues, setTotalRescues] = useState({"No Response":0,"Responded":0})
 
 	//Functions-----------------------------------------------------------------
 	useEffect(() => {
 		Auth.currentUserInfo().then(current_user => {if (current_user===null) history.push("/auth/signin");})
-		// setUsersInfo();
-		// setRescueInfo();
+		setUsersInfo();
+		setRescueInfo();
 		getlocationdata();
     }, []);
 
@@ -99,7 +101,7 @@ export default function Dashboard() {
 		};
 
 		ws.onmessage = (evt) => {
-			// console.log(evt.data);
+			console.log(evt.data);
 			setLocationData(prevlocationdata => ({state:"connected",data:JSON.parse(evt.data)}));
 		};
 
@@ -121,6 +123,7 @@ export default function Dashboard() {
 			)
 		var res = await res.json()
 		console.log(res)
+		setUsersData(res)
 
 		//Set user monthly statistics
 		let monthlyUserData = [0,0,0,0,0,0,0,0,0];
@@ -132,14 +135,12 @@ export default function Dashboard() {
 			let monthcheck = new Date()
 			monthcheck.setDate(1);
 			monthcheck.setMonth(monthcheck.getMonth() - 8);
-			console.log(monthcheck)
 			if (dj>=monthcheck){
 				for (let i=0;i<9;i++){
 					monthsSet.push(months[monthcheck.getMonth()]);
 					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
 						if (data.volunteer) monthlyVolunteerData[i]+=1;
 						else monthlyUserData[i]+=1;
-						break;
 					}
 				}
 			}
@@ -170,7 +171,7 @@ export default function Dashboard() {
 		res.forEach(data=>{
 			let date = data.dateTimeStarted.split("#")[0]
 			let dj = new Date(date);
-			console.log(dj)
+			// console.log(dj)
 			let monthcheck = new Date()
 			monthcheck.setDate(1);
 			monthcheck.setMonth(monthcheck.getMonth() - 8);
@@ -179,6 +180,8 @@ export default function Dashboard() {
 					monthsSet.push(months[monthcheck.getMonth()]);
 					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
 						monthlyRescueData[i]+=1;
+						if ( data.respondedVolunteers.length==0) setTotalRescues(prevTotals =>({...prevTotals,"No Response":prevTotals["No Response"]+1}));
+						else setTotalRescues(prevTotals =>({...prevTotals,"Responded":prevTotals["Responded"]+1}));
 						break;
 					}
 				}
@@ -216,7 +219,7 @@ export default function Dashboard() {
 					</Flex>
 				</Stat>
 				<IconBox as="box" h={"45px"} w={"45px"} bg={iconTeal}>
-					<DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+					<BiBroadcast fontSize="2em"/>
 				</IconBox>
 				</Flex>
 			</CardBody>
@@ -232,11 +235,11 @@ export default function Dashboard() {
 					fontWeight="bold"
 					pb=".1rem"
 					>
-					Today's rescue events
+					This month's users
 					</StatLabel>
 					<Flex>
 					<StatNumber fontSize="lg" color={textColor}>
-						999999
+						{lineChartData[0].data.slice(-1)[0]}
 					</StatNumber>
 					<StatHelpText
 						alignSelf="flex-end"
@@ -247,12 +250,15 @@ export default function Dashboard() {
 						ps="3px"
 						fontSize="md"
 					>
-						+5%
+						({lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0]>=0?"+":"-"}
+						{
+							(lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0])/lineChartData[0].data.slice(-2)[1]*100
+						}%)
 					</StatHelpText>
 					</Flex>
 				</Stat>
 				<IconBox as="box" h={"45px"} w={"45px"} bg={iconTeal}>
-					<DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+					<BiUserPlus fontSize="2em"/>
 				</IconBox>
 				</Flex>
 			</CardBody>
@@ -278,7 +284,7 @@ export default function Dashboard() {
 				</Stat>
 				<Spacer />
 				<IconBox as="box" h={"45px"} w={"45px"} bg={iconTeal}>
-					<DocumentIcon h={"24px"} w={"24px"} color={iconBoxInside} />
+					<BiTask fontSize="2em"/>
 				</IconBox>
 				</Flex>
 			</CardBody>
@@ -324,23 +330,24 @@ export default function Dashboard() {
 				<Thead>
 				<Tr my=".8rem" ps="0px">
 					<Th ps="0px" color="gray.400">Location</Th>
-					<Th color="gray.400">Time</Th>
-					<Th color="gray.400">User Name</Th>
-					<Th color="gray.400">Responded Volunteer Number</Th>
+					<Th ps="0px" color="gray.400">Time</Th>
+					<Th ps="0px" color="gray.400">User Name</Th>
+					<Th ps="0px" color="gray.400">Responded Volunteer Number</Th>
 				</Tr>
 				</Thead>
 				<Tbody>
-				{dashboardTableData.map((row) => {
-					return (
-					<DashboardTableRow
-						location={row.location}
-						time={row.time}
-						userName={row.userName}
-						logo={row.logo}
-						responedVolunteerNumber={row.responedVolunteerNumber}
-					/>
-					);
-				})}
+					{locationdata.data.map((row,index) => {
+						return (
+						<DashboardTableRow
+							key={index}
+							lat={row.latitude}
+							long={row.longitude}
+							time={row.timeStarted}
+							userName={row.victim}
+							respondedVolunteerNumber={row.respondedVolunteers}
+						/>
+						);
+					})}
 				</Tbody>
 			</Table>
 			</Card>
@@ -426,13 +433,15 @@ export default function Dashboard() {
 					</Text>
 					<Text fontSize="md" fontWeight="medium" color="gray.400">
 					<Text as="span" color="gray.500" fontWeight="bold">
-						(+23%)
+						({barChartData[0].data.slice(-1)[0]-barChartData[0].data.slice(-2,-1)[0]>0?"+":"-"}{
+						((barChartData[0].data.slice(-1)[0]-barChartData[0].data.slice(-2,-1)[0])/barChartData[0].data.slice(-2,-1)[0])*100
+						}%)
 					</Text>{" "}
 					than last month
 					</Text>
 				</Flex>
 
-				<SimpleGrid gap={{ sm: "12px" }} columns={3}>
+				<SimpleGrid gap={{ sm: "12px" }} columns={2}>
 					<Flex direction="column">
 					<Flex alignItems="center">
 						<IconBox
@@ -445,7 +454,7 @@ export default function Dashboard() {
 						<RocketIcon h={"15px"} w={"15px"} color={iconBoxInside} />
 						</IconBox>
 						<Text fontSize="sm" color="gray.400" fontWeight="semibold">
-						Succcessful
+						Responded
 						</Text>
 					</Flex>
 					<Text
@@ -455,13 +464,13 @@ export default function Dashboard() {
 						mb="6px"
 						my="6px"
 					>
-						153
+						{totalRescues["Responded"]}
 					</Text>
 					<Progress
 						colorScheme="teal"
 						borderRadius="12px"
 						h="5px"
-						value={80}
+						value={totalRescues["Responded"]/(totalRescues["No Response"]+totalRescues["Responded"])*100}
 					/>
 					</Flex>
 					<Flex direction="column">
@@ -476,7 +485,7 @@ export default function Dashboard() {
 						<RocketIcon h={"15px"} w={"15px"} color={iconBoxInside} />
 						</IconBox>
 						<Text fontSize="sm" color="gray.400" fontWeight="semibold">
-						Fail
+						No Response
 						</Text>
 					</Flex>
 					<Text
@@ -486,44 +495,13 @@ export default function Dashboard() {
 						mb="6px"
 						my="6px"
 					>
-						20
+						{totalRescues["No Response"]}
 					</Text>
 					<Progress
 						colorScheme="teal"
 						borderRadius="12px"
 						h="5px"
-						value={10}
-					/>
-					</Flex>
-					<Flex direction="column">
-					<Flex alignItems="center">
-						<IconBox
-						as="box"
-						h={"30px"}
-						w={"30px"}
-						bg={iconTeal}
-						me="6px"
-						>
-						<RocketIcon h={"15px"} w={"15px"} color={iconBoxInside} />
-						</IconBox>
-						<Text fontSize="sm" color="gray.400" fontWeight="semibold">
-						No Respond
-						</Text>
-					</Flex>
-					<Text
-						fontSize="lg"
-						color={textColor}
-						fontWeight="bold"
-						mb="6px"
-						my="6px"
-					>
-						10
-					</Text>
-					<Progress
-						colorScheme="teal"
-						borderRadius="12px"
-						h="5px"
-						value={10}
+						value={totalRescues["No Response"]/(totalRescues["No Response"]+totalRescues["Responded"])*100}
 					/>
 					</Flex>
 					
@@ -543,8 +521,6 @@ export default function Dashboard() {
 					In 2022
 				</Text>
 				</Flex>
-				{/* <Button onClick={()=>setLineChartData([])}/> */}
-				<Text>{dateofthing}</Text>
 			</CardHeader>
 			<Box w="100%" h={{ sm: "300px" }} ps="8px">
 				<LineChart data={lineChartData} lineChartOptions={lineChartOptionsnew}/>

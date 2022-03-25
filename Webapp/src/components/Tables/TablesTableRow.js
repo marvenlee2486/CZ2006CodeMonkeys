@@ -39,7 +39,7 @@ function TablesTableRow(props) {
 
   return (
     <Tr>
-      <Td>
+      <Td pl="0px">
         <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
           {phonenumber}
         </Text>
@@ -58,29 +58,30 @@ function TablesTableRow(props) {
           </Flex>
         </Flex>
       </Td>
-      <Td backgroundcolor='red'>
+      <Td backgroundcolor='red' pl="0px">
         <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
           {age}
         </Text>
       </Td>
-      <Td>
+      <Td pl="0px">
           <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
             {date}
           </Text>
         </Td>
-      <Td>
+      <Td pl="0px" >
+        <Flex >
         <Badge
-          // bg={status ? "green.400" : bgStatus}
-          // color={status ? "white" : colorStatus}
+          bg={status ? "green.600" : bgStatus}
+          color={status ? "white" : colorStatus}
           fontSize="16px"
           p="3px 10px"
           borderRadius="8px"
         >
-          
           {status?"Volunteer":"Normal User"}
         </Badge>
+        </Flex>
       </Td>
-      <Td>
+      <Td pl="0px">
         <Button p="0px" bg="transparent" variant="no-hover" onClick={()=>deleteUser()}>
           <Text
             fontSize="md"

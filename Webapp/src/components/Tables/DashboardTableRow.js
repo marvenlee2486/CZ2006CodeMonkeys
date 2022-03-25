@@ -12,27 +12,25 @@ import {
 import React from "react";
 
 function DashboardTableRow(props) {
-  const { location, time, userName, logo,responedVolunteerNumber } = props;
+  const { lat,long, time, userName, logo,respondedVolunteerNumber } = props;
   const textColor = useColorModeValue("gray.700", "white");
   return (
     <Tr>
       <Td minWidth={{ sm: "250px" }} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-        {/* <Icon as={logo} h={"24px"} w={"24px"} pe="5px" /> */}
           <Text
             fontSize="md"
             color={textColor}
             fontWeight="bold"
             minWidth="100%"
           >
-            {location}
+            {lat} ° N, {long} ° E
           </Text>
         </Flex>
       </Td>
 
       <Td minWidth={{ sm: "250px" }} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-         
           <Text
             fontSize="md"
             color={textColor}
@@ -46,12 +44,12 @@ function DashboardTableRow(props) {
 
       <Td minWidth={{ sm: "250px" }} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-            <Avatar src={logo} w="50px" borderRadius="12px" me="18px" />
             <Text
               fontSize="md"
               color={textColor}
               fontWeight="bold"
               minWidth="100%"
+              // textAlign="center"
             >
               {userName}
             </Text>
@@ -60,15 +58,14 @@ function DashboardTableRow(props) {
 
       <Td minWidth={{ sm: "250px" }} pl="0px">
         <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-         
           <Text
             fontSize="md"
             color={textColor}
             fontWeight="bold"
             minWidth="100%"
-            textAlign="center"
+            // textAlign="center"
           >
-            {responedVolunteerNumber}
+            {respondedVolunteerNumber}
           </Text>
         </Flex>
       </Td>

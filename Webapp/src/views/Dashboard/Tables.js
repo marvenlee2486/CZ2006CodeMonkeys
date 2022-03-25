@@ -27,14 +27,13 @@ function Tables() {
   const [usersData, setusersData] = useState([]);
   
   useEffect(()=>{
-    getinfo();
+    getUsersInfo();
   },[])
 
 
-  const getinfo = async() => {
+  const getUsersInfo = async() => {
 		//fetch data
 		const current_sessiontoken = await Auth.currentSession();
-		// console.log(current_sessiontoken.idToken.jwtToken);
 		var res = await fetch(
 				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/appusers',
 				{
@@ -59,11 +58,11 @@ function Tables() {
           <Table variant="simple" color={textColor}>
             <Thead>
               <Tr my=".8rem" pl="0px" color="gray.400">
-                <Th pl="0px" color="gray.400">Phone Number</Th>
-                <Th pl="0px" color="gray.400">Name</Th>
-                <Th pl="0px" color="gray.400">Age</Th>
-                <Th color="gray.400">Date Joined</Th>
-                <Th color="gray.400">Volunteer</Th>
+                <Th ps="0px" color="gray.400">Phone Number</Th>
+                <Th ps="0px" color="gray.400">Name</Th>
+                <Th ps="0px" color="gray.400">Age</Th>
+                <Th ps="0px" color="gray.400">Date Joined</Th>
+                <Th ps="0px" color="gray.400" >Status</Th>
                 <Th></Th>
               </Tr>
             </Thead>
