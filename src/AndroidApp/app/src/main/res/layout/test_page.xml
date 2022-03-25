@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/regSignPageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Reg_Sign_Page"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/locaServPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Loca_Serv_Page"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/otp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="otp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/contactServPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="CONTACT_SERV_PAGE"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/mainPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Main_Page"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/registerPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_page"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/registerSubPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_subpage"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/sigInPage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Register_subpage"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/mapTest"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="MapTest"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/changeLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Change Language"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </LinearLayout>
+
+
+</LinearLayout>

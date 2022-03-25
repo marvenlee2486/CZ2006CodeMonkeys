@@ -1,0 +1,150 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  TableName:
+    Type: String
+    Default: 'Housing'
+    Description: (Required) The name of the new DynamoDB table you want to create and save to. Minimum 3 characters
+    MinLength: 3
+    MaxLength: 50
+    AllowedPattern: ^[A-Za-z]+$
+    ConstraintDescription: 'Required parameter. Must be characters only. No numbers allowed.'
+
+Resources:
+
+  HousingApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+      Auth:
+        Authorizers:
+          PrimulDevAuthorizer:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: 
+                Fn::ImportValue: PrimulDevUserPoolIssuer
+              audience:
+                - Fn::ImportValue: !Sub PrimulDevUserPoolClientId
+        DefaultAuthorizer: PrimulDevAuthorizer
+
+  getHousingLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getHousing.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Layers:
+        - !Ref housingApiValidationLayer
+        - Fn::ImportValue: !Sub PrimulDependenciesLayerId
+      Events:
+        getHousing:
+          Type: HttpApi
+          Properties:
+            Path: /housing/{website}
+            Method: get
+            ApiId: !Ref HousingApi
+            Auth:
+              Authorizer: PrimulDevAuthorizer
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref housingTable
+      Environment: 
+        Variables:
+            dbName: !Ref housingTable
+  createHousingLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: createHousing.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Layers:
+        - !Ref housingApiValidationLayer
+        - Fn::ImportValue: !Sub PrimulDependenciesLayerId
+      Events:
+        createHousing:
+          Type: HttpApi
+          Properties:
+            Path: /housing
+            Method: post
+            ApiId: !Ref HousingApi
+            Auth:
+              Authorizer: PrimulDevAuthorizer
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref housingTable
+      Environment: 
+        Variables:
+            dbName: !Ref housingTable
+
+  deleteHousingLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: deleteHousing.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Layers:
+        - !Ref housingApiValidationLayer
+        - Fn::ImportValue: !Sub PrimulDependenciesLayerId
+      Events:
+        deleteHousing:
+          Type: HttpApi
+          Properties:
+            Path: /housing/{website}
+            Method: delete
+            ApiId: !Ref HousingApi
+            Auth:
+              Authorizer: PrimulDevAuthorizer
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref housingTable
+      Environment: 
+        Variables:
+            dbName: !Ref housingTable
+
+  updateHousingLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: updateHousing.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Events:
+        updateHousing:
+          Type: HttpApi
+          Properties:
+            Path: /housing/{website}
+            Method: put
+            ApiId:
+              Ref: HousingApi
+            Auth:
+              Authorizer: PrimulDevAuthorizer
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref housingTable
+      Environment: 
+        Variables:
+            dbName: !Ref housingTable
+
+  housingApiValidationLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: housingApiValidationLayer
+      Description: Layer to validate housing apis
+      ContentUri: shared/
+      CompatibleRuntimes:
+        - python3.9
+
+
+  housingTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: website
+        Type: String
+      
+  

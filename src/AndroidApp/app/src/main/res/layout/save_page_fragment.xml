@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/saveMePageBackgroundColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
+                <TextView
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/press_to_send_sos_signal"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="34sp">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hold_button_to_cancel"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="34sp">
+                </TextView>
+                <TextView
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/an_ambulance_will_be_called_signal_will_be_sen_to_nearby_rescuers_in"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="34sp">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signal_is_being_broadcast"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="34sp">
+                </TextView>
+                <TextView
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_worry_help_is_on_the_way"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textSize="38sp">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="20dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save_me_button">
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hold_button_to_cancel"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="34sp">
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/additional_information_for_rescuers"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="22sp">
+            </TextView>
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:inputType="text"
+                android:background="@drawable/custom_input_box">
+            </EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

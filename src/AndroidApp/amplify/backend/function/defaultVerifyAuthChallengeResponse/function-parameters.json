@@ -1,0 +1,19 @@
+{
+  "trigger": true,
+  "modules": [
+    "captcha-verify",
+    "boilerplate-verify"
+  ],
+  "parentResource": "default",
+  "functionName": "defaultVerifyAuthChallengeResponse",
+  "resourceName": "defaultVerifyAuthChallengeResponse",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "C:\\Users\\Wang Tianyu\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\VerifyAuthChallengeResponse",
+  "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+  "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
+  "roleName": "defaultVerifyAuthChallengeResponse",
+  "skipEdit": true,
+  "RECAPTCHASECRET": "n",
+  "enableCors": false
+}

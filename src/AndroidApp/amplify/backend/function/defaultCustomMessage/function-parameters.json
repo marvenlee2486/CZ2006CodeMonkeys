@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "default",
+  "functionName": "defaultCustomMessage",
+  "resourceName": "defaultCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "C:\\Users\\Wang Tianyu\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "defaultCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "n",
+  "EMAILSUBJECT": "n",
+  "EMAILMESSAGE": "n",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

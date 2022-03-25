@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@drawable/small_grean_background">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/save_me_logo" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="30dp"
+            android:text="@string/register"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_hint_name"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/NRIC"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_nric"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:maxLength="9"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/homeAddress"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_home_address"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/homeAddressLocation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/home_address_location"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/workAddress"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/custom_input_box"
+            android:hint="@string/register_work_address"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/workAddressLocation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/custom_input_box"
+            android:hint="@string/work_address_location"
+            android:paddingStart="12dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/age"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_age"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="number"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+
+        <EditText
+            android:id="@+id/emergencyContactName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_emergency_contact_name"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/emergencyContactNum"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input_box"
+            android:paddingStart="12dp"
+            android:hint="@string/register_emergency_contact_number"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="number"
+            android:textSize="14sp"
+            android:layout_marginBottom="30dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp">
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@drawable/white_button"
+                android:text="back"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/allowButton"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/orange_button"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
