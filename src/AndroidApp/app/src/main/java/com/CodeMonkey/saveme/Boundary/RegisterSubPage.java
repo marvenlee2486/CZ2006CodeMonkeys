@@ -63,6 +63,8 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode,resultCode, data);
+        if (data == null)
+            return;
         switch (requestCode){
             case 1:
                 exactHomeAddress = data.getDoubleExtra("latitude", 0) + "," + data.getDoubleExtra("longitude", 0);

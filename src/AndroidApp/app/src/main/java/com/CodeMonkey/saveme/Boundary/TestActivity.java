@@ -9,19 +9,15 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.R;
-import com.CodeMonkey.saveme.Util.RequestUtil;
 
 import java.util.Locale;
-
-import rx.Observer;
 
 
 /***
@@ -150,6 +146,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.mainPage:
                 intent = new Intent(TestActivity.this, MainPage.class);
+                intent.putExtra("type", "common");
                 break;
             case R.id.otp:
                 intent = new Intent(TestActivity.this, OTPPage.class);
@@ -167,11 +164,11 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 intent = new Intent(TestActivity.this, SignInPage.class);
                 break;
             case R.id.mapTest:
-                intent = new Intent(TestActivity.this, SelectLocationPage.class);
-
+                NotificationUtil.createNotification(TestActivity.this, "test", "test");
                 break;
         }
-        startActivity(intent);
+        if (view.getId() != R.id.mapTest)
+            startActivity(intent);
     }
 
 
