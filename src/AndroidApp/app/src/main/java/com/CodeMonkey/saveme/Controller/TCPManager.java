@@ -71,7 +71,7 @@ public class TCPManager{
                                         Log.e(TAG, string);
                                         Message msg = new Message();
                                         msg.what = 1;
-                                        msg.obj = "test";
+                                        msg.obj = string;
                                         handler.sendMessage(msg);
                                     }
                                 }
@@ -117,7 +117,7 @@ public class TCPManager{
                     try {
                         location  = LocationUtils.getBestLocation(context, location);
                         String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
-                        Thread.sleep(3000);
+                        Thread.sleep(30000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();
