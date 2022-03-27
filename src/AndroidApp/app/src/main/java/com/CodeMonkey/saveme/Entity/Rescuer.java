@@ -4,15 +4,14 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
-import javax.swing.text.html.ImageView;
-
 import java.sql.Timestamp;
 
-public class Rescuver {
+public class Rescuer extends User{
+    private String name;
     private boolean hasUploadedCertificate;
     private boolean isVerified;
     private List<Certificate> certificateList;
-    private List<Achivement> achivementList;
+    private List<Achivement> achievementList;
 
     public void setName(String name){
         this.name = name;
@@ -22,7 +21,7 @@ public class Rescuver {
         return name;
     }
 
-    public void setIsVerified (String isVerified){
+    public void setIsVerified (boolean isVerified){
         this.isVerified = isVerified;
     }
 
@@ -30,7 +29,7 @@ public class Rescuver {
         return isVerified;
     }
 
-    public void setCertificateList (String certificateList){
+    public void setCertificateList (List<Certificate> certificateList){
         this.certificateList = certificateList;
     }
 
@@ -38,12 +37,12 @@ public class Rescuver {
         return certificateList;
     }
   
-    public void setAchivementList (String achivementList){
-        this.achivementList = achivementList;
+    public void setAchievementList (List<Achivement> achievementList){
+        this.achievementList = achievementList;
     }
 
-    public List<Achivement> getAchivementList(){
-        return achivementList;
+    public List<Achivement> getAchievementList(){
+        return achievementList;
     }
 
 

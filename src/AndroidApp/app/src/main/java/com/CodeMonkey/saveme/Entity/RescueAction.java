@@ -1,5 +1,7 @@
 package com.CodeMonkey.saveme.Entity;
 
+import android.location.Location;
+
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class RescueAction {
         return id;
     }
 
-    public void setRescuerLocation(String rescuerLocation){
+    public void setRescuerLocation(Location rescuerLocation){
         this.rescuerLocation = rescuerLocation;
     }
 

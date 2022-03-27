@@ -6,6 +6,11 @@ import android.os.Bundle;
 
 import com.CodeMonkey.saveme.R;
 
+/***
+ * RegSignPage created by Luo Yihang 12/02/2022
+ * The OTP page for user to input the sent OTP
+ */
+
 public class ContactServPage extends BaseActivity {
 
     @Override

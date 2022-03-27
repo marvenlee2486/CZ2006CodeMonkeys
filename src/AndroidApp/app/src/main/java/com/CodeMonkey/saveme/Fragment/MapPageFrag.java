@@ -51,7 +51,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        gps = LocationUtils.getBestLocation(context);
+        gps = LocationUtils.getBestLocation(context, null);
         latLng = new LatLng(gps.getLatitude(), gps.getLongitude());
     }
 

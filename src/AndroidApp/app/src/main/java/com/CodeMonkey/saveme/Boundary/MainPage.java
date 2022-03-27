@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -17,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Controller.TCPManager;
+import com.CodeMonkey.saveme.Entity.Event;
 import com.CodeMonkey.saveme.Fragment.ConfigPageFrag;
 import com.CodeMonkey.saveme.Fragment.NoRequestRescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.RegVolPageFrag;
@@ -25,6 +26,9 @@ import com.CodeMonkey.saveme.Fragment.RescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.SaveMePageFrag;
 import com.CodeMonkey.saveme.Fragment.VolPledgePageFrag;
 import com.CodeMonkey.saveme.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***
@@ -48,6 +52,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment = saveMePageFrag;
     private Handler handler;
+    private List<Event> eventList = new ArrayList<>();
 
     private FrameLayout mainPageContent;
     private LinearLayout morePageMask;
@@ -59,7 +64,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.main_page);
         rescuePageFrag = new RescuePageFrag(this);
         init();
-
+        NotificationUtil.createNotificationChannel(this);
     }
 
     private void init(){
@@ -93,7 +98,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 super.handleMessage(msg);
                 switch (msg.what){
                     case 1:
-                        Log.e(TAG, "Rescue: " + msg.obj + " Received.");
+                        newEvent();
                         break;
                 }
             }
@@ -102,9 +107,12 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
 
-
+// TODO: remove comment before push
         tcpManager.sendLocation(this);
-
+        if (getIntent().getStringExtra("type") == null){
+            changeColor(Color.parseColor("#0013C2"));
+            fragmentSwitch(rescuePageFrag);
+        }
     }
 
     private void fragmentSwitch(Fragment fragment){
@@ -151,6 +159,11 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         fragmentSwitch(rescuePageFrag);
 //        fragmentSwitch(volPledgePageFrag);
 //        fragmentSwitch(noRequestRescuePageFrag);
+    }
+
+    private void newEvent(){
+        eventList.add(null);
+        NotificationUtil.createNotification(MainPage.this, "Help!", "Someone need help!");
     }
 
 

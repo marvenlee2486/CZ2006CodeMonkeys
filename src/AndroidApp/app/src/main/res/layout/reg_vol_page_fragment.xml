@@ -31,6 +31,7 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:id="@+id/signVolImg"
                 android:layout_weight="2"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
@@ -64,7 +65,7 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -73,23 +74,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_centerInParent="true"
                             android:text="@string/cpr_certificate"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/gray_outline"
-                            android:text="@string/expiry_date"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="15dp"/>
 
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -97,6 +89,7 @@
                         android:layout_weight="1">
 
                         <ImageView
+                            android:id="@+id/warningIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:src="@drawable/warning"/>
@@ -118,6 +111,7 @@
                         android:layout_weight="2">
 
                         <ImageView
+                            android:id="@+id/uploadPhoto"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:src="@drawable/upload_certificate_button"/>

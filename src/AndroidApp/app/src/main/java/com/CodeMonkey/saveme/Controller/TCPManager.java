@@ -59,7 +59,6 @@ public class TCPManager{
                     if (mSocket != null) {
                         mOutputStream = mSocket.getOutputStream();
                         mInputStream = mSocket.getInputStream();
-                        send("Connect");
 //                        receive(mSocket);
                         DataInputStream input = new DataInputStream(mInputStream);
                         while (true) {
@@ -70,12 +69,10 @@ public class TCPManager{
                                         input.read(mBuffer);
                                         String string = new String(mBuffer);
                                         Log.e(TAG, string);
-                                        if (string.equals("ojbk")){
-                                            Message msg = new Message();
-                                            msg.what = 1;
-                                            msg.obj = "test";
-                                            handler.sendMessage(msg);
-                                        }
+                                        Message msg = new Message();
+                                        msg.what = 1;
+                                        msg.obj = string;
+                                        handler.sendMessage(msg);
                                     }
                                 }
                             }
@@ -115,10 +112,10 @@ public class TCPManager{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Location location;
+                Location location = null;
                 while (true){
                     try {
-                        location  = LocationUtils.getBestLocation(context);
+                        location  = LocationUtils.getBestLocation(context, location);
                         String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
                         Thread.sleep(30000);
                         mOutputStream = mSocket.getOutputStream();
@@ -134,26 +131,5 @@ public class TCPManager{
             }
         }).start();
     }
-
-//    public void receive(Socket mSocket){
-//        DataInputStream input = new DataInputStream(mInputStream);
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    while (true) {
-//                        if (mSocket.isConnected()) {
-//                            if (!mSocket.isInputShutdown()) {
-//                                input.read(mBuffer);
-//                                Log.e(TAG, mBuffer.length+"");
-//                            }
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
-//    }
 
 }

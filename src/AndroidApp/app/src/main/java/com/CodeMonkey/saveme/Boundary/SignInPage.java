@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.CodeMonkey.saveme.R;
 
+/***
+ * SignInPage created by Luo Yihang 12/02/2022
+ *
+ */
+
 public class SignInPage extends AppCompatActivity implements View.OnClickListener{
     private Button next;
     private TextView forgetPsw;
@@ -33,10 +38,8 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.allowButton:
-
                 break;
             case R.id.forgetPasswordButton:
-
                 break;
         }
     }
