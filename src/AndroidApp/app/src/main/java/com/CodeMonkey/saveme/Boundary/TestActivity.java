@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Controller.LanguageController;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.R;
 
@@ -35,6 +36,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     private Button signInPageButton;
     private Button mapTest;
     private Button changeLanguageButton;
+
     private AlertDialog dialog;
 
     @Override
@@ -106,7 +108,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 //        );
 
         // Start - Language Change
-        setLanguage();
+        LanguageController.getInstance().setLanguage(TestActivity.this);
+
         changeLanguageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
@@ -190,27 +193,4 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 //        });
 //    }
 
-    private void setLanguage() {
-
-        SharedPreferences preferences = getSharedPreferences("language", Context.MODE_PRIVATE);
-        int language = preferences.getInt("language", 0);
-
-        Resources resources = getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-
-        switch (language){
-            case 0:
-                configuration.setLocale(Locale.ENGLISH);
-                break;
-            case 1:
-                configuration.setLocale(Locale.CHINESE);
-                break;
-            default:
-                break;
-        }
-
-        resources.updateConfiguration(configuration,displayMetrics);
-
-    }
 }

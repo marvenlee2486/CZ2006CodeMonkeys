@@ -10,6 +10,11 @@ import android.widget.Toast;
 
 import com.CodeMonkey.saveme.R;
 
+/***
+ * RegisterMainPage created by Luo Yihang 12/02/2022
+ *
+ */
+
 public class RegisterMainPage extends BaseActivity implements View.OnClickListener{
 
     private EditText phoneNum;

@@ -58,4 +58,8 @@
     <string name="home_address_location">Home Address Location*</string>
     <string name="work_address_location">Work Address Location*</string>
     <string name="back">back</string>
+    <string name="change_language">Change Language</string>
+    <string name="achievements">Achievements</string>
+    <string name="help_and_feedback">Help and Feedback</string>
+    <string name="user_profile">User Profile</string>
 </resources>

@@ -107,7 +107,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
 
-
+// TODO: remove comment before push
         tcpManager.sendLocation(this);
         if (getIntent().getStringExtra("type") == null){
             changeColor(Color.parseColor("#0013C2"));

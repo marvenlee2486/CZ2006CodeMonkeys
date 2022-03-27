@@ -15,9 +15,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="150dp"
+        android:paddingHorizontal="20dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
+        <Button
+            android:id="@+id/btnuserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:background="@drawable/btn_edge_color"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/user_profile"
+            android:layout_marginBottom="30dp"
+            />
+
+        <Button
+            android:id="@+id/btnHelpFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:background="@drawable/btn_edge_color"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/help_and_feedback"
+            android:layout_marginBottom="30dp"/>
+
+        <Button
+            android:id="@+id/btnAchiev"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:background="@drawable/btn_edge_color"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/achievements"
+            android:layout_marginBottom="30dp"/>
+        <Button
+            android:id="@+id/btnLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:background="@drawable/btn_edge_color"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@string/change_language"
+            android:layout_marginBottom="50dp"/>
 
 
     </LinearLayout>

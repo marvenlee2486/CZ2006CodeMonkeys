@@ -10,6 +10,12 @@ import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.R;
 
+
+/***
+ * RegisterSubPage created by Luo Yihang 12/02/2022
+ *
+ */
+
 public class RegisterSubPage extends BaseActivity implements View.OnClickListener{
 
     private EditText name;
