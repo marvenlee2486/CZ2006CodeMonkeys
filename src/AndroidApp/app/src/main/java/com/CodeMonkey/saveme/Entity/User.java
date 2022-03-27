@@ -1,11 +1,11 @@
 
 package com.CodeMonkey.saveme.Entity;
 
+import android.location.Location;
+
 import com.google.gson.JsonObject;
 
 import java.util.List;
-
-import javax.swing.text.html.ImageView;
 
 import java.sql.Timestamp;
 
@@ -99,6 +99,6 @@ public class User {
     }
 
     public List<String> getMedicalConditions(){
-        return emergencyContactNumber;
+        return medicalConditions;
     }
 }

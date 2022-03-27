@@ -1,10 +1,10 @@
 package com.CodeMonkey.saveme.Entity;
 
+import android.widget.ImageView;
+
 import com.google.gson.JsonObject;
 
 import java.util.List;
-
-import javax.swing.text.html.ImageView;
 
 import java.sql.Timestamp;
 

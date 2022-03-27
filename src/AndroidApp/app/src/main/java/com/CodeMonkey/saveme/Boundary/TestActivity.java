@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.CodeMonkey.saveme.Entity.NewsRspAll;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
@@ -176,23 +175,23 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
-    private void initData() {
-        RequestUtil.getNews(new Observer<NewsRspAll>() {
-            @Override
-            public void onCompleted() {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i("retrofit==111=", "Error："+e.getMessage());
-            }
-
-            @Override
-            public void onNext(NewsRspAll newsRspAll) {
-                Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void initData() {
+//        RequestUtil.getNews(new Observer<NewsRspAll>() {
+//            @Override
+//            public void onCompleted() {
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.i("retrofit==111=", "Error："+e.getMessage());
+//            }
+//
+//            @Override
+//            public void onNext(NewsRspAll newsRspAll) {
+//                Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void setLanguage() {
 

@@ -147,8 +147,8 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     }
 
     private void stateDetect(){
-//        fragmentSwitch(regVolPageFrag);
-        fragmentSwitch(rescuePageFrag);
+        fragmentSwitch(regVolPageFrag);
+//        fragmentSwitch(rescuePageFrag);
 //        fragmentSwitch(volPledgePageFrag);
 //        fragmentSwitch(noRequestRescuePageFrag);
     }

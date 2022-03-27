@@ -1,7 +1,6 @@
 package com.CodeMonkey.saveme.Util;
 
 import com.CodeMonkey.saveme.Controller.RetrofitManager;
-import com.CodeMonkey.saveme.Entity.NewsRspAll;
 
 import rx.Observable;
 import rx.Observer;
@@ -16,9 +15,9 @@ public class RequestUtil {
 
     private static HTTPUtil service = RetrofitManager.getInstance().create(HTTPUtil.class);
 
-    public static void getNews(Observer<NewsRspAll> observer) {
-        setSubscribe(service.getNews(), observer);
-    }
+//    public static void getNews(Observer<NewsRspAll> observer) {
+//        setSubscribe(service.getNews(), observer);
+//    }
 
     public static void getUserData(Observer<String> observer){
         setSubscribe(service.getUserData(), observer);

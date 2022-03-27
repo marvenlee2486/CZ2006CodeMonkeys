@@ -1,7 +1,10 @@
 package com.CodeMonkey.saveme.Entity;
 
+import android.location.Location;
+
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 

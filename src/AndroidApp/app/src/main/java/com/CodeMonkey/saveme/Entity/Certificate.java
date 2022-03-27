@@ -36,7 +36,7 @@ public class Certificate {
         return imgUrl;
     }
     
-    public void setIsVerified (String isVerified){
+    public void setIsVerified (boolean isVerified){
         this.isVerified = isVerified;
     }
 

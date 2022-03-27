@@ -56,7 +56,7 @@ public class SelectLocationPage extends FragmentActivity implements GoogleMap.On
         Toast.makeText(this, "Please tap on map to select your " + type, Toast.LENGTH_LONG).show();
         mMap = googleMap;
 
-        Location location = LocationUtils.getBestLocation(SelectLocationPage.this);
+        Location location = LocationUtils.getBestLocation(SelectLocationPage.this, null);
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
 

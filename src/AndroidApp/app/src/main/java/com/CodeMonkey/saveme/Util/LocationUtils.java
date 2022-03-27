@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -53,19 +54,23 @@ public class LocationUtils {
     /**
      * Best location
      */
-    public static Location getBestLocation(Context context) {
+    public static Location getBestLocation(Context context, Location lastLocation) {
         Location location;
-        LocationManager manager = getLocationManager(context);
-        Criteria criteria = new Criteria();
-        String provider = manager.getBestProvider(criteria, true);
-        if (TextUtils.isEmpty(provider)) {
+        location = getGPSLocation(context);
+        if (location == null) {
             location = getNetWorkLocation(context);
-        } else {
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return null;
+            if (location == null){
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return null;
+                }
+                LocationManager manager = getLocationManager(context);
+                Criteria criteria = new Criteria();
+                String provider = manager.getBestProvider(criteria, true);
+                location = manager.getLastKnownLocation(provider);
+                if (location == null)
+                    location = lastLocation;
             }
-            location = manager.getLastKnownLocation(provider);
         }
         return location;
     }
