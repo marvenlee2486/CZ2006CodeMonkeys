@@ -1,5 +1,5 @@
 ESSENTIAL
--Add google maps api integration
+-Get last modified datetime from s3 by sending HEAD req
 -Update class diagram and seq diagram
 REFACTOR
 -Split up functions

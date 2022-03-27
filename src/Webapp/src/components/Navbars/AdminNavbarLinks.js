@@ -2,6 +2,7 @@
 import { BellIcon, SearchIcon } from "@chakra-ui/icons";
 // Chakra Imports
 import {
+  Box,
   Button,
   Flex,
   IconButton,
@@ -25,7 +26,7 @@ import { ProfileIcon, SettingsIcon } from "components/Icons/Icons";
 import { ItemContent } from "components/Menu/ItemContent";
 import { SidebarResponsive } from "components/Sidebar/Sidebar";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
@@ -40,7 +41,12 @@ export default function HeaderLinks(props) {
   let mainText = useColorModeValue("gray.700", "gray.200");
   let navbarIcon = useColorModeValue("gray.500", "gray.200");
   let searchIcon = useColorModeValue("gray.700", "gray.200");
+  // console.log(Auth.currentUserInfo())
 
+  const [username, setUsername] = useState("User")
+  useEffect(()=>{
+    Auth.currentUserInfo().then(info=>setUsername(info.username));
+  },[]) 
   if (secondary) {
     navbarIcon = "white";
     mainText = "white";
@@ -53,7 +59,7 @@ export default function HeaderLinks(props) {
       alignItems="center"
       flexDirection="row"
     >
-      <InputGroup
+      {/* <InputGroup
         cursor="pointer"
         bg={inputBg}
         borderRadius="15px"
@@ -94,8 +100,8 @@ export default function HeaderLinks(props) {
           placeholder="Type here..."
           borderRadius="inherit"
         />
-      </InputGroup>
-      <Button
+      </InputGroup> */}
+      {/* <Button
         ms="0px"
         px="0px"
         me={{ sm: "2px", md: "16px" }}
@@ -123,9 +129,18 @@ export default function HeaderLinks(props) {
           }
           catch (e){console.log("error signing out ", e)}
         }}
+      > */}
+      <Box 
+        ms="0px"
+        px="0px"
+        me={{ sm: "2px", md: "16px" }}
+        color={navbarIcon}
+        variant="transparent-with-icon"
       >
-        <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
-      </Button>
+        <Text display={{ sm: "none", md: "flex" }}>Welcome &nbsp;
+        <Text style={{fontWeight:"bold"}} color="blue">{username}</Text> &nbsp; !</Text>
+      </Box>
+      {/* </Button> */}
       <SidebarResponsive
         logoText={props.logoText}
         secondary={props.secondary}

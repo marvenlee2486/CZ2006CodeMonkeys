@@ -96,24 +96,23 @@ function Tables() {
             <Thead>
               <Tr my=".8rem" pl="0px">
                 <Th pl="0px" color="gray.400">
-                  Username
+                  Name
                 </Th>
-                <Th color="gray.400">Upload Date</Th>
+                {/* <Th color="gray.400">Upload Date</Th> */}
                 <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
-              {certificatesTableData.map((row) => {
-                return (
-                  <TablesProjectRow
-                    name={row.username}
-                    logo={row.logo}
-                    // status={row.status}
-                    // budget={row.budget}
-                    date={row.date}
-                    // progression={row.progression}
-                  />
-                );
+              {usersData.map((row) => {
+                if (row.volunteerStatus && row.volunteerStatus=="Pending"){
+                  return (
+                    <TablesProjectRow
+                      name={row.name}
+                      s3url = {row.certS3BucketLink}
+                      date={row.date}
+                    />
+                  );
+                }
               })}
             </Tbody>
           </Table>

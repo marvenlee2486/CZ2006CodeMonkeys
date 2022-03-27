@@ -20,6 +20,7 @@ import { Separator } from "components/Separator/Separator";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { FaTwitter, FaFacebook } from "react-icons/fa";
+import { Auth } from "aws-amplify";
 
 export default function Configurator(props) {
   const { secondary, isOpen, onClose, fixed, ...rest } = props;
@@ -63,42 +64,6 @@ export default function Configurator(props) {
           </DrawerHeader>
           <DrawerBody w="340px" ps="24px" pe="40px">
             <Flex flexDirection="column">
-              <Box>
-                <Text fontSize="md" fontWeight="600">
-                  Sidenav Type
-                </Text>
-                <Text fontSize="sm" mb="16px">
-                  Choose between 2 different sidenav types.
-                </Text>
-                <Flex>
-                  <Button
-                    w="50%"
-                    p="8px 32px"
-                    me="8px"
-                    colorScheme="teal"
-                    borderColor="teal.300"
-                    color="teal.300"
-                    variant="outline"
-                    fontSize="xs"
-                    onClick={props.onTransparent}
-                  >
-                    Transparent
-                  </Button>
-                  <Button
-                    type="submit"
-                    bg="teal.300"
-                    w="50%"
-                    p="8px 32px"
-                    mb={5}
-                    _hover="teal.300"
-                    color="white"
-                    fontSize="xs"
-                    onClick={props.onOpaque}
-                  >
-                    Opaque
-                  </Button>
-                </Flex>
-              </Box>
               <Box
                 display={fixedDisplay}
                 justifyContent="space-between "
@@ -133,7 +98,19 @@ export default function Configurator(props) {
                   Toggle {colorMode === "light" ? "Dark" : "Light"}
                 </Button>
               </Flex>
-
+              <Button 
+                backgroundColor="red" 
+                marginBottom='2em'
+                onClick = {async ()=>{
+                  try {
+                    console.log("signing out");
+                    await Auth.signOut();
+                    window.location.reload(false);
+                  }
+                  catch (e){console.log("error signing out ", e)}
+                }}>
+                <Text>Sign out</Text>
+              </Button>
               <Separator />
             </Flex>
           </DrawerBody>

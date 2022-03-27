@@ -41,6 +41,7 @@ function Sidebar(props) {
   };
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const createLinks = (routes) => {
+
     const { sidebarVariant } = props;
     // Chakra Color Mode
     let activeBg = useColorModeValue("white", "gray.700");
@@ -56,9 +57,8 @@ function Sidebar(props) {
       inactiveColor = useColorModeValue("gray.400", "gray.400");
       sidebarActiveShadow = "none";
     }
-
     return routes.map((prop, key) => {
-      if (prop.redirect) {
+      if (prop.redirect || prop.name=="ACCOUNT PAGES") {
         return null;
       }
       if (prop.category) {
@@ -287,7 +287,7 @@ export function SidebarResponsive(props) {
     const inactiveColor = useColorModeValue("gray.400", "gray.400");
 
     return routes.map((prop, key) => {
-      if (prop.redirect) {
+      if (prop.redirect || prop.name=="ACCOUNT PAGES") {
         return null;
       }
       if (prop.category) {

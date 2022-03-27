@@ -50,8 +50,6 @@ import { barChartOptions } from "variables/charts";
 
 export default function Dashboard() {
 	//variables--------------------------------------------------------------
-
-	
 	const [locationdata, setLocationData] = useState({state:"disconnected",data:[]});
 
 	// Chakra Color Mode
@@ -60,8 +58,6 @@ export default function Dashboard() {
 	const iconBoxInside = useColorModeValue("white", "white");
 	const textColor = useColorModeValue("gray.700", "white");
 	const history = useHistory();
-	const [dateofthing, setDateshow] = useState(0);
-	const [usersData, setUsersData] = useState();
 	const [lineChartData, setLineChartData] = useState([
 		{
 		  name: "Normal Users",
@@ -120,7 +116,6 @@ export default function Dashboard() {
 			)
 		var res = await res.json()
 		console.log(res)
-		setUsersData(res)
 
 		//Set user monthly statistics
 		let monthlyUserData = [0,0,0,0,0,0,0,0,0];
