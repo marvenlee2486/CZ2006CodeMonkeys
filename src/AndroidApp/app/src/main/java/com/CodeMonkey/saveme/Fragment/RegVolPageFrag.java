@@ -12,6 +12,8 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +27,17 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import rx.Observer;
 
 /***
  * RegVolPageFrag created by Wang Tianyu 14/02/2022
@@ -84,6 +94,11 @@ public class RegVolPageFrag extends Fragment {
                         String path = cursor.getString(index);
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        FileInputStream file = new FileInputStream(path);
+                        byte[] base64Data = new byte[file.available()];
+                        file.read(base64Data);
+                        String base64 = Base64.encodeToString(base64Data, Base64.NO_CLOSE);
+                        Log.e("test", base64);
                         warningIcon.setImageResource(R.drawable.image_icon);
                         warningIcon.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -91,7 +106,8 @@ public class RegVolPageFrag extends Fragment {
                                 showDialog(bitmap);
                             }
                         });
-                        File file = new File(path);
+                        initData(base64);
+                        file.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -113,6 +129,33 @@ public class RegVolPageFrag extends Fragment {
         });
         dialog.show();
         dialog.setCanceledOnTouchOutside(true);
+    }
+
+    private void initData(String data) {
+        Certificate certificate = new Certificate();
+        certificate.setFileData(data);
+        certificate.setPhoneNumber("88499185");
+        RequestUtil.postCertData(new Observer<ResponseBody>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("ji", e.getMessage());
+            }
+
+            @Override
+            public void onNext(ResponseBody certificate) {
+                Log.e("test", "Success");
+                try {
+                    Log.e("!!!!!!!!!!!!!!!!!!!!", certificate.string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, certificate);
     }
 
 

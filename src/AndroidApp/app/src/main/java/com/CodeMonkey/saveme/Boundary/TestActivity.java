@@ -9,16 +9,27 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.Controller.LanguageController;
+import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.User;
+import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
+
+import rx.Observer;
 
 
 /***
@@ -167,7 +178,23 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 intent = new Intent(TestActivity.this, SignInPage.class);
                 break;
             case R.id.mapTest:
-                NotificationUtil.createNotification(TestActivity.this, "test", "test");
+                initData();
+//                RequestUtil.getCertData(new Observer<String>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.e("test",e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Log.e("test",s);
+//                    }
+//                });
                 break;
         }
         if (view.getId() != R.id.mapTest)
@@ -175,22 +202,23 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
-//    private void initData() {
-//        RequestUtil.getNews(new Observer<NewsRspAll>() {
-//            @Override
-//            public void onCompleted() {
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.i("retrofit==111=", "Error："+e.getMessage());
-//            }
-//
-//            @Override
-//            public void onNext(NewsRspAll newsRspAll) {
-//                Toast.makeText(TestActivity.this,  newsRspAll.getTotalResults()+"", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void initData() {
+        RequestUtil.getUserData(new Observer<UserRsp>() {
+            @Override
+            public void onCompleted() {
+                Log.e("test","?");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("retrofit==111=", "Error："+e.getMessage());
+            }
+
+            @Override
+            public void onNext(UserRsp userRsp) {
+                Log.e("test", userRsp.getBody().toString());
+            }
+        }, "88499181");
+    }
 
 }

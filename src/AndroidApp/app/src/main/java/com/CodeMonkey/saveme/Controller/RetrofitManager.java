@@ -1,5 +1,7 @@
 package com.CodeMonkey.saveme.Controller;
 
+import android.os.Handler;
+
 import com.CodeMonkey.saveme.Util.URLUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -16,21 +18,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitManager {
 
-    private static final int DEFAULT_CONNECT_TIME = 10;
-    private static final int DEFAULT_WRITE_TIME = 30;
-    private static final int DEFAULT_READ_TIME = 30;
-    private final OkHttpClient okHttpClient;
+    private OkHttpClient okHttpClient;
     private String requestPath = URLUtil.dynamoDBAPIBase;
-    private final Retrofit retrofit;
+    private Retrofit retrofit;
+    private volatile static RetrofitManager retrofitManager;
 
     private RetrofitManager() {
 
-
-        okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(DEFAULT_CONNECT_TIME, TimeUnit.SECONDS)
-                .writeTimeout(DEFAULT_WRITE_TIME, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_READ_TIME, TimeUnit.SECONDS)
-                .build();
+        okHttpClient = new OkHttpClient.Builder().build();
 
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
@@ -41,12 +36,15 @@ public class RetrofitManager {
 
     }
 
-    private static class SingletonHolder {
-        private static final RetrofitManager INSTANCE = new RetrofitManager();
-    }
-
-    public static RetrofitManager getInstance() {
-        return SingletonHolder.INSTANCE;
+    public static RetrofitManager getRetrofitManager(){
+        if (retrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (retrofitManager == null){
+                    retrofitManager = new RetrofitManager();
+                }
+            }
+        }
+        return retrofitManager;
     }
 
     public <T> T create(Class<T> service) {

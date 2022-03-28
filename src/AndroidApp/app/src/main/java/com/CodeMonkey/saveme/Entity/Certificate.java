@@ -6,46 +6,25 @@ import java.util.List;
 import java.sql.Timestamp;
 
 public class Certificate {
-    private String type;
-    private String name;
-    private String imgUrl;
-    private boolean isVerified;
-   
-    
-    public void setType(String type){
-        this.type = type;
+
+    private String phoneNumber;
+    private String fileData;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getType(){
-        return type;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public String getFileData() {
+        return fileData;
     }
 
-    public String getName(){
-        return name;
+    public void setFileData(String fileData) {
+        this.fileData = fileData;
     }
-
-    public void setImgUrl(String imgUrl){
-        this.imgUrl = imgUrl;
-    }
-
-    public String getImgUrl(){
-        return imgUrl;
-    }
-    
-    public void setIsVerified (boolean isVerified){
-        this.isVerified = isVerified;
-    }
-
-    public boolean getIsVerified(){
-        return isVerified;
-    }
-
-
-
 
 
 }
