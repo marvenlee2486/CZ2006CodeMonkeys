@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1.5"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -109,23 +109,7 @@
                 android:textSize="34sp">
             </TextView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/additional_information_for_rescuers"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="22sp">
-            </TextView>
 
-            <EditText
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:inputType="text"
-                android:background="@drawable/custom_input_box">
-            </EditText>
 
         </LinearLayout>
 
