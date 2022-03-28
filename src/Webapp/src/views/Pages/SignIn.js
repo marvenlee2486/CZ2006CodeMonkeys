@@ -35,6 +35,7 @@ function SignIn() {
   const [show, setShow] = React.useState(false)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [welcome, setWelcome] = React.useState('Welcome Back')
   //util functions
   const handleClick = () => setShow(!show)
   const handleSubmit = async (event) => {
@@ -59,6 +60,7 @@ function SignIn() {
       if (key=="Codemonkeys9503958$$") {
         setUsername("codemonkeysDEMO");
         setPassword(key);
+        setWelcome("Welcome to SAVE ME APP demo!");
       }
     }catch(e){console.log(e)}
   }
@@ -90,7 +92,7 @@ function SignIn() {
             justifyContent='center'
           >
             <Heading color={titleColor} fontSize="32px" mb="10px">
-              Welcome Back
+              {welcome}
             </Heading>
             <Text
               mb="36px"

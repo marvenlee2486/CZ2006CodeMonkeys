@@ -43,7 +43,7 @@ function Tables() {
 			)
 		var res = await res.json()
     setusersData(res)
-    const pending = res.filter(row=>row.volunteerStatus && row.volunteerStatus=="Pending")
+    const pending = res.filter(row=>row.isVolunteer && row.isVolunteer=="PENDING")
     setPendingData(pending);
   }
 
@@ -75,7 +75,7 @@ function Tables() {
                     phonenumber={row.phoneNumber}
                     name={row.name}
                     age={row.age}
-                    status={row.volunteerStatus}
+                    status={row.isVolunteer}
                     date={row.date_joined}
                   />
                 );
@@ -111,7 +111,7 @@ function Tables() {
                   return (
                     <TablesProjectRow
                       name={row.name}
-                      s3url = {row.certS3BucketLink}
+                      s3url = {row.certificateUrl}
                       date={row.date}
                       phoneNumber = {row.phoneNumber}
                     />

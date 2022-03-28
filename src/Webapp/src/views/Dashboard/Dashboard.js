@@ -131,7 +131,7 @@ export default function Dashboard() {
 				for (let i=0;i<9;i++){
 					monthsSet.push(months[monthcheck.getMonth()]);
 					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
-						if (data.volunteer) monthlyVolunteerData[i]+=1;
+						if (data.isVolunteer=="YES") monthlyVolunteerData[i]+=1;
 						else monthlyUserData[i]+=1;
 					}
 				}

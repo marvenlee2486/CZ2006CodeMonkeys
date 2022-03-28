@@ -71,13 +71,13 @@ function TablesTableRow(props) {
       <Td pl="0px" >
         <Flex >
         <Badge
-          bg={status=="Approved" ? "green.600" : bgStatus}
-          color={status=="Approved" ? "white" : colorStatus}
+          bg={status=="YES" ? "green.600" : bgStatus}
+          color={status=="YES" ? "white" : colorStatus}
           fontSize="16px"
           p="3px 10px"
           borderRadius="8px"
         >
-          {status=="Approved"?"Volunteer":"Normal User"}
+          {status=="YES"?"Volunteer":"Normal User"}
         </Badge>
         </Flex>
       </Td>
