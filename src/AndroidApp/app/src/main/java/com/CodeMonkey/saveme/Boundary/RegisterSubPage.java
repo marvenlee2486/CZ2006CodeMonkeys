@@ -2,13 +2,20 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
+
+import rx.Observer;
 
 
 /***
@@ -19,13 +26,18 @@ import com.CodeMonkey.saveme.R;
 public class RegisterSubPage extends BaseActivity implements View.OnClickListener{
 
     private EditText name;
-    private EditText nric;
     private EditText homeAddress;
     private TextView homeAddressLocation;
     private EditText workAddress;
     private TextView workAddressLocation;
     private String exactHomeAddress;
     private String exactWorkAddress;
+    private EditText age;
+    private EditText emergencyContactName;
+    private EditText emergencyContactNumber;
+    private Button backButton;
+    private Button allowButton;
+    private User user;
 
 
     @Override
@@ -38,14 +50,21 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
     private void init(){
 
         name = findViewById(R.id.name);
-        nric = findViewById(R.id.NRIC);
         homeAddress = findViewById(R.id.homeAddress);
         homeAddressLocation = findViewById(R.id.homeAddressLocation);
         workAddress = findViewById(R.id.workAddress);
         workAddressLocation = findViewById(R.id.workAddressLocation);
+        age = findViewById(R.id.age);
+        emergencyContactName = findViewById(R.id.emergencyContactName);
+        emergencyContactNumber = findViewById(R.id.emergencyContactNum);
+        backButton = findViewById(R.id.backButton);
+        allowButton = findViewById(R.id.allowButton);
 
         homeAddressLocation.setOnClickListener(this);
         workAddressLocation.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+        allowButton.setOnClickListener(this);
+
 
     }
 
@@ -63,6 +82,29 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
                 intent.putExtra("Type", "work address");
                 startActivityForResult(intent, 2);
                 break;
+            case R.id.backButton:
+                finish();
+                break;
+            case R.id.allowButton:
+                if (check()){
+                    storeData();
+                    RequestUtil.postUserData(new Observer<User>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(User user) {
+
+                        }
+                    }, user);
+                }
         }
     }
 
@@ -83,5 +125,43 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
                 workAddressLocation.setText(workAddressString);
                 break;
         }
+    }
+
+    private boolean check(){
+        if (name.getText().toString().equals("")){
+            Toast.makeText(this, "You have not input name!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (homeAddress.getText().toString().equals("")){
+            Toast.makeText(this, "You have not input home address!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (homeAddressLocation.getText().toString().equals("")){
+            Toast.makeText(this, "You have not select home address location!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (workAddress.getText().toString().equals("")){
+            Toast.makeText(this, "You have not input work address!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (workAddressLocation.getText().toString().equals("")){
+            Toast.makeText(this, "You have not select work address location!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void storeData(){
+        user.setName(name.getText().toString());
+        user.setHomeAddress(homeAddress.getText().toString());
+        user.setHomeLocation(homeAddressLocation.getText().toString());
+        user.setWorkAddress(workAddress.getText().toString());
+        user.setWorkLocation(workAddressLocation.getText().toString());
+        if (!age.getText().toString().equals(""))
+            user.setAge(age.getText().toString());
+        if (!emergencyContactName.getText().toString().equals(""))
+            user.setEmergencyContactName(emergencyContactName.getText().toString());
+        if (!emergencyContactNumber.getText().toString().equals(""))
+            user.setEmergencyContactNumber(emergencyContactNumber.getText().toString());
     }
 }

@@ -5,100 +5,160 @@ import android.location.Location;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.Timestamp;
 
 
 public class User {
-    private String id;
+
     private String phoneNumber;
-    private String name;
-    private String nric;
-    private Location homeAddress;
-    private Location workAddress;
-    private int age;
+    private List<String> achievementsName = new ArrayList<>();
+    private String homeAddress;
+    private String homeLocation;
+    private String workAddress;
+    private String workLocation;
+    private String certificateUrl;
     private String emergencyContactName;
     private String emergencyContactNumber;
-    private List<String> medicalConditions;
+    private List<String> medicalConditions = new ArrayList<>();
+    private String isVonlunteer;
+    private int numberOfRescue;
+    private String name;
+    private String age;
 
-    public void setId(String id){
-        this.id = id;
-    }
-
-    public String getId(){
-        return id;
-    }
-
-    public void setPhoneNumber(String phoneNumber){
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPhoneNumber(){
-        return phoneNumber;
+    public void setAchievementsName(List<String> achievementsName) {
+        this.achievementsName = achievementsName;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setNric(String nric){
-        this.nric = nric;
-    }
-
-    public String getNric(){
-        return nric;
-    }
-
-    public void setHomeAddress(Location homeAddress){
+    public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
     }
 
-    public Location getHomeAddress(){
-        return homeAddress;
+    public void setHomeLocation(String homeLocation) {
+        this.homeLocation = homeLocation;
     }
-    
-    public void setWorkAddress(Location workAddress){
+
+    public void setWorkAddress(String workAddress) {
         this.workAddress = workAddress;
     }
 
-    public Location getWorkAddress(){
-        return workAddress;
+    public void setWorkLocation(String workLocation) {
+        this.workLocation = workLocation;
     }
 
-    public void setAge(int age){
-        this.age = age;
+    public void setCertificateUrl(String certificateUrl) {
+        this.certificateUrl = certificateUrl;
     }
 
-    public int getAge(){
-        return age;
-    }
-
-    public void setEmergencyContactName(String emergencyContactName){
+    public void setEmergencyContactName(String emergencyContactName) {
         this.emergencyContactName = emergencyContactName;
     }
 
-    public String getEmergencyContactName(){
-        return emergencyContactName;
-    }
-
-    public void setEmergencyContactNumber(String emergencyContactNumber){
+    public void setEmergencyContactNumber(String emergencyContactNumber) {
         this.emergencyContactNumber = emergencyContactNumber;
     }
 
-    public String getEmergencyContactNumber(){
-        return emergencyContactNumber;
-    }
-
-    public void setMedicalConditions(List<String> medicalConditions){
+    public void setMedicalConditions(List<String> medicalConditions) {
         this.medicalConditions = medicalConditions;
     }
 
-    public List<String> getMedicalConditions(){
+    public void setIsVonlunteer(String isVonlunteer) {
+        this.isVonlunteer = isVonlunteer;
+    }
+
+    public void setNumberOfRescue(int numberOfRescue) {
+        this.numberOfRescue = numberOfRescue;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public List<String> getAchievementsName() {
+        return achievementsName;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public String getHomeLocation() {
+        return homeLocation;
+    }
+
+    public String getWorkAddress() {
+        return workAddress;
+    }
+
+    public String getWorkLocation() {
+        return workLocation;
+    }
+
+    public String getCertificateUrl() {
+        return certificateUrl;
+    }
+
+    public String getEmergencyContactName() {
+        return emergencyContactName;
+    }
+
+    public String getEmergencyContactNumber() {
+        return emergencyContactNumber;
+    }
+
+    public List<String> getMedicalConditions() {
         return medicalConditions;
+    }
+
+    public String getIsVonlunteer() {
+        return isVonlunteer;
+    }
+
+    public int getNumberOfRescue() {
+        return numberOfRescue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", achievementsName=" + achievementsName +
+                ", homeAddress='" + homeAddress + '\'' +
+                ", homeLocation='" + homeLocation + '\'' +
+                ", workAddress='" + workAddress + '\'' +
+                ", workLocation='" + workLocation + '\'' +
+                ", certificateUrl='" + certificateUrl + '\'' +
+                ", emergencyContactName='" + emergencyContactName + '\'' +
+                ", emergencyContactNumber='" + emergencyContactNumber + '\'' +
+                ", medicalConditions=" + medicalConditions +
+                ", isVonlunteer='" + isVonlunteer + '\'' +
+                ", numberOfRescue=" + numberOfRescue +
+                ", name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                '}';
     }
 }

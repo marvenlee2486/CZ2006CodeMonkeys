@@ -32,11 +32,18 @@ function DashboardTableRow(props) {
 
 
   const approveCertificate = (decision) => {
-    decision=="Approved"?setaLoading(true):setbLoading(true)
+    let isvolunteer;
+    if (decision=="Approved"){
+      setaLoading(true);
+      isvolunteer="YES";
+    }else{
+      setbLoading(true);
+      isvolunteer="REJECTED";
+    }
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phoneNumber:phoneNumber,volunteerStatus: decision })
+      body: JSON.stringify({ phoneNumber:phoneNumber,isVolunteer: isvolunteer })
     };
     fetch('https://w75577htk6.execute-api.ap-southeast-1.amazonaws.com/production/dbuser', requestOptions)
       .then(response => response.json())
