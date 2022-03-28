@@ -75,6 +75,7 @@ export default function Dashboard() {
 	}])
 	const [barChartOptionsnew, setBarChartOptions] = useState(barChartOptions);
 	const [totalRescues, setTotalRescues] = useState({"No Response":0,"Responded":0})
+	const [pendingcerts, setPendingCerts] = useState(0);
 
 	//Functions-----------------------------------------------------------------
 	useEffect(() => {
@@ -115,7 +116,8 @@ export default function Dashboard() {
 				},
 			)
 		var res = await res.json()
-		console.log(res)
+		//Set pending certs
+		setPendingCerts(res.filter(row=>row.isVolunteer && row.isVolunteer=="PENDING").length);
 
 		//Set user monthly statistics
 		let monthlyUserData = [0,0,0,0,0,0,0,0,0];
@@ -266,11 +268,11 @@ export default function Dashboard() {
 					fontWeight="bold"
 					pb=".1rem"
 					>
-					Pending Certificate
+					Pending Certificates
 					</StatLabel>
 					<Flex>
 					<StatNumber fontSize="lg" color={textColor}>
-						38
+						{pendingcerts}
 					</StatNumber>
 					</Flex>
 				</Stat>
