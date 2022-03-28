@@ -8,104 +8,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/home_background">
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/morePageMask"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/more_page_mask"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="-60dp">
 
+                <TextView
+                    android:id="@+id/txtFAQ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="50sp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/faq" />
 
-            <Button
-                android:id="@+id/btnuserProfile"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:background="@color/gray"
-                android:gravity="left|center_vertical"
-                android:text="          www.SaveMeApp.com/FAQ" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txtFAQTitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/_1_why_do_you_need_my_location" />
 
+                <TextView
+                    android:id="@+id/txtFAQAnwser1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollHorizontally = "false"
+                    android:textSize="15sp"
+                    android:text="@string/save_me_requires_your_location_data_to_help_our_volunteer_rescuers_save_you_and_also_to_let_other_people_know_you_re_on_the_way_to_rescue_them_don_t_worry_we_only_use_location_when_the_app_is_active" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtFAQ"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:text="FAQ" />
-
-            <TextView
-                android:id="@+id/txtFAQTitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="1. Why do you need my location?" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="15"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="14">
-                    <TextView
-                        android:id="@+id/txtFAQAnwser1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollHorizontally = "false"
-                        android:textSize="15sp"
-                        android:text="Save Me requires your location data to help our volunteer rescuers save you and also to let other people know you’re on the way to rescue them. Don’t worry, we only use location when the app is active!" />
-                </LinearLayout>
-            </LinearLayout>
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
-
-    </LinearLayout>
 
     </LinearLayout>
 </FrameLayout>
