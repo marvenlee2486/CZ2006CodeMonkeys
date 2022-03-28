@@ -18,7 +18,6 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/save_me_logo" />
 
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -44,14 +43,14 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/location_service_icon"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/location_service_icon" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="83dp"
         android:layout_weight="1">
 
         <TextView
@@ -60,8 +59,8 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/locationServiceExplain"
-            android:textSize="15sp"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/gray"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

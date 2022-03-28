@@ -62,4 +62,7 @@
     <string name="achievements">Achievements</string>
     <string name="help_and_feedback">Help and Feedback</string>
     <string name="user_profile">User Profile</string>
+    <string name="faq">FAQ</string>
+    <string name="_1_why_do_you_need_my_location">1. Why do you need my location?</string>
+    <string name="save_me_requires_your_location_data_to_help_our_volunteer_rescuers_save_you_and_also_to_let_other_people_know_you_re_on_the_way_to_rescue_them_don_t_worry_we_only_use_location_when_the_app_is_active">Save Me requires your location data to help our volunteer rescuers save you and also to let other people know you’re on the way to rescue them. Don’t worry, we only use location when the app is active!</string>
 </resources>
