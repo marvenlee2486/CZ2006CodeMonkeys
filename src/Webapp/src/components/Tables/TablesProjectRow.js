@@ -23,11 +23,32 @@ import { FaEllipsisV } from "react-icons/fa";
 
 
 function DashboardTableRow(props) {
-  const { logo, name, date, progression, s3url } = props;
+  const {  name,s3url,phoneNumber } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [certURL, setCertURL] = useState("https://volunteercerticatebucket.s3.ap-southeast-1.amazonaws.com/cassie_yung_min.jpg");
-  
+  const [status, setStatus] = useState("View");
+  const [aloading, setaLoading] = useState(false);
+  const [bloading, setbLoading] = useState(false);
+
+
+  const approveCertificate = (decision) => {
+    decision=="Approved"?setaLoading(true):setbLoading(true)
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber:phoneNumber,volunteerStatus: decision })
+    };
+    fetch('https://w75577htk6.execute-api.ap-southeast-1.amazonaws.com/production/dbuser', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setStatus(decision);
+        onClose();
+        setaLoading(false);
+        setbLoading(false)
+      });
+  }
+
   return (
     <Tr>
       <Td minWidth={{ sm: "250px" }} pl="0px">
@@ -48,16 +69,24 @@ function DashboardTableRow(props) {
         </Text>
       </Td> */}
       <Td>
-        <Button p="0px" bg="transparent" onClick={onOpen}>
+        {status=="View"?
+        <Button p="0px" bg="transparent" variant="no-hover" onClick={onOpen} >
         <Text
-            fontSize="md"
-            color="blue.500"
-            fontWeight="bold"
-            cursor="pointer"
-          >
-            View
-          </Text>
-        </Button>
+          fontSize="md"
+          color="blue.500"
+          fontWeight="bold"
+        >
+          {status}
+        </Text>
+        </Button>:
+        <Text
+          fontSize="md"
+          color={status=="Approved"?"green.500":"red.500"}
+          fontWeight="bold"
+        >
+          {status}
+        </Text>
+      }
       </Td>
       <Modal isOpen={isOpen} onClose={onClose} size='lg'>
         <ModalOverlay />
@@ -71,10 +100,10 @@ function DashboardTableRow(props) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3}  onClick={() => alert("approved")}>
+            <Button isLoading={aloading} loadingText="Approving" colorScheme='blue' mr={3}  onClick={() => approveCertificate("Approved")}>
               Approve
             </Button>
-            <Button colorScheme='red' onClick={() => alert("Rejected")}>Reject</Button>
+            <Button isLoading={bloading} loadingText="Rejecting" colorScheme='red' onClick={() => approveCertificate("Rejected")}>Reject</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

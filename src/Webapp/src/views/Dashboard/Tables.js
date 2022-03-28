@@ -18,13 +18,16 @@ import TablesProjectRow from "components/Tables/TablesProjectRow";
 import TablesTableRow from "components/Tables/TablesTableRow";
 import { certificatesTableData, tablesTableData } from "variables/general";
 import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 
 
 function Tables() {
   const textColor = useColorModeValue("gray.700", "white");
   const [usersData, setusersData] = useState([]);
-  
+  const [pendingData, setPendingData] = useState([]);
+  const history = useHistory();
   useEffect(()=>{
+    Auth.currentUserInfo().then(current_user => {if (current_user===null) history.push("/auth/signin");})
     getUsersInfo();
   },[])
 
@@ -39,8 +42,9 @@ function Tables() {
 				},
 			)
 		var res = await res.json()
-		console.log(res)
     setusersData(res)
+    const pending = res.filter(row=>row.volunteerStatus && row.volunteerStatus=="Pending")
+    setPendingData(pending);
   }
 
 
@@ -71,7 +75,7 @@ function Tables() {
                     phonenumber={row.phoneNumber}
                     name={row.name}
                     age={row.age}
-                    status={row.volunteer}
+                    status={row.volunteerStatus}
                     date={row.date_joined}
                   />
                 );
@@ -99,20 +103,19 @@ function Tables() {
                   Name
                 </Th>
                 {/* <Th color="gray.400">Upload Date</Th> */}
-                <Th></Th>
+                <Th>Status</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {usersData.map((row) => {
-                if (row.volunteerStatus && row.volunteerStatus=="Pending"){
+              {pendingData.map((row) => {
                   return (
                     <TablesProjectRow
                       name={row.name}
                       s3url = {row.certS3BucketLink}
                       date={row.date}
+                      phoneNumber = {row.phoneNumber}
                     />
                   );
-                }
               })}
             </Tbody>
           </Table>

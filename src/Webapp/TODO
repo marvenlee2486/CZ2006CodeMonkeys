@@ -1,7 +1,7 @@
 ESSENTIAL
--Get last modified datetime from s3 by sending HEAD req
--Update class diagram and seq diagram
+-Connect to zhengyu wss
+-Lambda function for save me button websocket
+-change dynamoDB value to same as docs
 REFACTOR
 -Split up functions
 -Replace some states with useReducer
--Remove redux lol

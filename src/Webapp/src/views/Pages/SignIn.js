@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Chakra imports
 import {
   Box,
@@ -19,7 +19,7 @@ import {
 // Assets
 import signInImage from "assets/img/signInImage.png";
 import ambulance from "assets/img/ambulance.png";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import { AiOutlineConsoleSql } from "react-icons/ai";
@@ -49,6 +49,23 @@ function SignIn() {
     }
   };
 
+
+  //CHECK IF ITS DEMO USER
+  const location = useLocation();
+  const demousercheck = ()=> {
+    try{
+      const key = new URLSearchParams(location.search).get("DemoKey")
+      console.log(key)
+      if (key=="Codemonkeys9503958$$") {
+        setUsername("codemonkeysDEMO");
+        setPassword(key);
+      }
+    }catch(e){console.log(e)}
+  }
+
+  useEffect(() => {
+    demousercheck();
+  },[])
   return (
     <Flex position="relative" mb="40px">
       <Flex
@@ -98,6 +115,7 @@ function SignIn() {
                   placeholder="Your username"
                   size="lg"
                   onChange={event => setUsername(event.currentTarget.value)}
+                  value = {username}
                 />
               </InputGroup>
               <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
@@ -112,6 +130,7 @@ function SignIn() {
                   placeholder="Your password"
                   size="lg"
                   onChange={event => setPassword(event.currentTarget.value)}
+                  value = {password}
                 />
                 <InputRightElement width='4.5rem' style={{marginTop:3.5}}>
                   <Button h='1.75rem' size='sm' onClick={handleClick}>
