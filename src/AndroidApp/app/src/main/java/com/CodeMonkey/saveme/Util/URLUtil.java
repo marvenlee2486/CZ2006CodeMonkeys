@@ -12,9 +12,11 @@ public class URLUtil {
 
     public static final int tcpPort = 3391;
 
-    public static final String dynamoDBAPIBase = "https://w75577htk6.execute-api.ap-southeast-1.amazonaws.com/";
+    public static final String dynamoDBAPIBase = "https://w75577htk6.execute-api.ap-southeast-1.amazonaws.com/production/";
 
-    public static final String userData = "production";
+    public static final String userData = "dbuser";
+
+    public static final String certData = "cert";
 
     public static final String LTABase = "http://datamall2.mytransport.sg/";
 
