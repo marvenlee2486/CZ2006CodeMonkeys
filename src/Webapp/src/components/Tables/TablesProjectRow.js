@@ -32,6 +32,7 @@ function DashboardTableRow(props) {
 
 
   const approveCertificate = (decision) => {
+    let isvolunteer;
     if (decision=="Approved"){
       setaLoading(true);
       isvolunteer="YES";
