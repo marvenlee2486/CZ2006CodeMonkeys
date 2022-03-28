@@ -158,7 +158,7 @@ export default function HeaderLinks(props) {
         w="18px"
         h="18px"
       />
-      <Menu>
+      {/* <Menu>
         <MenuButton>
           <BellIcon color={navbarIcon} w="18px" h="18px" />
         </MenuButton>
@@ -193,7 +193,7 @@ export default function HeaderLinks(props) {
             </MenuItem>
           </Flex>
         </MenuList>
-      </Menu>
+      </Menu> */}
     </Flex>
   );
 }
