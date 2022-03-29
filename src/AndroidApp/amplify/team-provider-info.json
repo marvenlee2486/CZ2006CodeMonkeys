@@ -51,5 +51,53 @@
         }
       }
     }
+  },
+  "master": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-androidapp-master-234617-authRole",
+      "UnauthRoleArn": "arn:aws:iam::775226495607:role/amplify-androidapp-master-234617-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::775226495607:role/amplify-androidapp-master-234617-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-androidapp-master-234617-deployment",
+      "UnauthRoleName": "amplify-androidapp-master-234617-unauthRole",
+      "StackName": "amplify-androidapp-master-234617",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:775226495607:stack/amplify-androidapp-master-234617/35e14120-aeae-11ec-81bb-02810cf17f4c",
+      "AmplifyAppId": "d2yuyxw0mqju4v"
+    },
+    "categories": {
+      "function": {
+        "defaultDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultDefineAuthChallenge-454d47342b30722b6351-build.zip"
+        },
+        "defaultCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultCreateAuthChallenge-426d42776a662f365233-build.zip"
+        },
+        "defaultVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultVerifyAuthChallengeResponse-72587564504744336e57-build.zip"
+        },
+        "defaultCustomMessage": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultCustomMessage-77757053587836456d4b-build.zip"
+        },
+        "defaultPostConfirmation": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultPostConfirmation-5a4e38576947524b6537-build.zip"
+        },
+        "defaultPreSignup": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultPreSignup-4b6a5532344c56382f36-build.zip"
+        },
+        "defaultPreTokenGeneration": {
+          "deploymentBucketName": "amplify-androidapp-master-234617-deployment",
+          "s3Key": "amplify-builds/defaultPreTokenGeneration-39556b5575744a523049-build.zip"
+        }
+      },
+      "auth": {
+        "androidapp": {}
+      }
+    }
   }
 }

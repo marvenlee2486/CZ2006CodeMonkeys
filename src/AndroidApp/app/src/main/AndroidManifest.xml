@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.CodeMonkey.saveme" >
+    package="com.CodeMonkey.saveme">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,7 +17,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SaveMe" >
+        android:theme="@style/Theme.SaveMe">
+        <activity
+            android:name=".Boundary.AmplifyActivity"
+            android:exported="false" />
         <activity
             android:name=".Boundary.UserProfilePage"
             android:exported="false" />
@@ -57,7 +60,7 @@
         <activity
             android:name=".Boundary.TestActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

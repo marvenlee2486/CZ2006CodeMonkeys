@@ -2,13 +2,16 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.R;
+import com.amplifyframework.core.Amplify;
 
 /***
  * RegSignPage created by Luo Yihang 12/02/2022
@@ -20,6 +23,7 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
     private TextView resend;
     private TextView updateInfo;
     private Button confirm;
+    private EditText otpText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
         resend = findViewById(R.id.resend);
         updateInfo = findViewById(R.id.updateContactInfo);
         confirm = findViewById(R.id.allowButton);
+        otpText = findViewById(R.id.idEnterCode);
 
         resend.setOnClickListener(this);
         updateInfo.setOnClickListener(this);
@@ -47,13 +52,24 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
 
                 break;
             case R.id.updateContactInfo:
-                finish();
+                intent = new Intent(OTPPage.this, RegSignPage.class);
                 break;
             case R.id.allowButton:
+                onPressConfirm();
                 intent = new Intent(OTPPage.this, RegisterSubPage.class);
                 startActivity(intent);
                 break;
-
         }
+    }
+
+    private void onPressConfirm(){
+        //TODO: Figure out how to get session info, this way to get user name is wrong
+        System.out.println(Amplify.Auth.getCurrentUser().getUsername());
+        Amplify.Auth.confirmSignUp(
+                Amplify.Auth.getCurrentUser().getUsername(),
+                otpText.getText().toString(),
+                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
     }
 }

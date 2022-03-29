@@ -2,6 +2,7 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CodeMonkey.saveme.R;
+import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
+import com.amplifyframework.core.Amplify;
+
+import java.util.ArrayList;
 
 /***
  * RegisterMainPage created by Luo Yihang 12/02/2022
@@ -40,6 +48,14 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
 
         next.setOnClickListener(this);
         signIn.setOnClickListener(this);
+
+        try{
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.configure(getApplicationContext());
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -48,10 +64,8 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
         switch (view.getId()){
             case R.id.registerNextButton:
                 if (checkInput()) {
-                    intent = new Intent(RegisterMainPage.this, OTPPage.class);
-                    startActivity(intent);
+                    onPressSignUp();
                 }
-
                 break;
             case R.id.goToSignPageButton:
                 intent = new Intent(RegisterMainPage.this, SignInPage.class);
@@ -66,7 +80,7 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
             Toast.makeText(this, R.string.phoneNumNotCorrect, Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (psw.getText().toString().length() < 6) {
+        else if (psw.getText().toString().length() < 9) {
             Toast.makeText(this, R.string.pswTooShort, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -75,5 +89,23 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
             return false;
         }
         return true;
+    }
+
+    private void onPressSignUp(){
+
+        ArrayList<AuthUserAttribute> attributes = new ArrayList<>();
+        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.email(), "no@valid.com"));
+        attributes.add(new AuthUserAttribute(AuthUserAttributeKey.phoneNumber(), "+65" +  phoneNum.getText().toString()));
+
+        Amplify.Auth.signUp(
+                "+65" +  phoneNum.getText().toString(),
+                psw.getText().toString(),
+                AuthSignUpOptions.builder().userAttributes(attributes).build(),
+                result -> {
+                    Intent intent = new Intent(RegisterMainPage.this, OTPPage.class);
+                    startActivity(intent);
+                },
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
     }
 }

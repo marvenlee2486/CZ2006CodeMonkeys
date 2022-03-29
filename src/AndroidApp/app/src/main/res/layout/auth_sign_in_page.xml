@@ -60,6 +60,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:id="@+id/phoneNum"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
             android:hint="Phone Number*"
@@ -73,6 +74,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:id="@+id/password"
             android:background="@drawable/custom_input_box"
             android:paddingStart="12dp"
             android:hint="Password*"

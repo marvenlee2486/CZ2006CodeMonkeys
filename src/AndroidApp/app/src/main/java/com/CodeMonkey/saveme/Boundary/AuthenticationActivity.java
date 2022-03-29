@@ -11,6 +11,8 @@ import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.SignInUIOptions;
 import com.amazonaws.mobile.client.UserStateDetails;
 
+import com.CodeMonkey.saveme.R;
+
 public class AuthenticationActivity extends AppCompatActivity {
 
     private final String TAG = AuthenticationActivity.class.getSimpleName();
@@ -18,7 +20,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_authentication);
+        setContentView(R.layout.reg_sign_page);
 
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
 
@@ -50,7 +52,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     private void showSignIn() {
         try {
             AWSMobileClient.getInstance().showSignIn(this,
-                    SignInUIOptions.builder().nextActivity(TestActivity.class).build());
+                    SignInUIOptions.builder().nextActivity(AuthenticationActivity.class).build());
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
