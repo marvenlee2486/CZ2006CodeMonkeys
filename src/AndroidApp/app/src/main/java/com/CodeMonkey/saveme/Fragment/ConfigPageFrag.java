@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.CodeMonkey.saveme.Boundary.*;
 import com.CodeMonkey.saveme.R;
+import com.amplifyframework.core.Amplify;
 
 public class ConfigPageFrag extends Fragment {
 
@@ -26,6 +28,8 @@ public class ConfigPageFrag extends Fragment {
     private Button helpAndFeedbackButton;
     private Button AchievementsProfileButton;
     private Button ChangeLanguageButton;
+    private Button SignOutButton;
+
     private AlertDialog dialog;
 
     @Override
@@ -44,6 +48,7 @@ public class ConfigPageFrag extends Fragment {
         helpAndFeedbackButton = view.findViewById(R.id.btnHelpFeedback);
         AchievementsProfileButton = view.findViewById(R.id.btnAchiev);
         ChangeLanguageButton = view.findViewById(R.id.btnLanguage);
+        SignOutButton = view.findViewById(R.id.btnSignOut);
 
         ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -58,7 +63,6 @@ public class ConfigPageFrag extends Fragment {
             }
         });
 
-
         helpAndFeedbackButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), FAQPage.class);
@@ -70,6 +74,16 @@ public class ConfigPageFrag extends Fragment {
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), AchievementsPage.class);
                 startActivity(intent);
+            }
+        });
+
+        SignOutButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Amplify.Auth.signOut(
+                        () -> Log.i("Auth", "Signed out successfully"),
+                        error -> Log.e("Auth", error.toString())
+                );
+                System.exit(0);
             }
         });
 

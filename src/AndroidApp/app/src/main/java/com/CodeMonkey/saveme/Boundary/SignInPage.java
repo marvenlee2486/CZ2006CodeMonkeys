@@ -42,19 +42,6 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
 
         next.setOnClickListener(this);
         forgetPsw.setOnClickListener(this);
-
-        try{
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-
-        Amplify.Auth.fetchAuthSession(
-                result -> Log.i("AmplifyQuickstart", result.toString()),
-                error -> Log.e("AmplifyQuickstart", error.toString())
-        );
     }
 
     @Override
@@ -71,15 +58,16 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
     }
 
     public void onPressLogin(View view) {
-            System.out.println("here");
             EditText txtPhoneNum = findViewById(R.id.phoneNum);
             EditText txtPassword = findViewById(R.id.password);
 
             Amplify.Auth.signIn(
                     "+65" + txtPhoneNum.getText().toString(),
                     txtPassword.getText().toString(),
-                    result -> {Intent intent = new Intent(this, TestActivity.class);
-                        startActivity(intent);},
+                    result -> {
+                        Intent intent = new Intent(this, TestActivity.class);
+                        startActivity(intent);
+                        finish();},
                     error -> {Toast.makeText(this, "Log in failed, please check your phone number or password", Toast.LENGTH_SHORT).show();}
             );
 

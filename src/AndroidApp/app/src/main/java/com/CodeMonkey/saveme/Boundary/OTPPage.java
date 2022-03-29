@@ -25,6 +25,8 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
     private Button confirm;
     private EditText otpText;
 
+    private String phoneNumString;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,9 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
         resend.setOnClickListener(this);
         updateInfo.setOnClickListener(this);
         confirm.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        phoneNumString = "+65" + intent.getStringExtra("phoneNum");
     }
 
     @Override
@@ -63,12 +68,12 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
     }
 
     private void onPressConfirm(){
-        //TODO: Figure out how to get session info, this way to get user name is wrong
-        System.out.println(Amplify.Auth.getCurrentUser().getUsername());
         Amplify.Auth.confirmSignUp(
-                Amplify.Auth.getCurrentUser().getUsername(),
+                phoneNumString,
                 otpText.getText().toString(),
-                result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
+                result -> {
+                    Log.i("Auth", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
+                },
                 error -> Log.e("AuthQuickstart", error.toString())
         );
     }

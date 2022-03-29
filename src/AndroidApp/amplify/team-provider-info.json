@@ -96,7 +96,7 @@
         }
       },
       "auth": {
-        "androidapp": {}
+        "savemeandroid": {}
       }
     }
   }

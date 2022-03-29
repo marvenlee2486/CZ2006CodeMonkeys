@@ -23,6 +23,8 @@ import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.RequestUtil;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.core.Amplify;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,6 +148,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
             }
         });
         // End - Language Change
+
     }
 
     @Override

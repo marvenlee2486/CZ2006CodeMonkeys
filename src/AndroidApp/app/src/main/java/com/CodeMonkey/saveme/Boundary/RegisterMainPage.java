@@ -48,14 +48,6 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
 
         next.setOnClickListener(this);
         signIn.setOnClickListener(this);
-
-        try{
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
     }
 
     @Override
@@ -92,7 +84,6 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
     }
 
     private void onPressSignUp(){
-
         ArrayList<AuthUserAttribute> attributes = new ArrayList<>();
         attributes.add(new AuthUserAttribute(AuthUserAttributeKey.email(), "no@valid.com"));
         attributes.add(new AuthUserAttribute(AuthUserAttributeKey.phoneNumber(), "+65" +  phoneNum.getText().toString()));
@@ -103,7 +94,9 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
                 AuthSignUpOptions.builder().userAttributes(attributes).build(),
                 result -> {
                     Intent intent = new Intent(RegisterMainPage.this, OTPPage.class);
+                    intent.putExtra("phoneNum", phoneNum.getText().toString());
                     startActivity(intent);
+                    finish();
                 },
                 error -> Log.e("AuthQuickstart", error.toString())
         );
