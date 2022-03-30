@@ -1,10 +1,8 @@
 from geotool import *
-import dbConnector
-import tcpManager
-import websocketManager
+from dbConnector import initDB
+from ServerDemo.rescueManager import initTCP
+from websocketManager import initWebsocket
 
 if __name__ == "__main__":
-    dbConnector.initDB() 
-    tcpManager.initTCP()
-    websocketManager.initWebsocket()
+    initDB(); initTCP(); initWebsocket()
     
