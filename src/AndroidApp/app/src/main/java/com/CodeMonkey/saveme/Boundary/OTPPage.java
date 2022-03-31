@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.core.Amplify;
 
 /***
@@ -24,8 +26,9 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
     private TextView updateInfo;
     private Button confirm;
     private EditText otpText;
-
+    private Intent intent;
     private String phoneNumString;
+    private String psw;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +48,9 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
         updateInfo.setOnClickListener(this);
         confirm.setOnClickListener(this);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         phoneNumString = "+65" + intent.getStringExtra("phoneNum");
+        psw = intent.getStringExtra("password");
     }
 
     @Override
@@ -58,11 +62,10 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.updateContactInfo:
                 intent = new Intent(OTPPage.this, RegSignPage.class);
+                startActivity(intent);
                 break;
             case R.id.allowButton:
                 onPressConfirm();
-                intent = new Intent(OTPPage.this, RegisterSubPage.class);
-                startActivity(intent);
                 break;
         }
     }
@@ -72,7 +75,26 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
                 phoneNumString,
                 otpText.getText().toString(),
                 result -> {
-                    Log.i("Auth", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
+                    Amplify.Auth.signIn(
+                            phoneNumString,
+                            psw,
+                            result2 ->{
+                                Amplify.Auth.fetchAuthSession(
+                                        result3 -> {
+                                            AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result3;
+                                            String token = cognitoAuthSession.getUserPoolTokens().getValue().getIdToken();
+                                            UserController.getUserController().setToken(token);
+                                            Log.e("token", UserController.getUserController().getToken());
+                                            UserController.getUserController().getUser().setPhoneNumber(intent.getStringExtra("phoneNum"));
+                                            Log.i("Auth", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
+                                            intent = new Intent(OTPPage.this, RegisterSubPage.class);
+                                            startActivity(intent);
+                                        },
+                                        error -> Log.e("Auth token failed", error.toString())
+                                );
+                            },
+                            error2 ->{}
+                    );
                 },
                 error -> Log.e("AuthQuickstart", error.toString())
         );

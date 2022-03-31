@@ -8,7 +8,16 @@ import java.sql.Timestamp;
 public class Certificate {
 
     private String phoneNumber;
+    private String fileExtension;
     private String fileData;
+
+    public String getFileExtension(){
+        return fileExtension;
+    }
+
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

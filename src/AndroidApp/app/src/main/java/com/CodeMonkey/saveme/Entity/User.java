@@ -23,7 +23,7 @@ public class User {
     private String emergencyContactName;
     private String emergencyContactNumber;
     private List<String> medicalConditions = new ArrayList<>();
-    private String isVonlunteer;
+    private String isVolunteer;
     private int numberOfRescue;
     private String name;
     private String age;
@@ -68,8 +68,8 @@ public class User {
         this.medicalConditions = medicalConditions;
     }
 
-    public void setIsVonlunteer(String isVonlunteer) {
-        this.isVonlunteer = isVonlunteer;
+    public void setIsVolunteer(String isVolunteer) {
+        this.isVolunteer = isVolunteer;
     }
 
     public void setNumberOfRescue(int numberOfRescue) {
@@ -126,8 +126,8 @@ public class User {
         return medicalConditions;
     }
 
-    public String getIsVonlunteer() {
-        return isVonlunteer;
+    public String getIsVolunteer() {
+        return isVolunteer;
     }
 
     public int getNumberOfRescue() {
@@ -155,7 +155,7 @@ public class User {
                 ", emergencyContactName='" + emergencyContactName + '\'' +
                 ", emergencyContactNumber='" + emergencyContactNumber + '\'' +
                 ", medicalConditions=" + medicalConditions +
-                ", isVonlunteer='" + isVonlunteer + '\'' +
+                ", isVolunteer='" + isVolunteer + '\'' +
                 ", numberOfRescue=" + numberOfRescue +
                 ", name='" + name + '\'' +
                 ", age='" + age + '\'' +

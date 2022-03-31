@@ -116,7 +116,7 @@ public class TCPManager{
                 while (true){
                     try {
                         location  = LocationUtils.getBestLocation(context, location);
-                        String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
+                        String msg = "LOCATION;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude();
                         Thread.sleep(30000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());

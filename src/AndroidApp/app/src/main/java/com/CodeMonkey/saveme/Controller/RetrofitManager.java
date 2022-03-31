@@ -19,11 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManager {
 
     private OkHttpClient okHttpClient;
-    private String requestPath = URLUtil.dynamoDBAPIBase;
     private Retrofit retrofit;
-    private volatile static RetrofitManager retrofitManager;
+    private volatile static RetrofitManager dbRetrofitManager;
+    private volatile static RetrofitManager ltaRetrofitManager;
 
-    private RetrofitManager() {
+    private RetrofitManager(String requestPath) {
 
         okHttpClient = new OkHttpClient.Builder().build();
 
@@ -36,15 +36,26 @@ public class RetrofitManager {
 
     }
 
-    public static RetrofitManager getRetrofitManager(){
-        if (retrofitManager == null){
+    public static RetrofitManager getDBRetrofitManager(){
+        if (dbRetrofitManager == null){
             synchronized (RetrofitManager.class){
-                if (retrofitManager == null){
-                    retrofitManager = new RetrofitManager();
+                if (dbRetrofitManager == null){
+                    dbRetrofitManager = new RetrofitManager(URLUtil.dynamoDBAPIBase);
                 }
             }
         }
-        return retrofitManager;
+        return dbRetrofitManager;
+    }
+
+    public static RetrofitManager getLTARetrofitManager(){
+        if (ltaRetrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (ltaRetrofitManager == null){
+                    ltaRetrofitManager = new RetrofitManager(URLUtil.LTABase);
+                }
+            }
+        }
+        return ltaRetrofitManager;
     }
 
     public <T> T create(Class<T> service) {

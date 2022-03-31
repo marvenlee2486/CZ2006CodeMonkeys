@@ -76,10 +76,6 @@
             android:hardwareAccelerated="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Boundary.ContactServPage"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".Boundary.OTPPage"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
 import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.core.Amplify;
 
 import java.util.ArrayList;
@@ -24,12 +26,12 @@ import java.util.ArrayList;
  *
  */
 
-public class SignInPage extends AppCompatActivity implements View.OnClickListener{
+public class SignInPage extends BaseActivity implements View.OnClickListener{
     private Button next;
     private TextView forgetPsw;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_sign_in_page);
         init();
@@ -65,9 +67,18 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
                     "+65" + txtPhoneNum.getText().toString(),
                     txtPassword.getText().toString(),
                     result -> {
+                        Amplify.Auth.fetchAuthSession(
+                                result2 -> {
+                                    AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result2;
+                                    String token = cognitoAuthSession.getUserPoolTokens().getValue().getIdToken();
+                                    UserController.getUserController().setToken(token);
+                                    Log.e("token", UserController.getUserController().getToken());
+                                },
+                                error -> Log.e("Auth token failed", error.toString())
+                        );
                         Intent intent = new Intent(this, TestActivity.class);
                         startActivity(intent);
-                        finish();},
+                        finishAll();},
                     error -> {Toast.makeText(this, "Log in failed, please check your phone number or password", Toast.LENGTH_SHORT).show();}
             );
 

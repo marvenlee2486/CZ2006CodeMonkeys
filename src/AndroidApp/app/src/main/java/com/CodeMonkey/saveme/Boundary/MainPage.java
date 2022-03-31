@@ -1,9 +1,14 @@
 package com.CodeMonkey.saveme.Boundary;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -12,10 +17,14 @@ import android.widget.LinearLayout;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.CodeMonkey.saveme.Controller.EventController;
+import com.CodeMonkey.saveme.Controller.UserController;
+import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Entity.Event;
@@ -62,6 +71,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+        checkPermissions();
         rescuePageFrag = new RescuePageFrag(this);
         init();
         NotificationUtil.createNotificationChannel(this);
@@ -96,10 +106,17 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
-                    case 1:
-                        newEvent();
-                        break;
+                if (msg.what == 1) {
+                    String result = (String) msg.obj;
+                    String[] results = result.split(";");
+                    switch (results[0]) {
+                        case "REQUEST":
+//                        addNewEvent();
+                            break;
+                        case "UPDATERESCUERS":
+
+                            break;
+                    }
                 }
             }
         };
@@ -112,6 +129,8 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
             changeColor(Color.parseColor("#0013C2"));
             fragmentSwitch(rescuePageFrag);
         }
+
+
     }
 
     private void fragmentSwitch(Fragment fragment){
@@ -138,7 +157,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.rescueButton:
                 changeColor(Color.parseColor("#0013C2"));
-                stateDetect();
+                detectVolunteerStatus();
                 break;
             case R.id.moreButton:
                 fragmentSwitch(configPageFrag);
@@ -153,17 +172,60 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         configPageButton.setBackgroundColor(topColor);
     }
 
-    private void stateDetect(){
-        fragmentSwitch(regVolPageFrag);
-//        fragmentSwitch(rescuePageFrag);
-//        fragmentSwitch(volPledgePageFrag);
-//        fragmentSwitch(noRequestRescuePageFrag);
+    private void detectVolunteerStatus(){
+        Log.e("?", UserController.getUserController().getUser().getIsVolunteer());
+        switch (UserController.getUserController().getUser().getIsVolunteer()){
+            case "NO":
+                fragmentSwitch(regVolPageFrag);
+                break;
+            case "PENDING":
+                fragmentSwitch(regVolPageFrag);
+                setCertificate();
+                break;
+            case "YES":
+                fragmentSwitch(rescuePageFrag);
+                break;
+
+            case "PLEDGED":
+                detectEvents();
+                break;
+
+            case "REJECTED":
+                fragmentSwitch(regVolPageFrag);
+
+                break;
+
+            default:
+                detectEvents();
+                break;
+
+        }
+
     }
 
-    private void newEvent(){
-        eventList.add(null);
-        NotificationUtil.createNotification(MainPage.this, "Help!", "Someone need help!");
+
+    private void checkPermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(MainPage.this, LocaServPage.class);
+                startActivity(intent);
+            }
+
+        }
     }
+
+    private void setCertificate(){
+
+    }
+
+    private void detectEvents(){
+        if (EventController.getEventController().getEventList().size() != 0)
+            fragmentSwitch(rescuePageFrag);
+        else
+            fragmentSwitch(noRequestRescuePageFrag);
+    }
+
 
 
 }

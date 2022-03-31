@@ -8,6 +8,7 @@ import com.CodeMonkey.saveme.Entity.UserRsp;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -21,24 +22,29 @@ import rx.Observable;
  */
 public interface HTTPUtil {
 
-
     @GET(URLUtil.userData)
-    Observable<UserRsp> getUserData(@Query("phoneNumber") String phoneNumber);
+    Observable<UserRsp> getUserData(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);
+
 
     @POST(URLUtil.userData)
-    Observable<User> postUserData(@Body User user);
+    Observable<User> postUserData(@Body User user, @Header("Authorization") String token);
 
     @PUT(URLUtil.userData)
-    Observable<User> putUserData(@Body User user);
+    Observable<User> putUserData(@Body User user, @Header("Authorization") String token);
+
+    @GET(URLUtil.certData)
+    Observable<ResponseBody> getCertData(@Query("phoneNumber") String phoneNumber);
 
     @POST(URLUtil.certData)
-    Observable<String> getCertData();
+    Observable<ResponseBody> postCertData(@Body Certificate certificate, @Header("Authorization") String token);
 
-    @Headers("Accept: application/json")
-    @POST(URLUtil.certData)
-    Observable<ResponseBody> postCertData(@Body Certificate certificate);
+    @GET(URLUtil.validation)
+    Observable<ResponseBody> checkAvailability(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);
 
     @Headers("AccountKey:"+ URLUtil.LTAKey)
     @GET(URLUtil.busArrival)
-    Observable<ResponseBody> getBusArrivals();
+    Observable<ResponseBody> getBusArrivals(@Query("BusStopCode") String busStopCode);
+
+
+
 }
