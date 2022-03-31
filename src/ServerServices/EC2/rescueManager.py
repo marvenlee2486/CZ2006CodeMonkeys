@@ -1,9 +1,6 @@
 import socket
 import datetime 
 from threading import Thread
-
-from matplotlib.style import available
-from dbConnector import db
 from geotool import geoDistance
 ALARM_DISTANCE_THRESHOLD = 5000
 # we don't dynamically maintain who we send request to.
