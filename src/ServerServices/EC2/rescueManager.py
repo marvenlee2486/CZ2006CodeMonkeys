@@ -101,7 +101,7 @@ class rescueManager:
     def updateIncomingAmount(self, tel): # update detail to everyone informed
         message = ['UPDATERESCUERS', tel, len(self.events[tel].accept)] 
         for tTel in self.events[tel].informed:
-            try: self.connectedUsers[tel].sck.send(';'.join(message).encode('utf-8'))
+            try: self.connectedUsers[tTel].sck.send(';'.join(message).encode('utf-8'))
             except: print("fail to reach one of the volunteers while updating information. error is ignored.")
     
 def initTCP():
