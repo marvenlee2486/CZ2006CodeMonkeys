@@ -37,6 +37,21 @@ public class TCPManager{
         connect();
     }
 
+    private TCPManager(){
+        connect();
+    }
+
+    public static TCPManager getTCPManager() {
+        if (mTCPManager == null) {
+            synchronized (TCPManager.class) {
+                if (mTCPManager == null) {
+                    mTCPManager = new TCPManager();
+                }
+            }
+        }
+        return mTCPManager;
+    }
+
     public static TCPManager getTCPManager(Handler handler) {
         if (mTCPManager == null) {
             synchronized (TCPManager.class) {
@@ -116,7 +131,7 @@ public class TCPManager{
                 while (true){
                     try {
                         location  = LocationUtils.getBestLocation(context, location);
-                        String msg = "Bruce;" + location.getLatitude() + ";" + location.getLongitude();
+                        String msg = "LOCATION;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude();
                         Thread.sleep(30000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());

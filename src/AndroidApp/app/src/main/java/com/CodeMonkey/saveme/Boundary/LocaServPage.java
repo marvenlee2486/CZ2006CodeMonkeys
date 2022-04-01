@@ -1,6 +1,7 @@
 package com.CodeMonkey.saveme.Boundary;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +46,12 @@ public class LocaServPage extends BaseActivity {
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
+            else{
+                Intent intent = new Intent(LocaServPage.this, RegSignPage.class);
+                intent.putExtra("type", "common");
+                finishAll();
+                startActivity(intent);
+            }
         }
     }
 
@@ -54,7 +61,13 @@ public class LocaServPage extends BaseActivity {
         if (requestCode == 1) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                Toast.makeText(this, "GG", Toast.LENGTH_SHORT).show();
+                initPermission();
+            else{
+                Intent intent = new Intent(LocaServPage.this, RegSignPage.class);
+                intent.putExtra("type", "common");
+                finish();
+                startActivity(intent);
+            }
         }
     }
 }

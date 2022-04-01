@@ -33,7 +33,7 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_register_main_page);
         init();
@@ -72,7 +72,7 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
             Toast.makeText(this, R.string.phoneNumNotCorrect, Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (psw.getText().toString().length() < 9) {
+        else if (psw.getText().toString().length() < 8) {
             Toast.makeText(this, R.string.pswTooShort, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -95,6 +95,7 @@ public class RegisterMainPage extends BaseActivity implements View.OnClickListen
                 result -> {
                     Intent intent = new Intent(RegisterMainPage.this, OTPPage.class);
                     intent.putExtra("phoneNum", phoneNum.getText().toString());
+                    intent.putExtra("password", psw.getText().toString());
                     startActivity(intent);
                     finish();
                 },

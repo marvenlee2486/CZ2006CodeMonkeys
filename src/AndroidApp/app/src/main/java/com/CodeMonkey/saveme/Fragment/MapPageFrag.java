@@ -1,8 +1,12 @@
 package com.CodeMonkey.saveme.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.CodeMonkey.saveme.Boundary.MainPage;
+import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
+import com.CodeMonkey.saveme.Util.MarkerWindowUtil;
+import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,13 +36,15 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  * MapPageFrag created by Wang Tianyu 07/03/2022
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
 
     private Location gps;
     private Context context;
@@ -42,15 +52,34 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     private KmlLayer kmlLayer;
     private boolean kmlLayerVisibility = false;
     private GoogleMap map;
-    private ArrayList<Marker> markers = new ArrayList<>();
+    private Handler handler;
+    private Map<String, Marker> markers = new HashMap<>();
 
 
-    public MapPageFrag(){ };
+
+    public MapPageFrag(Context context){
+        this.context = context;
+        handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 2) {
+//                addNewMarker((String) msg.obj);
+                Log.e("Event", "New event!");
+                NotificationUtil.createNotification((Activity) context, "Help!", "Someone need help!");
+            }
+            else if (msg.what == 3){
+                removeMarker((String) msg.obj);
+            }
+        }
+    };
+
+        EventController.getEventController().setHandler(handler);
+        EventController.getEventController().addNewEvent("94489600", "1.1234", "1.1234");};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getContext();
         gps = LocationUtils.getBestLocation(context, null);
         latLng = new LatLng(gps.getLatitude(), gps.getLongitude());
     }
@@ -67,6 +96,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 map = googleMap;
+                map.setOnInfoWindowClickListener(MapPageFrag.this);
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);
@@ -78,7 +108,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                setEmergencyEvent(new LatLng(latLng.latitude+0.1, latLng.longitude+0.1));
+                addNewMarker("94489600");
             }
         });
 
@@ -95,8 +125,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
 
     @Override
     public boolean onMyLocationButtonClick() {
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
         return false;
     }
 
@@ -112,13 +140,34 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         kmlLayerVisibility = false;
     }
 
-    private void setEmergencyEvent(LatLng latLng){
+
+    private void addNewMarker(String phoneNumber){
+        LatLng latLng = new LatLng(EventController.getEventController().getEventList().get(phoneNumber).getLatitude(),
+                EventController.getEventController().getEventList().get(phoneNumber).getLongitude());
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        markers.add(marker);
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .title("test"));
+        marker.showInfoWindow();
+        markers.put(phoneNumber, marker);
+        map.setInfoWindowAdapter(new MarkerWindowUtil(getActivity()));
     }
 
+    private void removeMarker(String phoneNumber){
+        markers.remove(phoneNumber);
+    }
 
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        Log.e("Marker click", "?");
+        marker.showInfoWindow();
+        return false;
+    }
+
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Log.e("Info click", "?");
+        marker.showInfoWindow();
+    }
 }

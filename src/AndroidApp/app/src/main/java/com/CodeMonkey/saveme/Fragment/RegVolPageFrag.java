@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.Certificate;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.R;
@@ -132,9 +133,11 @@ public class RegVolPageFrag extends Fragment {
     }
 
     private void initData(String data) {
+        Log.e("test", UserController.getUserController().getToken());
         Certificate certificate = new Certificate();
-        certificate.setFileData(data);
-        certificate.setPhoneNumber("88499185");
+        certificate.setFileData(getResources().getString(R.string.testBase64));
+        certificate.setFileExtension(".png");
+        certificate.setPhoneNumber("12345678");
         RequestUtil.postCertData(new Observer<ResponseBody>() {
             @Override
             public void onCompleted() {
@@ -155,7 +158,7 @@ public class RegVolPageFrag extends Fragment {
                     e.printStackTrace();
                 }
             }
-        }, certificate);
+        }, certificate, UserController.getUserController().getToken());
     }
 
 

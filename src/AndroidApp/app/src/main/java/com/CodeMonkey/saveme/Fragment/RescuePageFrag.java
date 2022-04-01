@@ -2,6 +2,9 @@ package com.CodeMonkey.saveme.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +12,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.R;
+import com.google.android.gms.maps.model.Marker;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  * RescuePageFrag created by Wang Tianyu 07/03/2022
@@ -23,10 +32,9 @@ import com.CodeMonkey.saveme.R;
 
 public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
-    private MapPageFrag mapPageFrag = new MapPageFrag();
+    private MapPageFrag mapPageFrag;
     private BusPageFrag busPageFrag = new BusPageFrag();
     private TrainPageFrag trainPageFrag = new TrainPageFrag();
-//    private InstrucPageFrag instrucPageFrag = new InstrucPageFrag();
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment = mapPageFrag;
@@ -41,11 +49,13 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
     public RescuePageFrag(Context context){
         this.context = context;
+        mapPageFrag = new MapPageFrag(context);
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -84,6 +94,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
         mainPageContent = getView().findViewById(R.id.rescuePageMainContent);
         currentLine = getView().findViewById(R.id.mapLine);
+
     }
 
     private void fragmentSwitch(Fragment fragment){
@@ -134,4 +145,5 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         }
 
     }
+
 }

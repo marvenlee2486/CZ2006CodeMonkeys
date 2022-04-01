@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.Controller.LanguageController;
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.Certificate;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
@@ -29,8 +32,11 @@ import com.amplifyframework.core.Amplify;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
 import rx.Observer;
 
 
@@ -53,7 +59,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
     private AlertDialog dialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_page);
 
@@ -166,10 +172,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
                 intent.putExtra("type", "common");
                 break;
             case R.id.otp:
-                intent = new Intent(TestActivity.this, OTPPage.class);
                 break;
             case R.id.contactServPage:
-                intent = new Intent(TestActivity.this, ContactServPage.class);
                 break;
             case R.id.registerPage:
                 intent = new Intent(TestActivity.this, RegisterMainPage.class);
@@ -200,28 +204,48 @@ public class TestActivity extends BaseActivity implements View.OnClickListener{
 //                });
                 break;
         }
-        if (view.getId() != R.id.mapTest)
+        if (view.getId() != R.id.mapTest && view.getId() != R.id.otp)
             startActivity(intent);
     }
 
 
     private void initData() {
-        RequestUtil.getUserData(new Observer<UserRsp>() {
+        User user = new User();
+        user.setPhoneNumber("00000000");
+        user.setName("Bruce");
+        RequestUtil.putUserData(new Observer<User>() {
             @Override
             public void onCompleted() {
-                Log.e("test","?");
+
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e("retrofit==111=", "Error："+e.getMessage());
+                Log.e("ErrorBus", e.getMessage());
             }
 
             @Override
-            public void onNext(UserRsp userRsp) {
-                Log.e("test", userRsp.getBody().toString());
+            public void onNext(User user) {
+                    Log.e("Data", user.toString());
             }
-        }, "88499181");
+        }, user, UserController.getUserController().getToken());
+//        RequestUtil.getBusDataAll(new Observer<ResponseBody>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e("ErrorBus", e.getMessage());
+//            }
+//
+//            @Override
+//            public void onNext(ResponseBody responseBody) {
+//                Log.e("Data", responseBody.toString());
+//            }
+//        });
+
     }
 
 }

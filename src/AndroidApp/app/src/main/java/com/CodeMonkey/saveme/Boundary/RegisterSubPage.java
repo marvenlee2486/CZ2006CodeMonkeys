@@ -11,10 +11,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import rx.Observer;
 
 
@@ -25,6 +29,8 @@ import rx.Observer;
 
 public class RegisterSubPage extends BaseActivity implements View.OnClickListener{
 
+
+    private static final String TAG = RegisterSubPage.class.getSimpleName();
     private EditText name;
     private EditText homeAddress;
     private TextView homeAddressLocation;
@@ -41,7 +47,7 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_register_sub_page);
         init();
@@ -88,22 +94,25 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
             case R.id.allowButton:
                 if (check()){
                     storeData();
+                    Log.e("user", user.toString());
                     RequestUtil.postUserData(new Observer<User>() {
                         @Override
                         public void onCompleted() {
-
+                            Intent intent = new Intent(RegisterSubPage.this, MainPage.class);
+                            startActivity(intent);
+                            finishAll();
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
+                            Log.e(TAG, e.getMessage());
                         }
 
                         @Override
                         public void onNext(User user) {
-
+                            Log.i(TAG, user.toString());
                         }
-                    }, user);
+                    }, user, UserController.getUserController().getToken());
                 }
         }
     }
@@ -152,11 +161,13 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
     }
 
     private void storeData(){
+        user = UserController.getUserController().getUser();
         user.setName(name.getText().toString());
         user.setHomeAddress(homeAddress.getText().toString());
         user.setHomeLocation(homeAddressLocation.getText().toString());
         user.setWorkAddress(workAddress.getText().toString());
         user.setWorkLocation(workAddressLocation.getText().toString());
+        user.setIsVolunteer("NO");
         if (!age.getText().toString().equals(""))
             user.setAge(age.getText().toString());
         if (!emergencyContactName.getText().toString().equals(""))
