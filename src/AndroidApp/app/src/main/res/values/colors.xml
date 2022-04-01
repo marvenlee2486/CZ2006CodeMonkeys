@@ -15,5 +15,7 @@
     <color name="rescuePageBackgroundColor">#0047FF</color>
     <color name="configPageBackgroundColor">#00FF19</color>
     <color name="rescueInstructionBackgroundColor">#00A3FF</color>
+    <color name="acceptButton">#00FF0A</color>
+    <color name="rejectButton">#A6FAFF</color>;
 
 </resources>

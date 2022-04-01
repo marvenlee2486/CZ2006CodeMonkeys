@@ -37,6 +37,21 @@ public class TCPManager{
         connect();
     }
 
+    private TCPManager(){
+        connect();
+    }
+
+    public static TCPManager getTCPManager() {
+        if (mTCPManager == null) {
+            synchronized (TCPManager.class) {
+                if (mTCPManager == null) {
+                    mTCPManager = new TCPManager();
+                }
+            }
+        }
+        return mTCPManager;
+    }
+
     public static TCPManager getTCPManager(Handler handler) {
         if (mTCPManager == null) {
             synchronized (TCPManager.class) {

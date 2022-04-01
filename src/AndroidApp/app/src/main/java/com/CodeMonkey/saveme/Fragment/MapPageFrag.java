@@ -19,6 +19,7 @@ import com.CodeMonkey.saveme.Boundary.MainPage;
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
+import com.CodeMonkey.saveme.Util.MarkerWindowUtil;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,7 +44,7 @@ import java.util.Map;
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
 
     private Location gps;
     private Context context;
@@ -95,6 +96,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 map = googleMap;
+                map.setOnInfoWindowClickListener(MapPageFrag.this);
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);
@@ -145,12 +147,27 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .title("test"));
+        marker.showInfoWindow();
         markers.put(phoneNumber, marker);
+        map.setInfoWindowAdapter(new MarkerWindowUtil(getActivity()));
     }
 
     private void removeMarker(String phoneNumber){
         markers.remove(phoneNumber);
     }
 
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        Log.e("Marker click", "?");
+        marker.showInfoWindow();
+        return false;
+    }
+
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Log.e("Info click", "?");
+        marker.showInfoWindow();
+    }
 }
