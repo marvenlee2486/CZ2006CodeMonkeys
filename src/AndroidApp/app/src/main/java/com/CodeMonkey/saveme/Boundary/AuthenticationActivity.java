@@ -36,6 +36,7 @@ public class AuthenticationActivity extends BaseActivity{
 
         if(currentUser == null){
             intent = new Intent(getApplicationContext(), LocaServPage.class);
+
             startActivity(intent);
             finish();
         }

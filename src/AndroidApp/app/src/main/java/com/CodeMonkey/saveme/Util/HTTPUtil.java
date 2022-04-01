@@ -44,7 +44,5 @@ public interface HTTPUtil {
     @Headers("AccountKey:"+ URLUtil.LTAKey)
     @GET(URLUtil.busArrival)
     Observable<ResponseBody> getBusArrivals(@Query("BusStopCode") String busStopCode);
-
-
-
+    
 }
