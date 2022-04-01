@@ -20,22 +20,46 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/btnuserProfile"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textSize="20sp"
-            android:background="@drawable/btn_edge_color"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:text="@string/user_profile"
-            android:layout_marginBottom="30dp"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnuserProfile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="80dp"
+                android:textSize="20sp"
+                android:background="@drawable/btn_edge_color"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:text="@string/user_profile"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <Button
+                android:id="@+id/btnuserCertificate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="80dp"
+                android:textSize="20sp"
+                android:background="@drawable/btn_edge_color"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:text="@string/user_profile"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnHelpFeedback"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:textSize="20sp"
             android:background="@drawable/btn_edge_color"
             android:textAlignment="center"
@@ -46,7 +70,7 @@
         <Button
             android:id="@+id/btnAchiev"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:textSize="20sp"
             android:background="@drawable/btn_edge_color"
             android:textAlignment="center"
@@ -57,7 +81,7 @@
         <Button
             android:id="@+id/btnLanguage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:textSize="20sp"
             android:background="@drawable/btn_edge_color"
             android:textAlignment="center"

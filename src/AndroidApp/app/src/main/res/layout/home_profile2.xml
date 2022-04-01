@@ -18,14 +18,14 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/homeProfieTopMargin"
+                android:id="@+id/homeProfileTopMargin"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5">
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/homeProfiePhoto"
+                android:id="@+id/homeProfilePhoto"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2">
@@ -36,25 +36,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    app:srcCompat="@drawable/user_profile_image" />
+                    app:srcCompat="@drawable/save_me_logo" />
 
-                <ImageView
-                    android:id="@+id/trophyImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/userProfileImage"
-                    android:layout_marginStart="-31dp"
-                    android:layout_marginTop="-43dp"
-                    android:layout_toEndOf="@+id/userProfileImage"
-                    app:srcCompat="@drawable/trophy" />
 
-                <Button
-                    android:id="@+id/btnReturnHome"
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:layout_marginEnd="79dp"
-                    android:layout_toStartOf="@+id/userProfileImage"
-                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -73,14 +57,7 @@
                     android:text="Name"
                     android:textSize="30sp" />
 
-                <TextView
-                    android:id="@+id/txtLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtName"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:text="Level 2" />
+
 
 
             </RelativeLayout>
@@ -120,16 +97,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-medium"
-                        android:text="User Profile"
+                        android:text="@string/user_certificate"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/textView6"
-                        app:srcCompat="@drawable/edit_icon" />
-
                 </RelativeLayout>
 
 
@@ -138,14 +107,6 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnReturnHomeNavi"
-                        android:layout_width="121dp"
-                        android:layout_height="36dp"
-                        android:layout_marginEnd="79dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Back" />
 
                 </RelativeLayout>
 

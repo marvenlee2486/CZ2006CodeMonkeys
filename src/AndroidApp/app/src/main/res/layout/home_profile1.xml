@@ -17,14 +17,14 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/homeProfieTopMargin"
+            android:id="@+id/homeProfileTopMargin"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5">
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/homeProfiePhoto"
+            android:id="@+id/homeProfilePhoto"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2">
@@ -35,25 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/user_profile_image" />
+                app:srcCompat="@drawable/save_me_logo" />
 
-            <ImageView
-                android:id="@+id/trophyImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/userProfileImage"
-                android:layout_marginStart="-31dp"
-                android:layout_marginTop="-43dp"
-                android:layout_toEndOf="@+id/userProfileImage"
-                app:srcCompat="@drawable/trophy" />
-
-            <Button
-                android:id="@+id/btnReturnHome"
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:layout_marginEnd="79dp"
-                android:layout_toStartOf="@+id/userProfileImage"
-                android:text="" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -63,24 +46,14 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/mainName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_weight="2"
                 android:fontFamily="sans-serif-medium"
                 android:text="Name"
-                android:layout_weight="2"
                 android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/txtLevel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtName"
-                android:layout_centerInParent="true"
-                android:layout_weight="1"
-                android:text="Level 2" />
-
 
         </RelativeLayout>
 
@@ -90,19 +63,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp">
 
 
                 <RelativeLayout
@@ -119,13 +90,6 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="User Profile"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/textView6"
-                        app:srcCompat="@drawable/edit_icon" />
 
                 </RelativeLayout>
 
@@ -150,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/textView7"
                         android:layout_weight="1"
-                        android:text="NRIC:"
+                        android:text="@string/age"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -162,70 +126,18 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextPersonName"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_input_box"
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPersonName"
+                        android:layout_marginRight="30dp"
                         />
 
                     <EditText
-                        android:id="@+id/editTextTextNRIC"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/custom_input_box"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                         />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="31dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Phone number:"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/textView7"
-                        android:layout_weight="1"
-                        android:text="Age:"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextPhone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/custom_input_box"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="number"
-                        />
-
-                    <EditText
-                        android:id="@+id/editTextAge"
+                        android:id="@+id/age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_input_box"
@@ -256,7 +168,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextHomeAddress"
+                        android:id="@+id/homeAddressLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -287,7 +199,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextWorkAddress"
+                        android:id="@+id/workAddressLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -296,39 +208,6 @@
                         android:background="@drawable/custom_input_box"/>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password:"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextPassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/custom_input_box"
-                        android:ems="10"
-                        android:inputType="numberPassword"
-                        />
-
-                </LinearLayout>
-
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -350,7 +229,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextContactName"
+                        android:id="@+id/emergencyContactName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -381,7 +260,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextContactNum"
+                        android:id="@+id/emergencyContactNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -391,30 +270,17 @@
                         />
                 </LinearLayout>
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Next Page" />
-
-                </RelativeLayout>
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="@string/save" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

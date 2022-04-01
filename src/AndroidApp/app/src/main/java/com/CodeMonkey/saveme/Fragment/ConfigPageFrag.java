@@ -28,6 +28,7 @@ public class ConfigPageFrag extends Fragment {
     private Button helpAndFeedbackButton;
     private Button AchievementsProfileButton;
     private Button ChangeLanguageButton;
+    private Button CertificateButton;
     private Button SignOutButton;
 
     private AlertDialog dialog;
@@ -49,6 +50,7 @@ public class ConfigPageFrag extends Fragment {
         AchievementsProfileButton = view.findViewById(R.id.btnAchiev);
         ChangeLanguageButton = view.findViewById(R.id.btnLanguage);
         SignOutButton = view.findViewById(R.id.btnSignOut);
+        CertificateButton = view.findViewById(R.id.btnuserCertificate);
 
         ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -73,6 +75,13 @@ public class ConfigPageFrag extends Fragment {
         AchievementsProfileButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), AchievementsPage.class);
+                startActivity(intent);
+            }
+        });
+
+        CertificateButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intent = new Intent(getActivity(), CertificatePage.class);
                 startActivity(intent);
             }
         });

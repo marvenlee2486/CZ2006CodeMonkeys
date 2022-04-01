@@ -40,7 +40,7 @@ public class AuthenticationActivity extends BaseActivity{
             finish();
         }
         else {
-            Log.e("?", currentUser.getUserId());
+            Log.e("Auth", currentUser.getUserId());
             Amplify.Auth.fetchAuthSession(
                     result -> {
                         AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result;
