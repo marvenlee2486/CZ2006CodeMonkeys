@@ -48,12 +48,14 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
 
     private Location gps;
     private Context context;
+    private boolean isEvent = false;
     private LatLng latLng;
     private KmlLayer kmlLayer;
     private boolean kmlLayerVisibility = false;
     private GoogleMap map;
     private Handler handler;
     private Map<String, Marker> markers = new HashMap<>();
+    private ArrayList<String> tempPhones = new ArrayList<>();
 
 
 
@@ -66,16 +68,24 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             if (msg.what == 2) {
 //                addNewMarker((String) msg.obj);
                 Log.e("Event", "New event!");
+                Log.e("?", (String)msg.obj);
                 NotificationUtil.createNotification((Activity) context, "Help!", "Someone need help!");
+                isEvent = true;
+                if (map != null)
+                    addNewMarker((String) msg.obj);
+                else
+                    tempPhones.add((String) msg.obj);
             }
             else if (msg.what == 3){
                 removeMarker((String) msg.obj);
+                if (EventController.getEventController().getEventList().size() == 0)
+                    isEvent = false;
             }
         }
     };
 
         EventController.getEventController().setHandler(handler);
-        EventController.getEventController().addNewEvent("94489600", "1.1234", "1.1234");};
+}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,7 +106,16 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 map = googleMap;
-                map.setOnInfoWindowClickListener(MapPageFrag.this);
+                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(@NonNull Marker marker) {
+                        Log.e("!!!!!!!!", "??????");
+                    }
+                });
+                if (tempPhones.size() != 0){
+                    for (String phoneNumber: tempPhones)
+                        addNewMarker(phoneNumber);
+                }
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);
@@ -108,7 +127,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                addNewMarker("94489600");
             }
         });
 
@@ -144,14 +162,16 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     private void addNewMarker(String phoneNumber){
         LatLng latLng = new LatLng(EventController.getEventController().getEventList().get(phoneNumber).getLatitude(),
                 EventController.getEventController().getEventList().get(phoneNumber).getLongitude());
+        Log.e("?", latLng.toString());
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                        .title("test"));
+                        .title(phoneNumber)
+                        .snippet(EventController.getEventController().getEventList().get(phoneNumber).getUser().getName()));
         marker.showInfoWindow();
         markers.put(phoneNumber, marker);
-        map.setInfoWindowAdapter(new MarkerWindowUtil(getActivity()));
+//        map.setInfoWindowAdapter(new MarkerWindowUtil(getActivity()));
     }
 
     private void removeMarker(String phoneNumber){

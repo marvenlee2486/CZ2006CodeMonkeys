@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 public class Event {
 
+    private int rescueNumber;
     private User user;
     private double latitude;
     private double longitude;
@@ -38,10 +39,19 @@ public class Event {
         this.longitude = longitude;
     }
 
+    public int getRescueNumber() {
+        return rescueNumber;
+    }
+
+    public void setRescueNumber(int rescueNumber) {
+        this.rescueNumber = rescueNumber;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
-                "user=" + user.toString() +
+                "rescueNumber=" + rescueNumber +
+                ", user=" + user +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';

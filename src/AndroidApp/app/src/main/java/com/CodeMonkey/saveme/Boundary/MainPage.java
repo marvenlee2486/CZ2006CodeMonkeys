@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -111,10 +112,14 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                     String[] results = result.split(";");
                     switch (results[0]) {
                         case "REQUEST":
-//                        addNewEvent();
+                            EventController.getEventController().addNewEvent(results[1], results[2], results[3]);
+                            break;
+                        case "CANCELRESCUEME":
+                            EventController.getEventController().removeEvent(results[1]);
                             break;
                         case "UPDATERESCUERS":
-
+                            EventController.getEventController().getEventList().get(results[1]).setRescueNumber(Integer.parseInt(results[2]));
+                            Toast.makeText(MainPage.this, EventController.getEventController().getEventList().get(results[1]).toString(), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }
@@ -195,7 +200,11 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
                 break;
 
-            default:
+            case "false":
+                fragmentSwitch(regVolPageFrag);
+                break;
+
+            case "true":
                 detectEvents();
                 break;
 

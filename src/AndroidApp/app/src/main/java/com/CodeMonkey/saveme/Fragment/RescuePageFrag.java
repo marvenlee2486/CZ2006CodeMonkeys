@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.CodeMonkey.saveme.Controller.EventController;
+import com.CodeMonkey.saveme.Controller.TCPManager;
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
 import com.google.android.gms.maps.model.Marker;
 
@@ -124,16 +126,20 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                 currentLine.setVisibility(View.VISIBLE);
                 break;
             case R.id.trainButton:
-                fragmentSwitch(trainPageFrag);
-                currentLine.setVisibility(View.GONE);
-                currentLine = getView().findViewById(R.id.trainLine);
-                currentLine.setVisibility(View.VISIBLE);
+//                fragmentSwitch(trainPageFrag);
+//                currentLine.setVisibility(View.GONE);
+//                currentLine = getView().findViewById(R.id.trainLine);
+//                currentLine.setVisibility(View.VISIBLE);
+                TCPManager.getTCPManager().send("ACCEPTREQ;" + "94489600" + ";"
+                        + UserController.getUserController().getUser().getPhoneNumber());
                 break;
             case R.id.busButton:
-                fragmentSwitch(busPageFrag);
-                currentLine.setVisibility(View.GONE);
-                currentLine = getView().findViewById(R.id.busLine);
-                currentLine.setVisibility(View.VISIBLE);
+//                fragmentSwitch(busPageFrag);
+//                currentLine.setVisibility(View.GONE);
+//                currentLine = getView().findViewById(R.id.busLine);
+//                currentLine.setVisibility(View.VISIBLE);
+                TCPManager.getTCPManager().send("DECLINEREQ;" + "94489600" + ";"
+                    + UserController.getUserController().getUser().getPhoneNumber());
                 break;
             case R.id.instructionButton:
                 mapPageFrag.setKmlLayer();
