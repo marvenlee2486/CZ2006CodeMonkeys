@@ -4,5 +4,5 @@ from rescueManager import initTCP
 from websocketManager import initWebsocket
 
 if __name__ == "__main__":
-    initDB(); initTCP(); initWebsocket()
+    initTCP(); initWebsocket()
     
