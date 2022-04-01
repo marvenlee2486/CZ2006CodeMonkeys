@@ -45,6 +45,7 @@ class rescueManager:
 
                 if msg.startswith('ACCEPTREQ'):
                     [mode, patientTel, volTel] = msg.split(";")
+                    if volTel in self.events[patientTel].decline: self.events[patientTel].decline.remove(volTel)
                     self.events[patientTel].accept.add(volTel)
                     self.updateIncomingAmount(patientTel)
 
@@ -63,6 +64,8 @@ class rescueManager:
 
                 elif msg.startswith('DECLINEREQ'):
                     [mode, patientTel, volTel] = msg.split(";")
+                    if volTel in self.events[patientTel].accept: self.events[patientTel].accept.remove(volTel)
+                    
                     self.events[patientTel].decline.add(volTel)
                     self.updateIncomingAmount(patientTel)
                 
@@ -87,7 +90,7 @@ class rescueManager:
                             tp.sck.send(';'.join(message).encode('utf-8'))
                             numAvailable += 1
                     print("A new emergency request received. %d volunteers online. %d volunteers fulfilled requirement." % (len(self.connectedUsers), numAvailable))
-                elif msg.startswith('CANCELRESCUEME'): # either finish or manual cancel
+                elif msg.startswith('CANCELRESCUEME'): # either finish or manual cancel TODO delete entry and report
                     [mode, telephone] = msg.split(';')
                     if telephone not in self.events:
                         print("Unexpected: client try to cancel a nonexist event.")
@@ -99,7 +102,7 @@ class rescueManager:
                     print("Malformed input data. Missing request type.")
 
     def updateIncomingAmount(self, tel): # update detail to everyone informed
-        message = ['UPDATERESCUERS', tel, len(self.events[tel].accept)] 
+        message = ['UPDATERESCUERS', tel, str(len(self.events[tel].accept))] 
         for tTel in self.events[tel].informed:
             try: self.connectedUsers[tTel].sck.send(';'.join(message).encode('utf-8'))
             except: print("fail to reach one of the volunteers while updating information. error is ignored.")
