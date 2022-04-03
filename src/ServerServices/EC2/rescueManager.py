@@ -108,9 +108,9 @@ class rescueManager:
                     if patientTel not in self.events:
                         print("Unexpected: message sent to a already cancelled event. error is ignored.")
                     else:
-                        for tTel in self.events[patientTel].accept:
+                        for tTel in self.events[patientTel].informed:
                             try: self.connectedUsers[tTel].sck.send(msg.encode('utf-8'))
-                            except: print("failed to transfer private message to one of volunteers. error is ignored.")
+                            except: print("failed to deliver private message to one of the informed people. error is ignored.")
                     try: self.events[patientTel].patientSck.send(msg.encode('utf-8')) # inform patient
                     except: print("temporaily lost contact with patient. error is ignored.")
                 else:
