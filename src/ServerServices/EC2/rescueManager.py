@@ -4,6 +4,7 @@ import datetime
 import typing
 from threading import Thread
 from geotool import geoDistance
+import json
 ALARM_DISTANCE_THRESHOLD = 5000
 
 @dataclass
@@ -15,6 +16,7 @@ class Event:
     patientLat: str
     patientLon: str
     time: str
+    endTime: str
 
 @dataclass
 class ConnectedUser:
@@ -74,7 +76,7 @@ class rescueManager:
                     # create new event entry, overwriting previous one if any
                     if telephone in self.events:
                         print("Warning: previous event of same patient not closed, overwriting previous event")
-                    self.events[telephone] = Event(clientSocket, accept = set(), decline = set(), informed = set(), patientLat = lat, patientLon = lon, time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                    self.events[telephone] = Event(clientSocket, accept = set(), decline = set(), informed = set(), patientLat = lat, patientLon = lon, time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), endTime="")
                     # compose emergency message
                     message = ['REQUEST', telephone, lat, lon]
                     # # if location is near home, set to home
@@ -95,17 +97,37 @@ class rescueManager:
                     if telephone not in self.events:
                         print("Unexpected: client try to cancel a nonexist event.")
                     else:
+                        self.events[telephone].endTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         for tTel in self.events[telephone].informed:
                             try: self.connectedUsers[telephone].sck.send(msg.encode('utf-8'))
                             except: print("fail to send cancel operation info for one of the volunteers. error is ignored.")   
+                        self.generateReport(telephone)
+                        self.events.pop(telephone)
+                elif msg.startswith('MSG'): # private message to other volunteers
+                    [mode, senderTel, patientTel, messageBody] = msg.split(';')
+                    if patientTel not in self.events:
+                        print("Unexpected: message sent to a already cancelled event. error is ignored.")
+                    else:
+                        for tTel in self.events[patientTel].accept:
+                            try: self.connectedUsers[tTel].sck.send(msg.encode('utf-8'))
+                            except: print("failed to transfer private message to one of volunteers. error is ignored.")
+                    try: self.events[patientTel].patientSck.send(msg.encode('utf-8')) # inform patient
+                    except: print("temporaily lost contact with patient. error is ignored.")
                 else:
                     print("Malformed input data. Missing request type.")
 
     def updateIncomingAmount(self, tel): # update detail to everyone informed
         message = ['UPDATERESCUERS', tel, str(len(self.events[tel].accept))] 
-        for tTel in self.events[tel].informed:
+        for tTel in self.events[tel].informed: 
             try: self.connectedUsers[tTel].sck.send(';'.join(message).encode('utf-8'))
             except: print("fail to reach one of the volunteers while updating information. error is ignored.")
+        try: self.events[tel].patientSck.send(';'.join(message).encode('utf-8')) # patient too
+        except: print("temporaily lost contact with patient. error is ignored.")
+    s
+    def generateReport(self, tel):
+        ev = self.events[tel]
+        message = {"rescuers": ev.accept, "lat": ev.patientLat, "lon": ev.patientLon, "startTime": ev.time, "endTime": ev.endTime}
+        return json.dumps(message)
     
 def initTCP():
     global rescueDaemon, onlineEvents
