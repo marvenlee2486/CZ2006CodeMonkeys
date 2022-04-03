@@ -1,6 +1,7 @@
 package com.CodeMonkey.saveme.Boundary;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.CodeMonkey.saveme.Controller.AchievementController;
 import com.CodeMonkey.saveme.R;
 
 import java.util.ArrayList;
@@ -24,12 +26,9 @@ public class AchievementsPage extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.achievement_page);
 
-        List<Character> characterList = new ArrayList<>();
-        for (char c = 'a'; c <= 'z'; c++) {
-            characterList.add(c);
-        }
+        ArrayList<String> achievementNameList = AchievementController.getInstance().GetAchievement();
 
-        AchievementAdapter achievementAdapter = new AchievementAdapter(characterList);
+        AchievementAdapter achievementAdapter = new AchievementAdapter(achievementNameList);
         RecyclerView achievementVie = findViewById(R.id.recyclerView);
         achievementVie.setAdapter(achievementAdapter);
         achievementVie.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -49,9 +48,9 @@ public class AchievementsPage extends BaseActivity {
 
     private class AchievementAdapter extends RecyclerView.Adapter<AchievementVH> {
 
-        private List<Character> dataList;
+        private List<String> dataList;
 
-        public AchievementAdapter(List<Character> dataList) {
+        public AchievementAdapter(List<String> dataList) {
             this.dataList = dataList;
         }
 
@@ -63,8 +62,8 @@ public class AchievementsPage extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull AchievementVH holder, int position) {
-            Character c = dataList.get(position);
-            holder.tv2.setText(String.valueOf(Integer.valueOf(c)));
+            String s = dataList.get(position);
+            holder.tv2.setText(s);
         }
 
         @Override

@@ -38,9 +38,5 @@ public class Achivement {
         return icon2;
     }
 
-
-
-
-
 }
 

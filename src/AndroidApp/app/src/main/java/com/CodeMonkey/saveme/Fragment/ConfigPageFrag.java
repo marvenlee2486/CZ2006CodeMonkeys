@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.CodeMonkey.saveme.Boundary.*;
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
+import com.amplifyframework.auth.options.AuthSignOutOptions;
 import com.amplifyframework.core.Amplify;
 
 public class ConfigPageFrag extends Fragment {
@@ -81,18 +83,26 @@ public class ConfigPageFrag extends Fragment {
 
         CertificateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(), CertificatePage.class);
-                startActivity(intent);
+                if(UserController.getUserController().getUser().getIsVolunteer() == "NO"){
+                    Intent intent = new Intent(getActivity(), CertificatePage.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(getActivity(), CertificatePage.class);
+                    startActivity(intent);
+                }
             }
         });
 
         SignOutButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Amplify.Auth.signOut(
-                        () -> Log.i("Auth", "Signed out successfully"),
+                        AuthSignOutOptions.builder().globalSignOut(true).build(),
+                        () -> {Log.i("Auth", "Signed out successfully");
+                                System.exit(0);},
                         error -> Log.e("Auth", error.toString())
                 );
-                System.exit(0);
+
             }
         });
 

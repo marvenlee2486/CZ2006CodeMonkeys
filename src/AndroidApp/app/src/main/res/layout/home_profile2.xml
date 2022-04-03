@@ -48,7 +48,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/txtName"
+                    android:id="@+id/mainName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -114,8 +114,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+
                     android:background="@drawable/custom_input_box"
                     android:orientation="horizontal">
 
@@ -159,56 +159,11 @@
 
                         </RelativeLayout>
 
-
-                        <LinearLayout
+                        <ImageView
+                            android:id="@+id/certificatePhoto"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="2"
-                            android:orientation= "horizontal">
-
-                            <TextView
-                                android:id="@+id/txtExpire"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:text="Expired on"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
-
-
-                            <EditText
-                                android:id="@+id/editTextTextPersonName"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/custom_input_box"
-                                android:layout_gravity="center_vertical"
-                                android:ems="10"
-                                android:hint="YYYY/mm/dd"
-                                android:inputType="textPersonName" />
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="2"
-                            android:orientation= "horizontal">
-
-                            <Button
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
-                                android:text="Upload Photo"
-                                android:textSize="15sp"
-                                android:src="@drawable/upload_certificate_button"/>
-
-                        </LinearLayout>
-
-
+                            android:layout_height="wrap_content"
+                            ></ImageView>
                     </LinearLayout>
 
                     <LinearLayout
