@@ -54,12 +54,12 @@ public class AuthenticationActivity extends BaseActivity{
             builder.setMessage("\nAutomatically log in, please wait...\n");
             AlertDialog dialog = builder.create();
             dialog.show();
-            Log.e("Auth", currentUser.getUserId());
+            Log.i("Auth", currentUser.getUserId());
             Amplify.Auth.fetchAuthSession(
                     result -> {
                         AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result;
                         String token = cognitoAuthSession.getUserPoolTokens().getValue().getIdToken();
-                        Log.e("token", token);
+                        Log.i("token", token);
                         UserController.getUserController().setToken(token);
                         RequestUtil.getUserData(new Observer<UserRsp>() {
                             @Override
@@ -69,7 +69,7 @@ public class AuthenticationActivity extends BaseActivity{
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("Error", e.toString());
+                                Log.e("Auth", e.toString());
                             }
 
                             @Override
@@ -87,7 +87,4 @@ public class AuthenticationActivity extends BaseActivity{
             );
         }
     }
-
-
-
 }

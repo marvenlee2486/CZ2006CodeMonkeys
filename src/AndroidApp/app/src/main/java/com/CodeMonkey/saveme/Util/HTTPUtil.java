@@ -25,7 +25,6 @@ public interface HTTPUtil {
     @GET(URLUtil.userData)
     Observable<UserRsp> getUserData(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);
 
-
     @POST(URLUtil.userData)
     Observable<User> postUserData(@Body User user, @Header("Authorization") String token);
 

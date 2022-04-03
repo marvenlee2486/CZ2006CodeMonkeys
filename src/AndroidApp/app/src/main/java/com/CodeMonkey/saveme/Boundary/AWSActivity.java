@@ -12,7 +12,6 @@ public class AWSActivity extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         try {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
 

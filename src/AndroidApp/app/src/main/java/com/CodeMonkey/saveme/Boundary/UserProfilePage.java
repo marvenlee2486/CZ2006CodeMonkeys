@@ -59,6 +59,7 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
 
         homeAddressLocation.setOnClickListener(this);
         workAddressLocation.setOnClickListener(this);
+        SaveButton.setOnClickListener(this);
 
         DisplayPage();
     }
@@ -78,6 +79,7 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
                 startActivityForResult(intent, 2);
                 break;
             case R.id.saveBtn:
+                Log.i("test", "here");
                 if (check()){
                     UpdatePersonalInfo();
                     Log.e("user", user.toString());
@@ -123,9 +125,12 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
 
     private void DisplayPage(){
         age.setText(user.getAge());
+        mainName.setText(user.getName());
         name.setText(user.getName());
         homeAddress.setText(user.getHomeAddress());
         workAddress.setText(user.getWorkAddress());
+        homeAddressLocation.setText(user.getHomeLocation());
+        workAddress.setText(user.getWorkLocation());
         emergencyContactName.setText(user.getEmergencyContactName());
         emergencyContactNumber.setText(user.getEmergencyContactNumber());
     }

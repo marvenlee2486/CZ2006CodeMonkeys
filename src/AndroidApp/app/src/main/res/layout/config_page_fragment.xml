@@ -48,7 +48,7 @@
                 android:background="@drawable/btn_edge_color"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:text="@string/user_profile"
+                android:text="@string/certificate"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginLeft="10dp"

@@ -53,6 +53,7 @@
                 android:layout_weight="2"
                 android:fontFamily="sans-serif-medium"
                 android:text="Name"
+                android:textColor="@color/black"
                 android:textSize="30sp" />
 
         </RelativeLayout>
@@ -64,9 +65,8 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
-
-
+        android:orientation="horizontal"
+        android:textColor="@color/black">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -89,7 +89,8 @@
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-medium"
                         android:text="User Profile"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
 
                 </RelativeLayout>
 
@@ -106,7 +107,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Name:"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/textView8"
@@ -115,7 +117,8 @@
                         android:layout_toRightOf="@+id/textView7"
                         android:layout_weight="1"
                         android:text="@string/age"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 
@@ -134,6 +137,8 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:layout_marginRight="30dp"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
                         />
 
                     <EditText
@@ -144,6 +149,8 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="number"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
                          />
 
                 </LinearLayout>
@@ -159,7 +166,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Home Location:"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -167,7 +175,8 @@
                     android:layout_toRightOf="@+id/textView7"
                     android:layout_weight="1"
                     android:text="Work Location"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -186,6 +195,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:layout_marginRight="30dp"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
                     />
 
                 <EditText
@@ -196,6 +207,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="number"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
                     />
 
             </LinearLayout>
@@ -210,7 +223,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Home address:"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -227,6 +242,8 @@
                         android:background="@drawable/custom_input_box"
                         android:ems="10"
                         android:inputType="textPostalAddress"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
                         />
 
                 </LinearLayout>
@@ -241,7 +258,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Work address:"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -257,7 +275,9 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPostalAddress"
-                        android:background="@drawable/custom_input_box"/>
+                        android:background="@drawable/custom_input_box"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"/>
 
                 </LinearLayout>
 
@@ -271,7 +291,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Emergency Contact Name:"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -288,6 +309,8 @@
                         android:background="@drawable/custom_input_box"
                         android:ems="10"
                         android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
                         />
 
                 </LinearLayout>
@@ -302,7 +325,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Emergency Contact Number:"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -319,6 +343,8 @@
                         android:background="@drawable/custom_input_box"
                         android:ems="10"
                         android:inputType="number"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
                         />
                 </LinearLayout>
 

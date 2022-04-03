@@ -33,7 +33,6 @@ public class RetrofitManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-
     }
 
     public static RetrofitManager getDBRetrofitManager(){

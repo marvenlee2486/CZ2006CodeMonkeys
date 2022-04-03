@@ -47,7 +47,4 @@ public class UserController{
         this.token = token;
     }
 
-
-
-
 }

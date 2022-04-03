@@ -19,10 +19,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="60dp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="60dp"
             android:background="@color/white">
 
                 <TextView
@@ -31,14 +31,16 @@
                     android:layout_height="wrap_content"
                     android:textSize="50sp"
                     android:layout_marginBottom="20dp"
-                    android:text="@string/faq" />
+                    android:text="@string/faq"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/txtFAQTitle1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@string/_1_why_do_you_need_my_location" />
+                    android:text="@string/_1_why_do_you_need_my_location"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/txtFAQAnwser1"
@@ -46,7 +48,8 @@
                     android:layout_height="wrap_content"
                     android:scrollHorizontally = "false"
                     android:textSize="15sp"
-                    android:text="@string/save_me_requires_your_location_data_to_help_our_volunteer_rescuers_save_you_and_also_to_let_other_people_know_you_re_on_the_way_to_rescue_them_don_t_worry_we_only_use_location_when_the_app_is_active" />
+                    android:text="@string/save_me_requires_your_location_data_to_help_our_volunteer_rescuers_save_you_and_also_to_let_other_people_know_you_re_on_the_way_to_rescue_them_don_t_worry_we_only_use_location_when_the_app_is_active"
+                    android:textColor="@color/black"/>
 
 
         </LinearLayout>

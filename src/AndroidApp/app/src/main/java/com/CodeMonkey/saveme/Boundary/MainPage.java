@@ -126,7 +126,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 }
             }
         };
-
+        // TODO : Remove comment
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
         tcpManager.sendLocation(this);
@@ -212,7 +212,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 Intent intent = new Intent(MainPage.this, LocaServPage.class);
                 startActivity(intent);
             }
-
         }
     }
 

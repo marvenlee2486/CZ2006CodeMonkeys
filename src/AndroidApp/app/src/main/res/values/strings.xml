@@ -70,4 +70,5 @@
     <string name="user_certificate">User Certificate</string>
     <string name="save">save</string>
     <string name="age">Age:</string>
+    <string name="certificate">Certificate</string>
 </resources>

@@ -56,5 +56,4 @@ public class RequestUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-
 }

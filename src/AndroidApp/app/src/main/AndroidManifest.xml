@@ -21,7 +21,8 @@
         android:theme="@style/Theme.SaveMe">
         <activity
             android:name=".Boundary.CertificatePage"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Boundary.UserProfilePage"
             android:exported="false"

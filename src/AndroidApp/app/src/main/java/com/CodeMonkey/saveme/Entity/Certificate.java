@@ -34,7 +34,5 @@ public class Certificate {
     public void setFileData(String fileData) {
         this.fileData = fileData;
     }
-
-
 }
 
