@@ -83,8 +83,8 @@ public class ConfigPageFrag extends Fragment {
 
         CertificateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                if(UserController.getUserController().getUser().getIsVolunteer() == "NO"){
-                    Intent intent = new Intent(getActivity(), CertificatePage.class);
+                if(UserController.getUserController().getUser().getIsVolunteer().equals("NO")){
+                    Intent intent = new Intent(getActivity(), MainPage.class);
                     startActivity(intent);
                 }
                 else{

@@ -1,5 +1,6 @@
 package com.CodeMonkey.saveme.Controller;
 
+import android.os.Debug;
 import android.util.Log;
 
 import com.CodeMonkey.saveme.Entity.Certificate;
@@ -20,7 +21,8 @@ public class CertificateController{
     }
 
     public String getCertificateUrl(){
-        if(UserController.getUserController().getUser().getIsVolunteer() == "YES"){
+        if(UserController.getUserController().getUser().getIsVolunteer().equals("YES")){
+
             if(UserController.getUserController().getUser().getCertificateUrl() != null){
                 return UserController.getUserController().getUser().getCertificateUrl();
             }

@@ -55,7 +55,8 @@
                     android:layout_weight="2"
                     android:fontFamily="sans-serif-medium"
                     android:text="Name"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:textColor="@color/black"/>
 
 
 
@@ -85,21 +86,16 @@
                 android:orientation="vertical">
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/user_certificate"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/user_certificate"
-                        android:textSize="20sp" />
-                </RelativeLayout>
 
 
                 <RelativeLayout
@@ -163,7 +159,9 @@
                             android:id="@+id/certificatePhoto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:src="@drawable/save_me_logo"
                             ></ImageView>
+
                     </LinearLayout>
 
                     <LinearLayout
