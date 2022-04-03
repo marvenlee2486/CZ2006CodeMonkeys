@@ -34,6 +34,7 @@ public class MarkerWindowUtil implements GoogleMap.InfoWindowAdapter {
             public void onClick(View view) {
                 Log.e("!!!!!!!", "112345");
 
+
             }
         });
         name.setText("!!!!!!!!");

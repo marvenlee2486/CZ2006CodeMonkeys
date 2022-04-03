@@ -53,7 +53,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     private RegVolPageFrag regVolPageFrag = new RegVolPageFrag();
     private ConfigPageFrag configPageFrag = new ConfigPageFrag();
     private RescuePageFrag rescuePageFrag;
-    private VolPledgePageFrag volPledgePageFrag = new VolPledgePageFrag();
+    private VolPledgePageFrag volPledgePageFrag;
     private NoRequestRescuePageFrag noRequestRescuePageFrag = new NoRequestRescuePageFrag();
     private Button saveMePageButton;
     private Button regVolPageButton;
@@ -79,6 +79,15 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     }
 
     private void init(){
+        //Initiate buttons
+        saveMePageButton = findViewById(R.id.getHelpButton);
+        regVolPageButton = findViewById(R.id.rescueButton);
+        configPageButton = findViewById(R.id.moreButton);
+        saveMePageButton.setOnClickListener(this);
+        regVolPageButton.setOnClickListener(this);
+        configPageButton.setOnClickListener(this);
+
+        volPledgePageFrag = new VolPledgePageFrag(regVolPageButton);
         //Initiate fragments
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -90,14 +99,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.hide(noRequestRescuePageFrag);
         fragmentTransaction.commit();
         fragmentSwitch(saveMePageFrag);
-
-        //Initiate buttons
-        saveMePageButton = findViewById(R.id.getHelpButton);
-        regVolPageButton = findViewById(R.id.rescueButton);
-        configPageButton = findViewById(R.id.moreButton);
-        saveMePageButton.setOnClickListener(this);
-        regVolPageButton.setOnClickListener(this);
-        configPageButton.setOnClickListener(this);
 
         mainPageContent = findViewById(R.id.mainPageContent);
         morePageContainer = findViewById(R.id.morePageContainer);
@@ -178,7 +179,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
     }
 
     private void detectVolunteerStatus(){
-        Log.e("?", UserController.getUserController().getUser().getIsVolunteer());
         switch (UserController.getUserController().getUser().getIsVolunteer()){
             case "NO":
                 fragmentSwitch(regVolPageFrag);
@@ -188,7 +188,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 setCertificate();
                 break;
             case "YES":
-                fragmentSwitch(rescuePageFrag);
+                fragmentSwitch(volPledgePageFrag);
                 break;
 
             case "PLEDGED":
@@ -198,14 +198,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
             case "REJECTED":
                 fragmentSwitch(regVolPageFrag);
 
-                break;
-
-            case "false":
-                fragmentSwitch(regVolPageFrag);
-                break;
-
-            case "true":
-                detectEvents();
                 break;
 
         }
@@ -228,7 +220,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
     }
 
-    private void detectEvents(){
+    public void detectEvents(){
         if (EventController.getEventController().getEventList().size() != 0)
             fragmentSwitch(rescuePageFrag);
         else

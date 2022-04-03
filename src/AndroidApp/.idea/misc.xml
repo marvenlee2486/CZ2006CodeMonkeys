@@ -63,15 +63,20 @@
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/text_page.xml" value="0.25" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/train_page_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys/AndroidApp/app/src/main/res/layout/vol_pledge_page_frag.xml" value="0.165" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/auth_auto_sign_in_page.xml" value="0.13125" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/auth_register_main_page.xml" value="0.13125" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/auth_register_sub_page.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/auth_sign_in_page.xml" value="0.13125" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/certificate_show_layout.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/map_page_fragment.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/reg_sign_page.xml" value="0.13125" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/reg_vol_page_fragment.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/select_location_page.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Wang Tianyu/Desktop/Programming/cz2006/Android/CZ2006CodeMonkeys_lab4/src/AndroidApp/app/src/main/res/layout/vol_pledge_page_frag.xml" value="0.10235507246376811" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="16" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="16" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

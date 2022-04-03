@@ -47,26 +47,6 @@ public class UserController{
         this.token = token;
     }
 
-    public void setCurrentSignInUser(String phoneNumber){
-        RequestUtil.getUserData(new Observer<UserRsp>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("Error", e.toString());
-            }
-
-            @Override
-            public void onNext(UserRsp userRsp) {
-                setUser(userRsp.getBody());
-                Log.e("Result", user.toString());
-            }
-        }, phoneNumber, token);
-
-    }
 
 
 
