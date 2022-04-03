@@ -123,7 +123,7 @@ class rescueManager:
             except: print("fail to reach one of the volunteers while updating information. error is ignored.")
         try: self.events[tel].patientSck.send(';'.join(message).encode('utf-8')) # patient too
         except: print("temporaily lost contact with patient. error is ignored.")
-    s
+
     def generateReport(self, tel):
         ev = self.events[tel]
         message = {"rescuers": ev.accept, "lat": ev.patientLat, "lon": ev.patientLon, "startTime": ev.time, "endTime": ev.endTime}
