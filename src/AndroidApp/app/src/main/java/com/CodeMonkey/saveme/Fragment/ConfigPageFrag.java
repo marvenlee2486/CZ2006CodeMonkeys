@@ -57,10 +57,10 @@ public class ConfigPageFrag extends Fragment {
 
         if (UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED") || UserController.getUserController().getUser().getIsVolunteer().equals("YES"))
             CertificateButton.setVisibility(View.VISIBLE);
-        ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                showChangeLanguageModal();
-            }
+            ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    showChangeLanguageModal();
+                }
         });
 
         userProfileButton.setOnClickListener(new View.OnClickListener(){

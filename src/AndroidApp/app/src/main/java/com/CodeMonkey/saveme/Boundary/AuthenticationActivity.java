@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import com.CodeMonkey.saveme.Controller.LanguageController;
 import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.R;
@@ -32,6 +33,7 @@ public class AuthenticationActivity extends BaseActivity{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_sign_page);
+        LanguageController.getInstance().setLanguage(this);
         autoSignIn();
     }
 

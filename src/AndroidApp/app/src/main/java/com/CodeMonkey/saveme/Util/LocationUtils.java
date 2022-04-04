@@ -68,8 +68,10 @@ public class LocationUtils {
                 Criteria criteria = new Criteria();
                 String provider = manager.getBestProvider(criteria, true);
                 location = manager.getLastKnownLocation(provider);
-                if (location == null)
+                if (location == null){
                     location = lastLocation;
+                    Log.e("test", "uf");
+                }
             }
         }
         return location;
