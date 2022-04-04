@@ -37,7 +37,7 @@ RocketIcon,
 import DashboardTableRow from "components/Tables/DashboardTableRow";
 import React, { useEffect, useState } from "react";
 // react icons
-import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import { IoCheckmarkDoneCircleSharp, IoRemoveCircleSharp} from "react-icons/io5";
 import { BiBroadcast, BiUserPlus ,BiTask } from "react-icons/bi";
 // other imports
 import { useHistory } from "react-router-dom";
@@ -46,6 +46,8 @@ import awsconfig from '../../aws-exports';
 Amplify.configure(awsconfig);
 import { lineChartOptions } from "variables/charts";
 import { barChartOptions } from "variables/charts";
+import { SiSocketdotio } from "react-icons/si";
+import { forEach } from "lodash";
 
 
 export default function Dashboard() {
@@ -87,16 +89,24 @@ export default function Dashboard() {
 
 	
 	const getlocationdata = async () => {
-		var ws = new WebSocket("ws://54.255.235.80:3392");
+		var ws = new WebSocket("wss://chfo8hmaua.execute-api.ap-southeast-1.amazonaws.com/production");
 		
 		ws.onopen = function () {
 			console.log('connected to websocket');
 			setLocationData(prevlocationdata => ({...prevlocationdata, state:"connected, retrieving info..."}));
+			ws.send(JSON.stringify({"action":"setName","name":"admin"}))
 		};
 
-		ws.onmessage = (evt) => {
+		ws.onmessage = async (evt) => {
 			console.log(evt.data);
-			setLocationData(prevlocationdata => ({state:"connected",data:JSON.parse(evt.data)}));
+			// console.log(JSON.parse(evt.data)["privateMessage"]);
+			let data = await JSON.parse(evt.data)
+			if (data["privateMessage"]){
+				console.log("yes private incoming")
+				console.log(typeof data["privateMessage"]);
+				data["privateMessage"].forEach(d=>console.log(d));
+				setLocationData(prevlocationdata => ({state:"connected",data:data["privateMessage"]}));
+			}
 		};
 
 		ws.onclose = function () {
@@ -149,10 +159,11 @@ export default function Dashboard() {
 	const setRescueInfo = async() => {
 		//fetch data
 		const current_sessiontoken = await Auth.currentSession();
+		console.log(current_sessiontoken)
 		var res = await fetch(
 				'https://95emtg0gr2.execute-api.ap-southeast-1.amazonaws.com/staging/rescueevents',
 				{
-					headers: {'Authorization': current_sessiontoken.idToken.jwtToken },
+					headers: {'Authorization': current_sessiontoken.accessToken.jwtToken },
 				},
 			)
 		var res = await res.json()
@@ -304,6 +315,15 @@ export default function Dashboard() {
 					Ongoing Rescue Table
 				</Text>
 				<Flex align="center">
+					{locationdata.data.length==0?
+					<Icon
+					as={IoRemoveCircleSharp}
+					color="red.300"
+					w={4}
+					h={4}
+					pe="3px"
+					/>
+					:
 					<Icon
 					as={IoCheckmarkDoneCircleSharp}
 					color="teal.300"
@@ -311,6 +331,7 @@ export default function Dashboard() {
 					h={4}
 					pe="3px"
 					/>
+					}
 					<Text fontSize="sm" color="gray.400" fontWeight="normal">
 					<Text fontWeight="bold" as="span">
 						{locationdata.data.length}
@@ -337,7 +358,7 @@ export default function Dashboard() {
 							lat={row.latitude}
 							long={row.longitude}
 							time={row.timeStarted}
-							userName={row.victim}
+							userName={row.userName}
 							respondedVolunteerNumber={row.respondedVolunteers}
 						/>
 						);
@@ -366,6 +387,15 @@ export default function Dashboard() {
 					Ongoing Rescue Map
 				</Text>
 				<Flex align="center">
+					{locationdata.data.length==0?
+					<Icon
+					as={IoRemoveCircleSharp}
+					color="red.300"
+					w={4}
+					h={4}
+					pe="3px"
+					/>
+					:
 					<Icon
 					as={IoCheckmarkDoneCircleSharp}
 					color="teal.300"
@@ -373,6 +403,7 @@ export default function Dashboard() {
 					h={4}
 					pe="3px"
 					/>
+					}
 					<Text fontSize="sm" color="gray.400" fontWeight="normal">
 					<Text fontWeight="bold" as="span">
 						{locationdata.data.length}

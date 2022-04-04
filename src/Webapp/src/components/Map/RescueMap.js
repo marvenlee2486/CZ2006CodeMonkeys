@@ -15,7 +15,7 @@ function RescueMarker ({ timeStarted , victim, volunteercount }){
             <PopoverHeader>Volunteers Responded: {volunteercount}</PopoverHeader>
             <PopoverBody>
                 <Text>Rescue started at: {timeStarted}</Text>
-                <Text>Victim number: {victim}</Text>
+                <Text>Name of victim: {victim}</Text>
             </PopoverBody>
         </PopoverContent>
         </Popover>
@@ -46,7 +46,7 @@ export default function RescueMap({markers}) {
                 lat={data.latitude}
                 lng={data.longitude}
                 timeStarted = {data.timeStarted}
-                victim = {data.victim}
+                victim = {data.userName}
                 volunteercount = {data.respondedVolunteers}
                 />
             )}

@@ -36,6 +36,7 @@ function SignIn() {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [welcome, setWelcome] = React.useState('Welcome Back')
+  const [error, setError] = React.useState()
   //util functions
   const handleClick = () => setShow(!show)
   const handleSubmit = async (event) => {
@@ -46,7 +47,9 @@ function SignIn() {
       if (current_authed!=null) history.push("/admin/dashboard");
       else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') history.push({pathname:"/auth/newpassword",state:{user}})
     } catch (error) {
-      alert(error.log);
+      // console.log(error.message)
+      // alert(error);
+      setError(error.message)
     }
   };
 
@@ -140,24 +143,25 @@ function SignIn() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-                <Button
-                  fontSize="15px"
-                  type="submit"
-                  bg="teal.300"
-                  w="100%"
-                  h="45"
-                  mb="20px"
-                  color="white"
-                  mt="20px"
-                  _hover={{
-                    bg: "teal.200",
-                  }}
-                  _active={{
-                    bg: "teal.400",
-                  }}
-                >
-                  SIGN IN
-                </Button>
+              <Text color="red.300">{error}</Text>
+              <Button
+                fontSize="15px"
+                type="submit"
+                bg="teal.300"
+                w="100%"
+                h="45"
+                mb="20px"
+                color="white"
+                mt="20px"
+                _hover={{
+                  bg: "teal.200",
+                }}
+                _active={{
+                  bg: "teal.400",
+                }}
+              >
+                SIGN IN
+              </Button>
             </FormControl>
             </form>
           </Flex>
