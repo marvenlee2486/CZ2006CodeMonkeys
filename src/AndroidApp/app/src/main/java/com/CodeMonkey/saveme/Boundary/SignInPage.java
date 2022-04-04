@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 public class SignInPage extends BaseActivity implements View.OnClickListener{
     private Button next;
-    private TextView forgetPsw;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,10 +39,8 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
     private void init(){
         //Initialize buttons
         next = findViewById(R.id.allowButton);
-        forgetPsw = findViewById(R.id.forgetPasswordButton);
 
         next.setOnClickListener(this);
-        forgetPsw.setOnClickListener(this);
     }
 
     @Override
@@ -52,9 +49,6 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
         switch(view.getId()){
             case R.id.allowButton:
                 onPressLogin(view);
-                break;
-            case R.id.forgetPasswordButton:
-                OnForgetPassword(view);
                 break;
         }
     }
@@ -83,14 +77,6 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                     error -> {Log.e("Auth", "Log in failed, please check your phone number or password");}
             );
 
-    }
-
-    public void OnForgetPassword(View view) {
-        Amplify.Auth.resetPassword(
-                "+6593581948",
-                result -> Log.i("AuthQuickstart", result.toString()),
-                error -> Log.e("AuthQuickstart", error.toString())
-        );
     }
 
 }
