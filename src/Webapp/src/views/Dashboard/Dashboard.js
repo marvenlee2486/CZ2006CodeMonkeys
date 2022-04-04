@@ -102,8 +102,8 @@ export default function Dashboard() {
 			// console.log(JSON.parse(evt.data)["privateMessage"]);
 			let data = await JSON.parse(evt.data)
 			if (data["privateMessage"]){
-				console.log("yes private incoming")
-				console.log(typeof data["privateMessage"]);
+				// console.log("yes private incoming")
+				// console.log(typeof data["privateMessage"]);
 				data["privateMessage"].forEach(d=>console.log(d));
 				setLocationData(prevlocationdata => ({state:"connected",data:data["privateMessage"]}));
 			}
