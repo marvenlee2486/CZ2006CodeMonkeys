@@ -71,4 +71,15 @@ public class Certificate {
         setSignature(s3BucketParameters.getSignature());
     }
 
+    @Override
+    public String toString() {
+        return "Certificate{" +
+                "key='" + key + '\'' +
+                ", AWSAccessKeyId='" + AWSAccessKeyId + '\'' +
+                ", amzToken='" + amzToken + '\'' +
+                ", policy='" + policy + '\'' +
+                ", signature='" + signature + '\'' +
+                ", file='" + file + '\'' +
+                '}';
+    }
 }

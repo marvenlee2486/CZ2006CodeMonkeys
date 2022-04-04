@@ -7,7 +7,14 @@ import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 
+import java.net.URL;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
+import retrofit2.http.Part;
+import rx.Completable;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -40,8 +47,8 @@ public class RequestUtil {
         setSubscribe(dbService.postCertData(certificateURLScheme, token), observer);
     }
 
-    public static void getCertData(Observer<String> observer, String phoneNumber){
-        setSubscribe(dbService.getCertData(phoneNumber), observer);
+    public static void getCertData(Observer<ResponseBody> observer, String url){
+        setSubscribe(s3Service.getCertData(url), observer);
     }
 
     public static void getBusDataAll(Observer<ResponseBody> observer){
@@ -52,8 +59,10 @@ public class RequestUtil {
         setSubscribe(dbService.checkAvailability(phoneNumber, token), observer);
     }
 
-    public static void postRealCertData(Observer<ResponseBody> observer, Certificate certificate){
-        setSubscribe(s3Service.postRealCertData(certificate), observer);
+    public static void postRealCertData(Observer<Completable> observer, MultipartBody.Part key,
+                                        MultipartBody.Part token, MultipartBody.Part accessKey,
+                                        MultipartBody.Part policy, MultipartBody.Part signature, RequestBody file){
+        setSubscribe(s3Service.postRealCertData(key, token, accessKey, policy, signature, file), observer);
     }
 
 
