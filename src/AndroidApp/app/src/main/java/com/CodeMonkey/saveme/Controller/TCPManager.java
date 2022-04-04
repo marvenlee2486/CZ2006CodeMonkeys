@@ -137,7 +137,7 @@ public class TCPManager{
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();
                         Log.i(TAG, "Sent " + msg);
-                        msg = "MSG;94489600;12345678;寄";
+                        msg = "MSG;94489600;94489600;寄";
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();
