@@ -2,6 +2,8 @@ package com.CodeMonkey.saveme.Util;
 
 
 import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.CertificateRsp;
+import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 
@@ -10,7 +12,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -35,7 +36,10 @@ public interface HTTPUtil {
     Observable<ResponseBody> getCertData(@Query("phoneNumber") String phoneNumber);
 
     @POST(URLUtil.certData)
-    Observable<ResponseBody> postCertData(@Body Certificate certificate, @Header("Authorization") String token);
+    Observable<CertificateRsp> postCertData(@Body CertificateURLScheme certificateURLScheme, @Header("Authorization") String token);
+
+    @POST()
+    Observable<ResponseBody> postRealCertData(@Body Certificate certificate);
 
     @GET(URLUtil.validation)
     Observable<ResponseBody> checkAvailability(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);

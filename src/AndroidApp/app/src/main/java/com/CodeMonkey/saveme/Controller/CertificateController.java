@@ -1,12 +1,6 @@
 package com.CodeMonkey.saveme.Controller;
 
-import android.os.Debug;
 import android.util.Log;
-
-import com.CodeMonkey.saveme.Entity.Certificate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CertificateController{
     private static CertificateController instance;

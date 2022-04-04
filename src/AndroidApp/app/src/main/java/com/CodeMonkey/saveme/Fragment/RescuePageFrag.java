@@ -46,6 +46,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private RelativeLayout instrucButton;
     private ImageView currentLine;
     private Context context;
+    private boolean isMap = true;
 
     private FrameLayout mainPageContent;
 
@@ -120,12 +121,16 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.mapButton:
                 mapPageFrag.removeKmlLayer();
-                fragmentSwitch(mapPageFrag);
+                if (!isMap) {
+                    fragmentSwitch(mapPageFrag);
+                    isMap = true;
+                }
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.mapLine);
                 currentLine.setVisibility(View.VISIBLE);
                 break;
             case R.id.trainButton:
+                isMap = false;
 //                fragmentSwitch(trainPageFrag);
 //                currentLine.setVisibility(View.GONE);
 //                currentLine = getView().findViewById(R.id.trainLine);
@@ -134,6 +139,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                         + UserController.getUserController().getUser().getPhoneNumber());
                 break;
             case R.id.busButton:
+                isMap = false;
 //                fragmentSwitch(busPageFrag);
 //                currentLine.setVisibility(View.GONE);
 //                currentLine = getView().findViewById(R.id.busLine);
@@ -143,7 +149,10 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                 break;
             case R.id.instructionButton:
                 mapPageFrag.setKmlLayer();
-                fragmentSwitch(mapPageFrag);
+                if (!isMap) {
+                    fragmentSwitch(mapPageFrag);
+                    isMap = true;
+                }
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.instructionLine);
                 currentLine.setVisibility(View.VISIBLE);

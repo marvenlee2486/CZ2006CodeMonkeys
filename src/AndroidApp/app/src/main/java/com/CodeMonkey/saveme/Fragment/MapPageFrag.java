@@ -44,7 +44,7 @@ import java.util.Map;
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener{
 
     private Location gps;
     private Context context;
@@ -106,10 +106,11 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 map = googleMap;
-                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(@NonNull Marker marker) {
-                        Log.e("!!!!!!!!", "??????");
+                        Log.e("!!!!!!!!!!!!", "!!!!!!!!!!!!!");
                     }
                 });
                 if (tempPhones.size() != 0){
@@ -185,9 +186,4 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         return false;
     }
 
-    @Override
-    public void onInfoWindowClick(@NonNull Marker marker) {
-        Log.e("Info click", "?");
-        marker.showInfoWindow();
-    }
 }

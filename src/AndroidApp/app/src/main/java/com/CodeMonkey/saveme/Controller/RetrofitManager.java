@@ -22,6 +22,7 @@ public class RetrofitManager {
     private Retrofit retrofit;
     private volatile static RetrofitManager dbRetrofitManager;
     private volatile static RetrofitManager ltaRetrofitManager;
+    private volatile static RetrofitManager s3RetrofitManager;
 
     private RetrofitManager(String requestPath) {
 
@@ -55,6 +56,17 @@ public class RetrofitManager {
             }
         }
         return ltaRetrofitManager;
+    }
+
+    public static RetrofitManager gets3RetrofitManager(){
+        if (s3RetrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (s3RetrofitManager == null){
+                    s3RetrofitManager = new RetrofitManager(URLUtil.awsS3Base);
+                }
+            }
+        }
+        return s3RetrofitManager;
     }
 
     public <T> T create(Class<T> service) {

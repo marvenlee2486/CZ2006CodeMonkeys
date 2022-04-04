@@ -8,34 +8,28 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.Certificate;
-import com.CodeMonkey.saveme.Entity.UserRsp;
+import com.CodeMonkey.saveme.Entity.CertificateRsp;
+import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileOutputStream;
 
 import okhttp3.ResponseBody;
 import rx.Observer;
@@ -96,10 +90,53 @@ public class RegVolPageFrag extends Fragment {
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         FileInputStream file = new FileInputStream(path);
-                        byte[] base64Data = new byte[file.available()];
-                        file.read(base64Data);
-                        String base64 = Base64.encodeToString(base64Data, Base64.NO_CLOSE);
-                        Log.e("test", base64);
+                        FileOutputStream photo = new FileOutputStream(path);
+                        CertificateURLScheme certificateURLScheme = new CertificateURLScheme();
+                        certificateURLScheme.setFileExtension("png");
+                        certificateURLScheme.setPhoneNumber("94489600");
+                        RequestUtil.postCertData(new Observer<CertificateRsp>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(CertificateRsp certificateRsp) {
+
+                                Certificate certificate = new Certificate();
+                                certificate.setS3BucketParameters(certificateRsp.getFields());
+                                certificate.setFile("test");
+                                Log.e("?", "??");
+                                RequestUtil.postRealCertData(new Observer<ResponseBody>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                        Log.e("...", "...");
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                        Log.e("??", "???");
+
+                                    }
+
+                                    @Override
+                                    public void onNext(ResponseBody responseBody) {
+
+                                        Log.e("!!", "!!!");
+
+                                    }
+                                }, certificate);
+
+                            }
+                        }, certificateURLScheme, UserController.getUserController().getToken());
                         warningIcon.setImageResource(R.drawable.image_icon);
                         warningIcon.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -107,7 +144,6 @@ public class RegVolPageFrag extends Fragment {
                                 showDialog(bitmap);
                             }
                         });
-                        initData(base64);
                         file.close();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -132,34 +168,34 @@ public class RegVolPageFrag extends Fragment {
         dialog.setCanceledOnTouchOutside(true);
     }
 
-    private void initData(String data) {
-        Log.e("test", UserController.getUserController().getToken());
-        Certificate certificate = new Certificate();
-        certificate.setFileData(getResources().getString(R.string.testBase64));
-        certificate.setFileExtension(".png");
-        certificate.setPhoneNumber("12345678");
-        RequestUtil.postCertData(new Observer<ResponseBody>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("ji", e.getMessage());
-            }
-
-            @Override
-            public void onNext(ResponseBody certificate) {
-                Log.e("test", "Success");
-                try {
-                    Log.e("!!!!!!!!!!!!!!!!!!!!", certificate.string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, certificate, UserController.getUserController().getToken());
-    }
+//    private void initData(String data) {
+//        Log.e("test", UserController.getUserController().getToken());
+//        Certificate certificate = new Certificate();
+//        certificate.setFileData(getResources().getString(R.string.testBase64));
+//        certificate.setFileExtension(".png");
+//        certificate.setPhoneNumber("12345678");
+//        RequestUtil.postCertData(new Observer<ResponseBody>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e("ji", e.getMessage());
+//            }
+//
+//            @Override
+//            public void onNext(ResponseBody certificate) {
+//                Log.e("test", "Success");
+//                try {
+//                    Log.e("!!!!!!!!!!!!!!!!!!!!", certificate.string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, certificate, UserController.getUserController().getToken());
+//    }
 
 
 }

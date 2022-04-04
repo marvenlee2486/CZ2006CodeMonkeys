@@ -25,7 +25,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Controller.UserController;
-import com.CodeMonkey.saveme.Entity.User;
+import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.CertificateRsp;
+import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
+import com.CodeMonkey.saveme.Entity.S3BucketParameters;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Entity.Event;
@@ -36,9 +39,13 @@ import com.CodeMonkey.saveme.Fragment.RescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.SaveMePageFrag;
 import com.CodeMonkey.saveme.Fragment.VolPledgePageFrag;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import rx.Observer;
 
 
 /***
@@ -126,7 +133,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 }
             }
         };
-        // TODO : Remove comment
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
         tcpManager.sendLocation(this);
@@ -135,6 +141,9 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
             changeColor(Color.parseColor("#0013C2"));
             fragmentSwitch(rescuePageFrag);
         }
+
+
+        EventController.getEventController().addNewEvent("88499112", "1.35164", "103.68166");
 
 
     }

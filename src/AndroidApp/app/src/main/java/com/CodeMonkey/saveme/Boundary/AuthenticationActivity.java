@@ -75,6 +75,7 @@ public class AuthenticationActivity extends BaseActivity{
                             @Override
                             public void onNext(UserRsp userRsp) {
                                 UserController.getUserController().setUser(userRsp.getBody());
+                                Log.i("User info", userRsp.getBody().toString());
                                 Log.i("Auth", Amplify.Auth.getCurrentUser().getUsername());
                                 Intent intent2 = new Intent(getApplicationContext(),  MainPage.class);
                                 intent2.putExtra("type", "common");

@@ -24,4 +24,6 @@ public class URLUtil {
 
     public static final String validation = "resevent";
 
+    public static final String awsS3Base = "https://volunteercerticatebucket.s3.amazonaws.com/";
+
 }

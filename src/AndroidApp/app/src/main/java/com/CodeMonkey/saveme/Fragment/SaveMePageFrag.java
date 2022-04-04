@@ -35,6 +35,7 @@ public class SaveMePageFrag extends Fragment {
     private Button pressedButton;
     private boolean pressed = false;
     private TextView pressButtonText;
+    private int counter;
 
     public SaveMePageFrag(){}
 
@@ -69,6 +70,7 @@ public class SaveMePageFrag extends Fragment {
                     @Override
                     public void onNext(ResponseBody responseBody) {
                         Log.e("test", responseBody.toString());
+                        counter = 10;
                         rescueMe();
                     }
                 }, UserController.getUserController().getUser().getPhoneNumber(), UserController.getUserController().getToken());
@@ -88,52 +90,41 @@ public class SaveMePageFrag extends Fragment {
         pressed = true;
         button.setVisibility(View.GONE);
         pressedButton.setVisibility(View.VISIBLE);
-        pressButtonText.setText("An ambulance will be called. Signal will be sent to nearby rescuers in\n10");
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message message) {
                 if (message.what == 5){
-                    if (pressed)
-                        pressButtonText.setText("An ambulance will be called. Signal will be sent to nearby rescuers in\n" + message.obj);
-                }
-                else{
                     if (pressed){
-                        Location location = LocationUtils.getBestLocation(getContext(), null);
-                        TCPManager.getTCPManager().send("RESCUEME;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude());
-                        pressButtonText.setText("Signal is being broadcast.\nDon’t worry, help is on the way.");
+                        counter --;
+                        if (counter == 0){
+                            Location location = LocationUtils.getBestLocation(getContext(), null);
+                            TCPManager.getTCPManager().send("RESCUEME;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude());
+                            pressButtonText.setText("Signal is being broadcast.\nDon’t worry, help is on the way.");
+                        }
+                        else {
+                            String string = "Signal will be sent to nearby rescuers in\n" + counter;
+                            pressButtonText.setText(string);
+                        }
                     }
                 }
                 return false;
             }
         });
 
-        new Thread(){
+        int time = 9;
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Message msg;
-//                int time = 10;
-//                for (; time > 0; time--){
-//                    try {
-//                        msg = new Message();
-//                        msg.what = 5;
-//                        msg.obj = time;
-//                        handler.sendMessage(msg);
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                msg = new Message();
-                msg.what = 6;
-                msg.obj = "Completed";
+                Message msg = new Message();
+                msg.what = 5;
                 handler.sendMessage(msg);
             }
-        }.run();
+        };
+
+        for (; time >= 0; time--){
+            handler.postDelayed(runnable, 1000 * (10 - time));
+        }
 
     }
 

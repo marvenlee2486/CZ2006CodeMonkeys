@@ -2,6 +2,8 @@ package com.CodeMonkey.saveme.Util;
 
 import com.CodeMonkey.saveme.Controller.RetrofitManager;
 import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.CertificateRsp;
+import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 
@@ -19,6 +21,7 @@ public class RequestUtil {
 
     private static HTTPUtil dbService = RetrofitManager.getDBRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil ltaService = RetrofitManager.getLTARetrofitManager().create(HTTPUtil.class);
+    private static HTTPUtil s3Service = RetrofitManager.gets3RetrofitManager().create(HTTPUtil.class);
 
 
     public static void postUserData(Observer<User> observer, User user, String token){
@@ -33,8 +36,8 @@ public class RequestUtil {
         setSubscribe(dbService.getUserData(phoneNumber, token), observer);
     }
 
-    public static void postCertData(Observer<ResponseBody> observer, Certificate certificate, String token){
-        setSubscribe(dbService.postCertData(certificate, token), observer);
+    public static void postCertData(Observer<CertificateRsp> observer, CertificateURLScheme certificateURLScheme, String token){
+        setSubscribe(dbService.postCertData(certificateURLScheme, token), observer);
     }
 
     public static void getCertData(Observer<String> observer, String phoneNumber){
@@ -47,6 +50,10 @@ public class RequestUtil {
 
     public static void checkValidation(Observer<ResponseBody> observer, String phoneNumber, String token){
         setSubscribe(dbService.checkAvailability(phoneNumber, token), observer);
+    }
+
+    public static void postRealCertData(Observer<ResponseBody> observer, Certificate certificate){
+        setSubscribe(s3Service.postRealCertData(certificate), observer);
     }
 
 
