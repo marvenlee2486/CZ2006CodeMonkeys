@@ -2,7 +2,7 @@ import websockets
 import asyncio
 import json
 import datetime
-from rescueManager import rescueDaemon
+import rescueManager
 class websocketsManager:
     @staticmethod
     async def run():
@@ -13,8 +13,8 @@ class websocketsManager:
                     websocket.send('''{"action":"setName","name":"laganma"}''') # auth
                     while True:
                         extractedEvents = []
-                        for tel in rescueDaemon.events:
-                            x = rescueDaemon.events[tel]
+                        for tel in rescueManager.rescueDaemon.events:
+                            x = rescueManager.rescueDaemon.events[tel]
                             te = {"patientTel": tel, "patientLat": x.patientLat, "patientLon": x.patientLon, "accept": x.accept, "decline": x.decline, "informed": x.informed, "startTime": x.time, "endTime": x.endTime} 
                             extractedEvents.append(te)
                         obj = {"action": "sendPrivate", "to": "admin", "message": extractedEvents}
