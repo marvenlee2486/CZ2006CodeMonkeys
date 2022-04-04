@@ -1,9 +1,5 @@
 import {
-  Avatar,
-  AvatarGroup,
   Flex,
-  Icon,
-  Progress,
   Td,
   Text,
   Tr,
@@ -12,7 +8,7 @@ import {
 import React from "react";
 
 function DashboardTableRow(props) {
-  const { lat,long, time, userName, logo,respondedVolunteerNumber } = props;
+  const { lat,long, time, userName,respondedVolunteerNumber } = props;
   const textColor = useColorModeValue("gray.700", "white");
   return (
     <Tr>
