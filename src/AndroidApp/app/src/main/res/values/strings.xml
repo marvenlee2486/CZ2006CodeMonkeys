@@ -71,4 +71,5 @@
     <string name="save">save</string>
     <string name="age">Age:</string>
     <string name="certificate">Certificate</string>
+    <string name="chat_icon_text">Chat</string>
 </resources>
