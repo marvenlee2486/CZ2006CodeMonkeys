@@ -17,7 +17,7 @@ public class CertificateController{
     }
 
     public String getCertificateUrl(){
-        if(UserController.getUserController().getUser().getIsVolunteer().equals("YES")){
+        if(UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED")){
 
             if(UserController.getUserController().getUser().getCertificateUrl() != null){
                 return UserController.getUserController().getUser().getCertificateUrl();
