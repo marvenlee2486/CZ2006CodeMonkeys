@@ -1,22 +1,37 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Box, Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Text } from '@chakra-ui/react';
-import { HiLocationMarker } from "react-icons/hi";
+import { Box, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Text } from '@chakra-ui/react';
+import { HiLocationMarker, HiHeart } from "react-icons/hi";
 
-function RescueMarker ({ timeStarted , victim, volunteercount }){
+function RescueMarker ({ timeStarted , victim, volunteercount,volunteer }){
     return(
         <Popover>
         <PopoverTrigger>
+            {volunteer?
+            <Box><HiHeart style={{color: "red", fontSize:"2em"}}/></Box>
+            :
             <Box><HiLocationMarker style={{color: "red", fontSize:"2em"}}/></Box>
+            }
         </PopoverTrigger>
         <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
+            {volunteer?
+            <PopoverHeader>Volunteer name: {volunteer}</PopoverHeader>
+            :
             <PopoverHeader>Volunteers Responded: {volunteercount}</PopoverHeader>
+            }
+            {!volunteer?
             <PopoverBody>
                 <Text>Rescue started at: {timeStarted}</Text>
                 <Text>Name of victim: {victim}</Text>
             </PopoverBody>
+            :
+            <PopoverBody>
+                <Text>Rescue started at: {timeStarted}</Text>
+                <Text>Name of victim: {victim}</Text>
+            </PopoverBody>
+            }
         </PopoverContent>
         </Popover>
     )
@@ -46,8 +61,9 @@ export default function RescueMap({markers}) {
                 lat={data.latitude}
                 lng={data.longitude}
                 timeStarted = {data.timeStarted}
-                victim = {data.userName}
+                victim = {data.victim}
                 volunteercount = {data.respondedVolunteers}
+                volunteer = {data.volunteer}
                 />
             )}
            

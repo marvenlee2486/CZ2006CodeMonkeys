@@ -353,12 +353,13 @@ export default function Dashboard() {
 				<Tbody>
 					{locationdata.data.map((row,index) => {
 						return (
+						!row.volunteer&&
 						<DashboardTableRow
 							key={index}
 							lat={row.latitude}
 							long={row.longitude}
 							time={row.timeStarted}
-							userName={row.userName}
+							userName={row.victim}
 							respondedVolunteerNumber={row.respondedVolunteers}
 						/>
 						);
@@ -458,7 +459,7 @@ export default function Dashboard() {
 					</Text>
 					<Text fontSize="md" fontWeight="medium" color="gray.400">
 					<Text as="span" color="gray.500" fontWeight="bold">
-						({barChartData[0].data.slice(-1)[0]-barChartData[0].data.slice(-2,-1)[0]>0?"+":"-"}{
+						({barChartData[0].data.slice(-1)[0]-barChartData[0].data.slice(-2,-1)[0]>0&&"+"}{
 						((barChartData[0].data.slice(-1)[0]-barChartData[0].data.slice(-2,-1)[0])/barChartData[0].data.slice(-2,-1)[0])*100
 						}%)
 					</Text>{" "}
