@@ -32,8 +32,8 @@ public class AuthenticationActivity extends BaseActivity{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reg_sign_page);
         LanguageController.getInstance().setLanguage(this);
+        setContentView(R.layout.reg_sign_page);
         autoSignIn();
     }
 

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
+import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.core.Amplify;
 
@@ -58,7 +59,11 @@ public class OTPPage extends BaseActivity implements View.OnClickListener{
         Intent intent;
         switch (view.getId()){
             case R.id.resend:
-
+                Amplify.Auth.resendSignUpCode(
+                        phoneNumString,
+                        result -> Log.i("AuthDemo", "Code was sent again: " + result.toString()),
+                        error -> Log.e("AuthDemo", "Failed to resend code.", error)
+                );
                 break;
             case R.id.updateContactInfo:
                 intent = new Intent(OTPPage.this, RegSignPage.class);

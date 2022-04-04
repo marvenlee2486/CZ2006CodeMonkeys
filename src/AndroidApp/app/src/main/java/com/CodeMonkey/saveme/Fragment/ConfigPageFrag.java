@@ -91,18 +91,31 @@ public class ConfigPageFrag extends Fragment {
             }
         });
 
-        SignOutButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Amplify.Auth.signOut(
-                        AuthSignOutOptions.builder().globalSignOut(true).build(),
-                        () -> {Log.i("Auth", "Signed out successfully");
-                                System.exit(0);},
-                        error -> Log.e("Auth", error.toString())
-                );
-
+        SignOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure to log out?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Amplify.Auth.signOut(
+                                        AuthSignOutOptions.builder().globalSignOut(true).build(),
+                                        () -> {
+                                            Log.i("Auth", "Signed out successfully");
+                                            getActivity().finish();
+                                        },
+                                        error -> Log.e("Auth", error.toString())
+                                );
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
-
         return view;
     }
 
