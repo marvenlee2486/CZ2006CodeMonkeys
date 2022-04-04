@@ -34,6 +34,8 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
     private EditText emergencyContactName;
     private EditText emergencyContactNumber;
     private User user;
+    private String exactHomeAddress;
+    private String exactWorkAddress;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +81,6 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
                 startActivityForResult(intent, 2);
                 break;
             case R.id.saveBtn:
-                Log.i("test", "here");
                 if (check()){
                     UpdatePersonalInfo();
                     Log.e("user", user.toString());
@@ -113,11 +114,13 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
             return;
         switch (requestCode){
             case 1:
-                String homeAddressString = String.format("%.6f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.6f",data.getDoubleExtra("longitude", 0));
+                exactHomeAddress = data.getDoubleExtra("latitude", 0) + "," + data.getDoubleExtra("longitude", 0);
+                String homeAddressString = String.format("%.3f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.3f",data.getDoubleExtra("longitude", 0));
                 homeAddressLocation.setText(homeAddressString);
                 break;
             case 2:
-                String workAddressString = String.format("%.6f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.6f",data.getDoubleExtra("longitude", 0));
+                exactHomeAddress = data.getDoubleExtra("latitude", 0) + "," + data.getDoubleExtra("longitude", 0);
+                String workAddressString = String.format("%.3f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.3f",data.getDoubleExtra("longitude", 0));
                 workAddressLocation.setText(workAddressString);
                 break;
         }
@@ -127,10 +130,16 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
         age.setText(user.getAge());
         mainName.setText(user.getName());
         name.setText(user.getName());
+        String latitude;
+        String longitude;
+        latitude = user.getHomeLocation().split(",")[0];
+        longitude = user.getHomeLocation().split(",")[1];
         homeAddress.setText(user.getHomeAddress());
         workAddress.setText(user.getWorkAddress());
-        homeAddressLocation.setText(user.getHomeLocation());
-        workAddress.setText(user.getWorkLocation());
+        homeAddressLocation.setText(String.format("%.3f", Double.parseDouble(latitude)) + "," + String.format("%.3f", Double.parseDouble(longitude)));
+        latitude = user.getWorkLocation().split(",")[0];
+        longitude = user.getWorkLocation().split(",")[1];
+        workAddressLocation.setText(String.format("%.3f", Double.parseDouble(latitude)) + "," + String.format("%.3f", Double.parseDouble(longitude)));
         emergencyContactName.setText(user.getEmergencyContactName());
         emergencyContactNumber.setText(user.getEmergencyContactNumber());
     }

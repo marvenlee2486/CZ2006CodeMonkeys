@@ -77,6 +77,7 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                                 error -> Log.e("Auth token failed", error.toString())
                         );
                         Intent intent = new Intent(this, MainPage.class);
+                        intent.putExtra("type", "common");
                         startActivity(intent);
                         finishAll();},
                     error -> {Toast.makeText(this, "Log in failed, please check your phone number or password", Toast.LENGTH_SHORT).show();}

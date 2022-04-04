@@ -48,7 +48,7 @@ public class VolPledgePageFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 UserController.getUserController().getUser().setIsVolunteer("PLEDGED");
-                RequestUtil.putUserData(new Observer<User>() {
+                RequestUtil.postUserData(new Observer<User>() {
                     @Override
                     public void onCompleted() {
 

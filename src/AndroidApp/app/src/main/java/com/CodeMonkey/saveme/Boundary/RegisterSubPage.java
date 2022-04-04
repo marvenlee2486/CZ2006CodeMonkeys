@@ -125,12 +125,12 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
         switch (requestCode){
             case 1:
                 exactHomeAddress = data.getDoubleExtra("latitude", 0) + "," + data.getDoubleExtra("longitude", 0);
-                String homeAddressString = String.format("%.6f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.6f",data.getDoubleExtra("longitude", 0));
+                String homeAddressString = String.format("%.3f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.3f",data.getDoubleExtra("longitude", 0));
                 homeAddressLocation.setText(homeAddressString);
                 break;
             case 2:
                 exactHomeAddress = data.getDoubleExtra("latitude", 0) + "," + data.getDoubleExtra("longitude", 0);
-                String workAddressString = String.format("%.6f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.6f",data.getDoubleExtra("longitude", 0));
+                String workAddressString = String.format("%.3f",data.getDoubleExtra("latitude", 0)) + "," + String.format("%.3f",data.getDoubleExtra("longitude", 0));
                 workAddressLocation.setText(workAddressString);
                 break;
         }
@@ -164,9 +164,9 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
         user = UserController.getUserController().getUser();
         user.setName(name.getText().toString());
         user.setHomeAddress(homeAddress.getText().toString());
-        user.setHomeLocation(homeAddressLocation.getText().toString());
+        user.setHomeLocation(exactHomeAddress);
         user.setWorkAddress(workAddress.getText().toString());
-        user.setWorkLocation(workAddressLocation.getText().toString());
+        user.setWorkLocation(exactWorkAddress);
         user.setIsVolunteer("NO");
         if (!age.getText().toString().equals(""))
             user.setAge(age.getText().toString());

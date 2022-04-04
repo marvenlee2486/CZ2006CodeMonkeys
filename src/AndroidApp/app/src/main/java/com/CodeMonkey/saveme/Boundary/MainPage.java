@@ -143,6 +143,7 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         }
 
 
+
         EventController.getEventController().addNewEvent("88499112", "1.35164", "103.68166");
 
 
@@ -193,8 +194,9 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 fragmentSwitch(regVolPageFrag);
                 break;
             case "PENDING":
+            case "REJECTED":
                 fragmentSwitch(regVolPageFrag);
-                setCertificate();
+                regVolPageFrag.setCertificate();
                 break;
             case "YES":
                 fragmentSwitch(volPledgePageFrag);
@@ -202,11 +204,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
             case "PLEDGED":
                 detectEvents();
-                break;
-
-            case "REJECTED":
-                fragmentSwitch(regVolPageFrag);
-
                 break;
 
         }
@@ -224,9 +221,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void setCertificate(){
-
-    }
 
     public void detectEvents(){
         if (EventController.getEventController().getEventList().size() != 0)
