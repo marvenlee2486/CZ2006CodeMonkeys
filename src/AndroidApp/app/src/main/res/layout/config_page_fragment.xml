@@ -40,6 +40,7 @@
                 />
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/btnuserCertificate"
                 android:layout_width="0dp"
                 android:layout_weight="1"

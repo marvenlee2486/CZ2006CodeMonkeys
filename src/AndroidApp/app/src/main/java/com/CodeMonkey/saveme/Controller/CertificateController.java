@@ -3,13 +3,15 @@ package com.CodeMonkey.saveme.Controller;
 import android.util.Log;
 
 public class CertificateController{
-    private static CertificateController instance;
 
-    public static CertificateController getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new CertificateController();
+    private volatile static CertificateController instance;
+
+    public static CertificateController getInstance(){
+        if (instance == null){
+            synchronized (CertificateController.class){
+                if (instance == null)
+                    instance = new CertificateController();
+            }
         }
         return instance;
     }

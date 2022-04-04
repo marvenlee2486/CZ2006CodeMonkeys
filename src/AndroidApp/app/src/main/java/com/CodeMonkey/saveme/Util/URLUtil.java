@@ -6,7 +6,7 @@ package com.CodeMonkey.saveme.Util;
  */
 public class URLUtil {
 
-    public static final String tcpIP = "54.255.235.80";
+    public static final String tcpIP = "54.169.180.107";
 
     public static final int tcpPort = 3391;
 

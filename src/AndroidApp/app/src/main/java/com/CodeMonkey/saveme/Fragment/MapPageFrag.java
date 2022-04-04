@@ -44,7 +44,7 @@ import java.util.Map;
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener{
 
     private Location gps;
     private Context context;
@@ -113,6 +113,15 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                         Log.e("!!!!!!!!!!!!", "!!!!!!!!!!!!!");
                     }
                 });
+
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Log.e("!!!", "...");
+                        return false;
+                    }
+                });
+
                 if (tempPhones.size() != 0){
                     for (String phoneNumber: tempPhones)
                         addNewMarker(phoneNumber);
@@ -163,7 +172,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     private void addNewMarker(String phoneNumber){
         LatLng latLng = new LatLng(EventController.getEventController().getEventList().get(phoneNumber).getLatitude(),
                 EventController.getEventController().getEventList().get(phoneNumber).getLongitude());
-        Log.e("?", latLng.toString());
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
@@ -179,11 +187,5 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         markers.remove(phoneNumber);
     }
 
-    @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        Log.e("Marker click", "?");
-        marker.showInfoWindow();
-        return false;
-    }
 
 }

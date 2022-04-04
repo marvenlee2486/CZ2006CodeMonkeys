@@ -55,6 +55,8 @@ public class ConfigPageFrag extends Fragment {
         SignOutButton = view.findViewById(R.id.btnSignOut);
         CertificateButton = view.findViewById(R.id.btnuserCertificate);
 
+        if (UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED") || UserController.getUserController().getUser().getIsVolunteer().equals("YES"))
+            CertificateButton.setVisibility(View.VISIBLE);
         ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showChangeLanguageModal();
@@ -84,14 +86,8 @@ public class ConfigPageFrag extends Fragment {
 
         CertificateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                if(UserController.getUserController().getUser().getIsVolunteer().equals("NO")){
-                    Intent intent = new Intent(getActivity(), MainPage.class);
-                    startActivity(intent);
-                }
-                else{
-                    Intent intent = new Intent(getActivity(), CertificatePage.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), CertificatePage.class);
+                startActivity(intent);
             }
         });
 
