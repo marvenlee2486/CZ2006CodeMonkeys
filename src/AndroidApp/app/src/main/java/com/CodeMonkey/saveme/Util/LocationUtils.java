@@ -70,7 +70,6 @@ public class LocationUtils {
                 location = manager.getLastKnownLocation(provider);
                 if (location == null){
                     location = lastLocation;
-                    Log.e("test", "uf");
                 }
             }
         }
