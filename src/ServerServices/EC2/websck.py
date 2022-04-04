@@ -15,9 +15,16 @@ class websocketsManager:
                         extractedEvents = []
                         for tel in rescueManager.rescueDaemon.events:
                             x = rescueManager.rescueDaemon.events[tel]
-                            te = {"patientTel": tel, "patientLat": x.patientLat, "patientLon": x.patientLon, "accept": [(rescueManager.rescueDaemon.connectedUsers[tTel].name, rescueManager.rescueDaemon.connectedUsers[tTel].lat for tTel in x.accept], "decline": [rescueManager.rescueDaemon.connectedUsers[tTel].name for tTel in x.decline], "informed": [rescueManager.rescueDaemon.connectedUsers[tTel].name for tTel in x.informed], "startTime": x.time, "endTime": x.endTime} 
+                            te = {"patientTel": tel, "patientLat": x.patientLat, "patientLon": x.patientLon, "accept": [rescueManager.rescueDaemon.connectedUsers[tTel].name for tTel in x.accept], "decline": [rescueManager.rescueDaemon.connectedUsers[tTel].name for tTel in x.decline], "informed": [rescueManager.rescueDaemon.connectedUsers[tTel].name for tTel in x.informed], "startTime": x.time, "endTime": x.endTime} 
                             extractedEvents.append(te)
                         print("Websocket: reporting %s" % (json.dumps({"message": extractedEvents})))
+                        #locations = {}
+                        #for x in rescueManager.rescueDaemon.connectedUsers:
+                        #    try:
+                        #        User = rescueManager.rescueDaemon.connectedUsers[x]
+                        #        ocations[x] = (tUser.lat, tUser.lon)
+                        #    except:
+                        #        print("skipped one user in generating report
                         await websocket.send(json.dumps({"message": extractedEvents, "locations": locations}))
                         await asyncio.sleep(15)
 def initWebsocket():

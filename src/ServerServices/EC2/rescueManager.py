@@ -22,6 +22,7 @@ class Event:
 @dataclass
 class ConnectedUser:
     sck: socket.socket
+    name: str
     lat: str
     lon: str
 
@@ -54,9 +55,9 @@ class rescueManager:
                     self.updateIncomingAmount(patientTel)
 
                 elif msg.startswith('LOCATION'): # new update to location
-                    [mode, tel, lat, lon] = msg.split(";")
+                    [mode, tel, name, lat, lon] = msg.split(";")
                     if tel == 'null': continue
-                    self.connectedUsers[tel] = ConnectedUser(clientSocket, lat, lon)
+                    self.connectedUsers[tel] = ConnectedUser(clientSocket, name, lat, lon)
                     for patientTel in self.events: # see if there is anything he can do
                         tp = self.events[patientTel] # current event
                         if geoDistance(tp.patientLat, tp.patientLon, lat, lon) <= ALARM_DISTANCE_THRESHOLD and tel not in tp.informed:
