@@ -72,4 +72,5 @@
     <string name="age">Age:</string>
     <string name="certificate">Certificate</string>
     <string name="chat_icon_text">Chat</string>
+    <string name="chat_group_hint_text">Not in any chat group \nAccept request to join</string>
 </resources>

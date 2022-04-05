@@ -1,16 +1,15 @@
 package com.CodeMonkey.saveme.Util;
 
 
-import com.CodeMonkey.saveme.Entity.Certificate;
 import com.CodeMonkey.saveme.Entity.CertificateRsp;
 import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -19,7 +18,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Completable;
@@ -30,6 +28,12 @@ import rx.Observable;
  * Util for HTTP request interface
  */
 public interface HTTPUtil {
+
+    @GET(URLUtil.humidity)
+    Observable<GovDataRsp> getHumidity(@Query("date_time") String dateTime);
+
+    @GET(URLUtil.temperature)
+    Observable<GovDataRsp> getTemperature(@Query("date_time") String dateTime);
 
     @GET(URLUtil.userData)
     Observable<UserRsp> getUserData(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);

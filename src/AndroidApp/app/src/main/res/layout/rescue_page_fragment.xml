@@ -35,7 +35,7 @@
 
                 <ImageView
                     android:id="@+id/mapLine"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:src="@drawable/select_line"
                     android:layout_alignParentTop="true"/>
@@ -74,7 +74,7 @@
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/discussLine"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:src="@drawable/select_line"
                     android:layout_alignParentTop="true"/>
@@ -105,6 +105,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -112,7 +113,7 @@
 
                 <ImageView
                     android:id="@+id/trainLine"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:src="@drawable/select_line"
                     android:layout_alignParentTop="true"
@@ -143,6 +144,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -20,6 +20,7 @@ public class RetrofitManager {
 
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private volatile static RetrofitManager govRetrofitManager;
     private volatile static RetrofitManager dbRetrofitManager;
     private volatile static RetrofitManager ltaRetrofitManager;
     private volatile static RetrofitManager s3RetrofitManager;
@@ -67,6 +68,17 @@ public class RetrofitManager {
             }
         }
         return s3RetrofitManager;
+    }
+
+    public static RetrofitManager getGovRetrofitManager(){
+        if (govRetrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (govRetrofitManager == null){
+                    govRetrofitManager = new RetrofitManager(URLUtil.dataGovSG);
+                }
+            }
+        }
+        return govRetrofitManager;
     }
 
     public <T> T create(Class<T> service) {

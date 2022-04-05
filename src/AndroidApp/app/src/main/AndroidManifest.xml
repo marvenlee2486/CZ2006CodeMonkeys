@@ -83,7 +83,8 @@
             android:name=".Boundary.MainPage"
             android:exported="true"
             android:hardwareAccelerated="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Boundary.OTPPage"
             android:exported="true"

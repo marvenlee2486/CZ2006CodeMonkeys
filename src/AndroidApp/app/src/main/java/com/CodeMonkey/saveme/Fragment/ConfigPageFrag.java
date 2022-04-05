@@ -132,7 +132,7 @@ public class ConfigPageFrag extends Fragment {
                         dialog.dismiss();
 
                         // Re Render main page
-                        Intent intent = new Intent(getActivity(), TestActivity.class);
+                        Intent intent = new Intent(getActivity(), MainPage.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

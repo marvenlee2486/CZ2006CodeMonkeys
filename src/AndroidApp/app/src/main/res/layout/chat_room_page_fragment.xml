@@ -26,75 +26,104 @@
                 android:layout_weight="2">
 
                 <TextView
+                    android:id="@+id/hintText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Chat group of\n"
+                    android:text="@string/chat_group_hint_text"
                     android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8">
-
-                <TextView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/send_button"
-                    android:paddingTop="10dp"
-                    android:lineSpacingExtra="10dp"
-                    android:textSize="20sp"/>
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal">
-                
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="8"
-                        android:background="@drawable/custom_input_box"
-                        android:hint="Type to input..."
-                        android:textSize="16sp"
-                        android:paddingLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:background="@drawable/send_button"
-                        android:textSize="16sp"
-                        android:text="Send"
-                        android:textColor="@color/rescuePageBackgroundColor"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
             <LinearLayout
+                android:id="@+id/mainPageContent"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="8"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:id="@+id/textBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:lineSpacingExtra="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+                    </ScrollView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/inputBox"
+                            android:layout_alignParentBottom="true"
+                            android:fitsSystemWindows="true"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:background="@color/white"
+                            android:hint="Type to input..."
+                            android:textColorHint="@color/gray"
+                            android:textSize="16sp"
+                            android:paddingLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/send"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:layout_marginLeft="10dp"
+                            android:background="@color/white"
+                            android:textSize="16sp"
+                            android:text="Send"
+                            android:textColor="@color/rescuePageBackgroundColor"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/chatGroupImg"
+                android:layout_weight="4"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:src="@drawable/rescue_page_icon"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="20dp"/>
+
 
         </LinearLayout>
 

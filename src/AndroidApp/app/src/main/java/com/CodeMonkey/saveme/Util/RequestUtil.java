@@ -1,19 +1,15 @@
 package com.CodeMonkey.saveme.Util;
 
 import com.CodeMonkey.saveme.Controller.RetrofitManager;
-import com.CodeMonkey.saveme.Entity.Certificate;
 import com.CodeMonkey.saveme.Entity.CertificateRsp;
 import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
-
-import java.net.URL;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
-import retrofit2.http.Part;
 import rx.Completable;
 import rx.Observable;
 import rx.Observer;
@@ -26,10 +22,18 @@ import rx.schedulers.Schedulers;
  */
 public class RequestUtil {
 
+    private static HTTPUtil govService = RetrofitManager.getGovRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil dbService = RetrofitManager.getDBRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil ltaService = RetrofitManager.getLTARetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil s3Service = RetrofitManager.gets3RetrofitManager().create(HTTPUtil.class);
 
+    public static void getHumidity(Observer<GovDataRsp> observer, String dataTime){
+        setSubscribe(govService.getHumidity(dataTime), observer);
+    }
+
+    public static void getTemperature(Observer<GovDataRsp> observer, String dataTime){
+        setSubscribe(govService.getTemperature(dataTime), observer);
+    }
 
     public static void postUserData(Observer<User> observer, User user, String token){
         setSubscribe(dbService.postUserData(user, token), observer);

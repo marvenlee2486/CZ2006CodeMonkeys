@@ -25,10 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Controller.UserController;
-import com.CodeMonkey.saveme.Entity.Certificate;
-import com.CodeMonkey.saveme.Entity.CertificateRsp;
-import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
-import com.CodeMonkey.saveme.Entity.S3BucketParameters;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Entity.Event;
@@ -44,7 +41,6 @@ import com.CodeMonkey.saveme.Util.RequestUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import rx.Observer;
 
 
@@ -127,10 +123,13 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                             break;
                         case "UPDATERESCUERS":
                             EventController.getEventController().getEventList().get(results[1]).setRescueNumber(Integer.parseInt(results[2]));
-                            Toast.makeText(MainPage.this, EventController.getEventController().getEventList().get(results[1]).toString(), Toast.LENGTH_SHORT).show();
                             break;
                         case "MSG":
-
+                            String message = "";
+                            for (int i = 3; i < results.length; i++)
+                                message += results[i];
+                            rescuePageFrag.newMessage(results[2], message);
+                            break;
                     }
                 }
             }
@@ -143,10 +142,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
             changeColor(Color.parseColor("#0013C2"));
             fragmentSwitch(rescuePageFrag);
         }
-
-
-
-        EventController.getEventController().addNewEvent("88499112", "1.35164", "103.68166");
 
 
     }

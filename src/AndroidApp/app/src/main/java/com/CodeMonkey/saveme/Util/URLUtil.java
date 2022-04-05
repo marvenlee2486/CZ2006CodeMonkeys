@@ -6,6 +6,12 @@ package com.CodeMonkey.saveme.Util;
  */
 public class URLUtil {
 
+    public static final String dataGovSG = "https://api.data.gov.sg/v1/environment/";
+
+    public static final String humidity = "relative-humidity";
+
+    public static final String temperature = "air-temperature";
+
     public static final String tcpIP = "54.169.180.107";
 
     public static final int tcpPort = 3391;
