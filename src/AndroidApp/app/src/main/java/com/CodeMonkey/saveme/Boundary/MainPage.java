@@ -129,6 +129,8 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                             EventController.getEventController().getEventList().get(results[1]).setRescueNumber(Integer.parseInt(results[2]));
                             Toast.makeText(MainPage.this, EventController.getEventController().getEventList().get(results[1]).toString(), Toast.LENGTH_SHORT).show();
                             break;
+                        case "MSG":
+
                     }
                 }
             }

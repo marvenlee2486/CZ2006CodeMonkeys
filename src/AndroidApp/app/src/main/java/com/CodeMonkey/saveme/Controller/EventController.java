@@ -21,6 +21,7 @@ import rx.Observer;
 public class EventController{
 
     private Map<String, Event> eventList = new HashMap<>();
+    private Event acceptEvent;
     private volatile static EventController eventController;
     private Handler handler;
 
@@ -85,5 +86,13 @@ public class EventController{
 
     public Handler getHandler() {
         return handler;
+    }
+
+    public void setAcceptEvent(String phoneNumber) {
+        acceptEvent = eventList.get(phoneNumber);
+    }
+
+    public Event getAcceptEvent() {
+        return acceptEvent;
     }
 }
