@@ -53,7 +53,7 @@ public class AuthenticationActivity extends BaseActivity{
         }
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("\nAutomatically log in, please wait...\n");
+            builder.setMessage(getString(R.string.autologinpopup));
             AlertDialog dialog = builder.create();
             dialog.show();
             Log.i("Auth", currentUser.getUserId());

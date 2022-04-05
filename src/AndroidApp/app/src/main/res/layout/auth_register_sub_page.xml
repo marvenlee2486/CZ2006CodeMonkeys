@@ -165,7 +165,7 @@
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:background="@drawable/white_button"
-                android:text="back"
+                android:text="@string/back"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
