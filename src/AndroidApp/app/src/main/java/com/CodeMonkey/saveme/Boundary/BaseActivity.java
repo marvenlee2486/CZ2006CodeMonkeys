@@ -60,7 +60,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getTotalActivities() == 1){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure to exit?")
+            builder.setMessage(getString(R.string.exitpopup))
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             finish();

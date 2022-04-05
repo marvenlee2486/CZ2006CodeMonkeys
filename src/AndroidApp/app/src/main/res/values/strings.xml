@@ -39,11 +39,11 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="photo_verification_required">Photo verification required</string>
     <string name="volunteer_pledge">Volunteer pledge</string>
-    <string name="vol_pledge_explain">I pledge the following when I agree to sign up as a volunteer:\n 1. I will try my best to help any users in need to the best of my capabilities\n 2. I will not try to administer aid that I am not familiar with\n 3. I assume all responsibility when attempting to aid another user and do not hold the developers of this app responsible\n\n\n Disclaimer: This app is intended to ONLY provide the most convenient way to connect people in need and people with rescue capabilities.</string>
+    <string name="vol_pledge_explain">I pledge the following when I agree to sign up as a volunteer:  1. I will try my best to help any users in need to the best of my capabilities  2. I will not try to administer aid that I am not familiar with  3. I assume all responsibility when attempting to aid another user and do not hold the developers of this app responsible    Disclaimer: This app is intended to ONLY provide the most convenient way to connect people in need and people with rescue capabilities.</string>
     <string name="vol_pledge_button_string">I pledge the above and agree\nto sign up as a volunteer!</string>
     <string name="no_requests_currently">No requests currently</string>
     <string name="heart_attack">Heart Attack</string>
-    <string name="heart_attack_instruc">1. Start CPR. ...\n 2. Get somebody to call an ambulance and somebody else to retrieve an AED kit\n 3. If AED kit is available, ...</string>
+    <string name="heart_attack_instruc">1. Start CPR. ...  2. Get somebody to call an ambulance and somebody else to retrieve an AED kit  3. If AED kit is available, ...</string>
     <string name="phoneNumNotCorrect">Phone number not in correct format!</string>
     <string name="pswTooShort">Password too short!</string>
     <string name="pswNotTheSameAsConfirmPassword">Confirm password is different from password!</string>
@@ -62,7 +62,7 @@
     <string name="achievements">Achievements</string>
     <string name="help_and_feedback">Help and Feedback</string>
     <string name="user_profile">User Profile</string>
-    <string name="faq">FAQ</string>
+    <string name="faq" translatable="false">FAQ</string>
     <string name="_1_why_do_you_need_my_location">Why do you need my location?</string>
     <string name="save_me_requires_your_location_data_to_help_our_volunteer_rescuers_save_you_and_also_to_let_other_people_know_you_re_on_the_way_to_rescue_them_don_t_worry_we_only_use_location_when_the_app_is_active">Save Me requires your location data to help our volunteer rescuers save you and also to let other people know you’re on the way to rescue them. Don’t worry, we only use location when the app is active!</string>
     <string name="sign_out">Sign Out</string>
@@ -72,4 +72,18 @@
     <string name="age">Age:</string>
     <string name="certificate">Certificate</string>
     <string name="chat_icon_text">Chat</string>
+    <string name="back">back</string>
+    <string name="password">Password*</string>
+    <string name="phone_number">Phone Number*</string>
+    <string name="user_profile">User Profile</string>
+    <string name="name">Name:</string>
+    <string name="work_location">Work Location</string>
+    <string name="home_address">Home address:</string>
+    <string name="work_address">Work address:</string>
+    <string name="emergency_contact_name">Emergency Contact Name:</string>
+    <string name="emergency_contact_number">Emergency Contact Number:</string>
+    <string name="home_location">Home Location:</string>
+    <string name="logoutpopup">Are you sure to log out?</string>
+    <string name="exitpopup">Are you sure to exit</string>
+    <string name="autologinpopup">\\nAutomatically log in, please wait...\\n</string>
 </resources>

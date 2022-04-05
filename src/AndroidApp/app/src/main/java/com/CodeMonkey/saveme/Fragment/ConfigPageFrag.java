@@ -94,7 +94,7 @@ public class ConfigPageFrag extends Fragment {
         SignOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("Are you sure to log out?")
+                builder.setMessage(getString(R.string.logoutpopup))
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Amplify.Auth.signOut(
