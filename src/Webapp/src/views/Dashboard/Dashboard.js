@@ -43,12 +43,10 @@ import { BiBroadcast, BiUserPlus ,BiTask } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
-Amplify.configure(awsconfig);
 import { lineChartOptions } from "variables/charts";
 import { barChartOptions } from "variables/charts";
-import { SiSocketdotio } from "react-icons/si";
-import { forEach } from "lodash";
 
+Amplify.configure(awsconfig);
 
 export default function Dashboard() {
 	//variables--------------------------------------------------------------
@@ -141,7 +139,7 @@ export default function Dashboard() {
 				for (let i=0;i<9;i++){
 					monthsSet.push(months[monthcheck.getMonth()]);
 					if (dj<monthcheck.setMonth(monthcheck.getMonth() + 1)) {
-						if (data.isVolunteer=="YES") monthlyVolunteerData[i]+=1;
+						if (data.isVolunteer=="PLEDGED") monthlyVolunteerData[i]+=1;
 						else monthlyUserData[i]+=1;
 					}
 				}
@@ -254,7 +252,8 @@ export default function Dashboard() {
 					>
 						({lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0]>=0?"+":"-"}
 						{
-							(lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0])/lineChartData[0].data.slice(-2)[1]*100
+							// lineChartData[0].data.slice(-2)[1]==0?0:1
+							(lineChartData[0].data.slice(-2)[1]==0?0:(lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0])/lineChartData[0].data.slice(-2)[1]*100)
 						}%)
 					</StatHelpText>
 					</Flex>
