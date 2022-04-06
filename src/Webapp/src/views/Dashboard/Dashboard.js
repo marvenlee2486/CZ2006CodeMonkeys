@@ -99,11 +99,9 @@ export default function Dashboard() {
 
 		ws.onmessage = async (evt) => {
 			console.log(evt.data);
-			// console.log(JSON.parse(evt.data)["privateMessage"]);
 			let data = await JSON.parse(evt.data)
 			if (data["privateMessage"]){
-				// console.log("yes private incoming")
-				// console.log(typeof data["privateMessage"]);
+				console.log(data["privateMessage"])
 				data["privateMessage"].forEach(d=>console.log(d));
 				setLocationData(prevlocationdata => ({state:"connected",data:data["privateMessage"]}));
 			}
@@ -176,7 +174,6 @@ export default function Dashboard() {
 		res.forEach(data=>{
 			let date = data.dateTimeStarted.split("#")[0]
 			let dj = new Date(date);
-			// console.log(dj)
 			let monthcheck = new Date()
 			monthcheck.setDate(1);
 			monthcheck.setMonth(monthcheck.getMonth() - 8);
@@ -356,11 +353,11 @@ export default function Dashboard() {
 						!row.volunteer&&
 						<DashboardTableRow
 							key={index}
-							lat={row.latitude}
-							long={row.longitude}
-							time={row.timeStarted}
-							userName={row.victim}
-							respondedVolunteerNumber={row.respondedVolunteers}
+							lat={row.patientLat}
+							long={row.patientLon}
+							time={row.startTime}
+							userName={row.patientTel}
+							respondedVolunteerNumber={row.accepted.length}
 						/>
 						);
 					})}

@@ -3,42 +3,57 @@ import GoogleMapReact from 'google-map-react';
 import { Box, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Text } from '@chakra-ui/react';
 import { HiLocationMarker, HiHeart } from "react-icons/hi";
 
-function RescueMarker ({ timeStarted , victim, volunteercount,volunteer }){
+function RescueMarker ({ timeStarted , phoneNumber, acceptedVolunteers,color }){
+    console.log("res wtf");
     return(
         <Popover>
         <PopoverTrigger>
-            {volunteer?
-            <Box><HiHeart style={{color: "red", fontSize:"2em"}}/></Box>
-            :
-            <Box><HiLocationMarker style={{color: "red", fontSize:"2em"}}/></Box>
-            }
+            {/* <Box><HiHeart style={{color: "red", fontSize:"2em"}}/></Box> */}
+            <Box><HiLocationMarker style={{color: color, fontSize:"2em"}}/></Box>
         </PopoverTrigger>
         <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
-            {volunteer?
-            <PopoverHeader>Volunteer name: {volunteer}</PopoverHeader>
-            :
-            <PopoverHeader>Volunteers Responded: {volunteercount}</PopoverHeader>
-            }
-            {!volunteer?
+            <PopoverHeader>
+                Volunteers Accepted: {acceptedVolunteers.length}{"\n"}
+            </PopoverHeader>
+
             <PopoverBody>
                 <Text>Rescue started at: {timeStarted}</Text>
-                <Text>Name of victim: {victim}</Text>
+                <Text>Phone number of patient: {phoneNumber}</Text>
             </PopoverBody>
-            :
-            <PopoverBody>
-                <Text>Rescue started at: {timeStarted}</Text>
-                <Text>Name of victim: {victim}</Text>
-            </PopoverBody>
-            }
+        </PopoverContent>
+        </Popover>
+    )
+}
+
+function VolunteerMarker ({ name , color }){
+    console.log("vol wtf");
+    return(
+        <Popover>
+        <PopoverTrigger>
+            <Box><HiHeart style={{color: color, fontSize:"2em"}}/></Box>
+        </PopoverTrigger>
+        <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>
+                Volunteer Name: {name}
+            </PopoverHeader>
         </PopoverContent>
         </Popover>
     )
 }
 
 export default function RescueMap({markers}) {
-    // console.log(typeof markers)
+    let volmarker = []
+    let colors = []
+    markers.forEach(marker=>{
+        var color = Math.floor(Math.random()*16777215).toString(16);
+        marker.accepted.forEach(vol=>volmarker.push(vol));
+        colors.push('#'+color);
+    });
+    console.log(volmarker)
     const defaultProps = {
         center: {
         lat: 1.3542343864869617,
@@ -58,15 +73,18 @@ export default function RescueMap({markers}) {
             {markers.map((data,index)=>
                 <RescueMarker
                 key={index}
-                lat={data.latitude}
-                lng={data.longitude}
-                timeStarted = {data.timeStarted}
-                victim = {data.victim}
-                volunteercount = {data.respondedVolunteers}
-                volunteer = {data.volunteer}
+                lat={data.patientLat}
+                lng={data.patientLon}
+                timeStarted = {data.startTime}
+                acceptedVolunteers = {data.accepted.length}
+                phoneNumber = {data.patientTel}
+                color = {colors[index]}
                 />
             )}
-           
+            {volmarker.map((data,index)=>
+                // console.log(index, data);
+                <VolunteerMarker lat={data[1]} lng={data[2]} color={colors[index]}/>
+            )}
         </GoogleMapReact>
         </div>
     );
