@@ -1,5 +1,6 @@
 package com.CodeMonkey.saveme.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 import com.google.android.gms.maps.model.Marker;
 
@@ -42,6 +44,7 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
     private MapPageFrag mapPageFrag;
     private ChatRoomPageFrag chatRoomPageFrag;
+    private RequestListPageFrag requestListPageFrag;
 //    private BusPageFrag busPageFrag;
 //    private TrainPageFrag trainPageFrag;
     private FragmentManager fragmentManager;
@@ -49,11 +52,13 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private Fragment currentFragment;
     private RelativeLayout mapButton;
     private RelativeLayout chatButton;
+    private RelativeLayout listButton;
 //    private RelativeLayout busButton;
 //    private RelativeLayout trainButton;
     private RelativeLayout instrucButton;
     private ImageView currentLine;
     private Context context;
+    private Handler handler;
     private boolean isMap = true;
 
     private FrameLayout mainPageContent;
@@ -62,10 +67,33 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         this.context = context;
         mapPageFrag = new MapPageFrag(context);
         chatRoomPageFrag = new ChatRoomPageFrag();
-        chatRoomPageFrag.setPhoneNumber("94489600");
+        requestListPageFrag = new RequestListPageFrag();
 //        busPageFrag = new BusPageFrag();
 //        trainPageFrag = new TrainPageFrag();
         currentFragment = mapPageFrag;
+
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message message) {
+                switch (message.what){
+                    case 2:
+                        mapPageFrag.newEvent((String) message.obj);
+                        requestListPageFrag.getAdapter().addNewEvent((String) message.obj);
+                        break;
+                    case 3:
+                        mapPageFrag.removeEvent((String) message.obj);
+                        requestListPageFrag.getAdapter().removeEvent((String) message.obj);
+                        break;
+                    case 4:
+                        mapPageFrag.moveToEventMarker((String) message.obj);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        EventController.getEventController().setHandler(handler);
+        requestListPageFrag.setHandler(handler);
     };
 
     @Override
@@ -92,10 +120,12 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         fragmentManager = getChildFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.rescuePageMainContent, mapPageFrag);
         fragmentTransaction.add(R.id.rescuePageMainContent, chatRoomPageFrag);
+        fragmentTransaction.add(R.id.rescuePageMainContent, requestListPageFrag);
 //        fragmentTransaction.add(R.id.rescuePageMainContent, busPageFrag);
 //        fragmentTransaction.add(R.id.rescuePageMainContent, trainPageFrag);
         fragmentTransaction.show(mapPageFrag);
         fragmentTransaction.hide(chatRoomPageFrag);
+        fragmentTransaction.hide(requestListPageFrag);
 //        fragmentTransaction.hide(busPageFrag);
 //        fragmentTransaction.hide(trainPageFrag);
         fragmentTransaction.commit();
@@ -105,8 +135,10 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
 //        trainButton = getView().findViewById(R.id.trainButton);
 //        busButton = getView().findViewById(R.id.busButton);
         instrucButton = getView().findViewById(R.id.instructionButton);
+        listButton = getView().findViewById(R.id.requestListButton);
         chatButton = getView().findViewById(R.id.discussButton);
         mapButton.setOnClickListener(this);
+        listButton.setOnClickListener(this);
         chatButton.setOnClickListener(this);
 //        trainButton.setOnClickListener(this);
 //        busButton.setOnClickListener(this);
@@ -140,6 +172,13 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                 currentLine = getView().findViewById(R.id.mapLine);
                 currentLine.setVisibility(View.VISIBLE);
                 EventController.getEventController().getWeather();
+                break;
+            case R.id.requestListButton:
+                isMap = false;
+                fragmentSwitch(requestListPageFrag);
+                currentLine.setVisibility(View.GONE);
+                currentLine = getView().findViewById(R.id.requestLine);
+                currentLine.setVisibility(View.VISIBLE);
                 break;
             case R.id.discussButton:
                 isMap = false;

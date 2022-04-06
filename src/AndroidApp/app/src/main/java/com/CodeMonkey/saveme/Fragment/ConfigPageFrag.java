@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -65,8 +66,36 @@ public class ConfigPageFrag extends Fragment {
 
         userProfileButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(), UserProfilePage.class);
-                startActivity(intent);
+                final EditText editText = new EditText(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                        .setTitle("Please input your account password")
+                        .setView(editText)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.e("!", "OK");
+                                Amplify.Auth.signIn(
+                                        "+65" + UserController.getUserController().getUser().getPhoneNumber(),
+                                        editText.getText().toString(),
+                                        result ->{
+                                            Log.e("Error", result.toString());
+                                            Intent intent = new Intent(getActivity(), UserProfilePage.class);
+                                            startActivity(intent);
+                                        },
+                                        error ->{}
+
+
+                                );
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 

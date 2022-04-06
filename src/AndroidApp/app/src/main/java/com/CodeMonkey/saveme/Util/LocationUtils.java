@@ -21,6 +21,39 @@ import androidx.core.app.ActivityCompat;
  */
 public class LocationUtils {
 
+    private static final long REFRESH_TIME = 5000L;
+    private static final float METER_POSITION = 0.0f;
+    private static ILocationListener mLocationListener;
+    private static LocationListener listener = new MyLocationListener();
+
+    public interface ILocationListener {
+        void onSuccessLocation(Location location);
+    }
+
+    private static class MyLocationListener implements LocationListener {
+        @Override
+        public void onLocationChanged(Location location) {
+            if (mLocationListener != null) {
+                mLocationListener.onSuccessLocation(location);
+            }
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {//定位状态不可用监听
+
+        }
+    }
+
     /**
      * GPS
      */
@@ -81,6 +114,48 @@ public class LocationUtils {
     private static LocationManager getLocationManager(@NonNull Context context) {
         return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
+
+    /**
+     * 定位监听
+     */
+    public static void addLocationListener(Context context, String provider, ILocationListener locationListener) {
+
+        addLocationListener(context, provider, REFRESH_TIME, METER_POSITION, locationListener);
+    }
+
+    /**
+     * 定位监听
+     */
+    public static void addLocationListener(Context context, String provider, long time, float meter, ILocationListener locationListener) {
+        if (locationListener != null) {
+            mLocationListener = locationListener;
+        }
+        if (listener == null) {
+            listener = new MyLocationListener();
+        }
+        LocationManager manager = getLocationManager(context);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        manager.requestLocationUpdates(provider, time, meter, listener);
+    }
+
+    /**
+     * 取消定位监听
+     */
+    public static void unRegisterListener(Context context) {
+        if (listener != null) {
+            LocationManager manager = getLocationManager(context);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            //移除定位监听
+            manager.removeUpdates(listener);
+        }
+    }
+
 
 }
 

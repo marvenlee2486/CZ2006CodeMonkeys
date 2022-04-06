@@ -64,12 +64,10 @@ public class SaveMePageFrag extends Fragment {
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(getContext(), "You have used our service 5 times!", Toast.LENGTH_SHORT).show();
-                        Log.e("test", e.toString());
                     }
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        Log.e("test", responseBody.toString());
                         counter = 10;
                         rescueMe();
                     }

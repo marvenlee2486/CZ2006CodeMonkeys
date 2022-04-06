@@ -10,6 +10,7 @@ import com.CodeMonkey.saveme.Boundary.MainPage;
 import com.CodeMonkey.saveme.Entity.Event;
 import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Entity.UserRsp;
+import com.CodeMonkey.saveme.Fragment.RequestListPageFrag;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Util.RequestUtil;
 
@@ -27,6 +28,7 @@ public class EventController{
     private Event acceptEvent = null;
     private volatile static EventController eventController;
     private Handler handler;
+    private RequestListPageFrag.RequestListItemHolder acceptHolder;
 
     private EventController(){}
 
@@ -181,19 +183,25 @@ public class EventController{
         return handler;
     }
 
-    public void acceptEvent(String phoneNumber) {
+    public void acceptEvent(String phoneNumber, RequestListPageFrag.RequestListItemHolder holder) {
         acceptEvent = eventList.get(phoneNumber);
-        TCPManager.getTCPManager().send("ACCEPTREQ;" + "94489600" + ";"
+        acceptHolder = holder;
+        TCPManager.getTCPManager().send("ACCEPTREQ;" + phoneNumber + ";"
                 + UserController.getUserController().getUser().getPhoneNumber());
     }
 
-    public void declineEvent(){
+    public void declineEvent(String phoneNumber){
         acceptEvent = null;
-        TCPManager.getTCPManager().send("DECLINEREQ;" + "94489600" + ";"
+        acceptHolder = null;
+        TCPManager.getTCPManager().send("DECLINEREQ;" + phoneNumber + ";"
                     + UserController.getUserController().getUser().getPhoneNumber());
     }
 
     public Event getAcceptEvent() {
         return acceptEvent;
+    }
+
+    public RequestListPageFrag.RequestListItemHolder getAcceptHolder() {
+        return acceptHolder;
     }
 }

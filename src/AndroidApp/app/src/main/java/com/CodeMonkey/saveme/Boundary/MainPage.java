@@ -48,7 +48,7 @@ import rx.Observer;
  * MainPage created by Wang Tianyu 14/02/2022
  * Page when user sign in will see
  */
-public class MainPage extends BaseActivity implements View.OnClickListener {
+public class MainPage extends BaseActivity implements View.OnClickListener{
 
     private static final String TAG = MainPage.class.getSimpleName();
 

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.CodeMonkey.saveme.Boundary.MainPage;
 import com.CodeMonkey.saveme.Controller.EventController;
+import com.CodeMonkey.saveme.Entity.Event;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.MarkerWindowUtil;
@@ -54,7 +55,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     private KmlLayer kmlLayer;
     private boolean kmlLayerVisibility = false;
     private GoogleMap map;
-    private Handler handler;
     private Map<String, Marker> markers = new HashMap<>();
     private ArrayList<String> tempPhones = new ArrayList<>();
 
@@ -62,30 +62,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
 
     public MapPageFrag(Context context){
         this.context = context;
-        handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 2) {
-//                addNewMarker((String) msg.obj);
-                Log.e("Event", "New event!");
-                Log.e("?", (String)msg.obj);
-                NotificationUtil.createNotification((Activity) context, "Help!", "Someone need help!");
-                isEvent = true;
-                if (map != null)
-                    addNewMarker((String) msg.obj);
-                else
-                    tempPhones.add((String) msg.obj);
-            }
-            else if (msg.what == 3){
-                removeMarker((String) msg.obj);
-                if (EventController.getEventController().getEventList().size() == 0)
-                    isEvent = false;
-            }
-        }
-    };
 
-        EventController.getEventController().setHandler(handler);
 }
 
     @Override
@@ -111,6 +88,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                 if (tempPhones.size() != 0){
                     for (String phoneNumber: tempPhones)
                         addNewMarker(phoneNumber);
+                    tempPhones = new ArrayList<>();
                 }
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
@@ -175,6 +153,28 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
 
     private void removeMarker(String phoneNumber){
         markers.remove(phoneNumber);
+    }
+
+    public void newEvent(String phoneNumber){
+        NotificationUtil.createNotification((Activity) context, "Help!", "Someone need help!");
+        isEvent = true;
+        if (map != null)
+            addNewMarker(phoneNumber);
+        else
+            tempPhones.add(phoneNumber);
+    }
+
+    public void removeEvent(String phoneNumber){
+        removeMarker(phoneNumber);
+        if (EventController.getEventController().getEventList().size() == 0)
+            isEvent = false;
+    }
+
+    public void moveToEventMarker(String phoneNumber){
+        Event event = EventController.getEventController().getEventList().get(phoneNumber);
+        LatLng latLng = new LatLng(event.getLatitude(), event.getLongitude());
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+        markers.get(phoneNumber).showInfoWindow();
     }
 
 

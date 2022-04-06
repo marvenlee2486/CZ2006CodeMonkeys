@@ -72,4 +72,18 @@
     <string name="certificate">Certificate</string>
     <string name="chat_icon_text">Chat</string>
     <string name="chat_group_hint_text">Not in any chat group \nAccept request to join</string>
+    <string name="home_location">Home location*</string>
+    <string name="emergency_contact_number">Emergency Contact Number</string>
+    <string name="emergency_contact_name">Emergency Contact Name</string>
+    <string name="work_address">Work address*</string>
+    <string name="home_address">Home address*</string>
+    <string name="work_location">Work location*</string>
+    <string name="name">Name*</string>
+    <string name="phone_number">Phone number*</string>
+    <string name="password">Password*</string>
+    <string name="logoutpopup">Are you sure to log out？</string>
+    <string name="exitpopup">Are you sure to exit？</string>
+    <string name="autologinpopup">Automatically log in...</string>
+    <string name="all_request">All requests are below</string>
+    <string name="list">List</string>
 </resources>

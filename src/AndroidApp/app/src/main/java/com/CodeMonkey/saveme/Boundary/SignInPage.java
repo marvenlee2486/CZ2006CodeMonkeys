@@ -12,7 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CodeMonkey.saveme.Controller.UserController;
+import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
 import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
@@ -20,6 +22,8 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.core.Amplify;
 
 import java.util.ArrayList;
+
+import rx.Observer;
 
 /***
  * SignInPage created by Luo Yihang 12/02/2022
@@ -67,6 +71,22 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                                     String token = cognitoAuthSession.getUserPoolTokens().getValue().getIdToken();
                                     UserController.getUserController().setToken(token);
                                     Log.e("token", UserController.getUserController().getToken());
+                                    RequestUtil.getUserData(new Observer<UserRsp>() {
+                                        @Override
+                                        public void onCompleted() {
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(UserRsp userRsp) {
+                                            UserController.getUserController().setUser(userRsp.getBody());
+                                        }
+                                    }, txtPhoneNum.getText().toString(), token);
                                 },
                                 error -> Log.e("Auth token failed", error.toString())
                         );

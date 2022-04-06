@@ -92,12 +92,14 @@ public class ChatRoomPageFrag extends Fragment {
     public void notAccept(){
         mainPage.setVisibility(View.GONE);
         img.setVisibility(View.VISIBLE);
+        title.setText(R.string.chat_group_hint_text);
     }
 
     public void hasAccept(){
         textBox.setText("");
         textInputBox.setText("");
         title.setText("Chat group of\n" + EventController.getEventController().getAcceptEvent().getUser().getName());
+        setPhoneNumber(EventController.getEventController().getAcceptEvent().getUser().getPhoneNumber());
         mainPage.setVisibility(View.VISIBLE);
         img.setVisibility(View.GONE);
     }

@@ -94,11 +94,13 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
             case R.id.allowButton:
                 if (check()){
                     storeData();
+                    UserController.getUserController().setUser(user);
                     Log.e("user", user.toString());
                     RequestUtil.postUserData(new Observer<User>() {
                         @Override
                         public void onCompleted() {
                             Intent intent = new Intent(RegisterSubPage.this, MainPage.class);
+                            intent.putExtra("type", "common");
                             startActivity(intent);
                             finishAll();
                         }
