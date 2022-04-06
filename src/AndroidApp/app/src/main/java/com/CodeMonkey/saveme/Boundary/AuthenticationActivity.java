@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import com.CodeMonkey.saveme.Controller.LanguageController;
 import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 import com.CodeMonkey.saveme.R;
@@ -31,6 +32,7 @@ public class AuthenticationActivity extends BaseActivity{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LanguageController.getInstance().setLanguage(this);
         setContentView(R.layout.reg_sign_page);
         autoSignIn();
     }
@@ -51,7 +53,7 @@ public class AuthenticationActivity extends BaseActivity{
         }
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("\nAutomatically log in, please wait...\n");
+            builder.setMessage(getString(R.string.autologinpopup));
             AlertDialog dialog = builder.create();
             dialog.show();
             Log.i("Auth", currentUser.getUserId());
@@ -75,6 +77,7 @@ public class AuthenticationActivity extends BaseActivity{
                             @Override
                             public void onNext(UserRsp userRsp) {
                                 UserController.getUserController().setUser(userRsp.getBody());
+                                Log.i("User info", userRsp.getBody().toString());
                                 Log.i("Auth", Amplify.Auth.getCurrentUser().getUsername());
                                 Intent intent2 = new Intent(getApplicationContext(),  MainPage.class);
                                 intent2.putExtra("type", "common");

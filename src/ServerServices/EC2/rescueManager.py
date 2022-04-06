@@ -5,6 +5,7 @@ import typing
 from threading import Thread
 from geotool import geoDistance
 import json
+import copy
 ALARM_DISTANCE_THRESHOLD = 5000
 
 @dataclass
@@ -21,6 +22,7 @@ class Event:
 @dataclass
 class ConnectedUser:
     sck: socket.socket
+    name: str
     lat: str
     lon: str
 
@@ -28,6 +30,7 @@ class rescueManager:
     sck = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connectedUsers: dict[str, ConnectedUser] = {} # telephone: (socketHandle, lat, lon); notice this only stores connected volunteers; socket for connected patients due to emergency are stored in events
     events: dict[str, Event] = {}
+    finishedEvents: dict[str, Event] = {}
     def run(self):
         print("TCPManager started.")
         self.sck.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -52,9 +55,9 @@ class rescueManager:
                     self.updateIncomingAmount(patientTel)
 
                 elif msg.startswith('LOCATION'): # new update to location
-                    [mode, tel, lat, lon] = msg.split(";")
+                    [mode, tel, name, lat, lon] = msg.split(";")
                     if tel == 'null': continue
-                    self.connectedUsers[tel] = ConnectedUser(clientSocket, lat, lon)
+                    self.connectedUsers[tel] = ConnectedUser(clientSocket, name, lat, lon)
                     for patientTel in self.events: # see if there is anything he can do
                         tp = self.events[patientTel] # current event
                         if geoDistance(tp.patientLat, tp.patientLon, lat, lon) <= ALARM_DISTANCE_THRESHOLD and tel not in tp.informed:
@@ -92,6 +95,7 @@ class rescueManager:
                             tp.sck.send(';'.join(message).encode('utf-8'))
                             numAvailable += 1
                     print("A new emergency request received. %d volunteers online. %d volunteers fulfilled requirement." % (len(self.connectedUsers), numAvailable))
+                
                 elif msg.startswith('CANCELRESCUEME'): # either finish or manual cancel TODO delete entry and report
                     [mode, telephone] = msg.split(';')
                     if telephone not in self.events:
@@ -101,8 +105,9 @@ class rescueManager:
                         for tTel in self.events[telephone].informed:
                             try: self.connectedUsers[telephone].sck.send(msg.encode('utf-8'))
                             except: print("fail to send cancel operation info for one of the volunteers. error is ignored.")   
-                        self.generateReport(telephone)
+                        self.finishedEvents[telephone] = copy.deepcopy(self.events[telephone])
                         self.events.pop(telephone)
+                
                 elif msg.startswith('MSG'): # private message to other volunteers
                     [mode, senderTel, patientTel, messageBody] = msg.split(';')
                     if patientTel not in self.events:

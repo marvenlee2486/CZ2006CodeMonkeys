@@ -5,38 +5,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.CodeMonkey.saveme.Controller.LanguageController;
 import com.CodeMonkey.saveme.Controller.UserController;
-import com.CodeMonkey.saveme.Entity.Certificate;
 import com.CodeMonkey.saveme.Entity.User;
-import com.CodeMonkey.saveme.Entity.UserRsp;
-import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.RequestUtil;
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
-import com.amplifyframework.core.Amplify;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Locale;
-
-import okhttp3.ResponseBody;
 import rx.Observer;
 
 

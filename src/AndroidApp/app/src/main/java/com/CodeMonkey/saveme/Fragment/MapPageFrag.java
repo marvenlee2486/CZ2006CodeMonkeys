@@ -44,7 +44,8 @@ import java.util.Map;
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener
+                                                    , GoogleMap.OnInfoWindowClickListener{
 
     private Location gps;
     private Context context;
@@ -106,12 +107,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 map = googleMap;
-                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick(@NonNull Marker marker) {
-                        Log.e("!!!!!!!!", "??????");
-                    }
-                });
+
                 if (tempPhones.size() != 0){
                     for (String phoneNumber: tempPhones)
                         addNewMarker(phoneNumber);
@@ -120,6 +116,7 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);
                 googleMap.setOnMyLocationClickListener(MapPageFrag.this);
+                googleMap.setOnInfoWindowClickListener(MapPageFrag.this);
                 try {
                     kmlLayer= new KmlLayer(googleMap, R.raw.aed_locations, context);
                 } catch (XmlPullParserException e) {
@@ -135,7 +132,10 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     }
 
 
-
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Log.e("!!!", "!!!!!");
+    }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -162,7 +162,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     private void addNewMarker(String phoneNumber){
         LatLng latLng = new LatLng(EventController.getEventController().getEventList().get(phoneNumber).getLatitude(),
                 EventController.getEventController().getEventList().get(phoneNumber).getLongitude());
-        Log.e("?", latLng.toString());
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
@@ -178,16 +177,5 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         markers.remove(phoneNumber);
     }
 
-    @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        Log.e("Marker click", "?");
-        marker.showInfoWindow();
-        return false;
-    }
 
-    @Override
-    public void onInfoWindowClick(@NonNull Marker marker) {
-        Log.e("Info click", "?");
-        marker.showInfoWindow();
-    }
 }

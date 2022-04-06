@@ -1,16 +1,12 @@
 package com.CodeMonkey.saveme.Entity;
 
-import com.google.gson.JsonObject;
-
 import java.util.List;
-
-import java.sql.Timestamp;
 
 public class Rescuer extends User{
     private String name;
     private boolean hasUploadedCertificate;
     private boolean isVerified;
-    private List<Certificate> certificateList;
+    private List<S3BucketParameters> s3BucketParametersList;
     private List<Achivement> achievementList;
 
     public void setName(String name){
@@ -29,12 +25,12 @@ public class Rescuer extends User{
         return isVerified;
     }
 
-    public void setCertificateList (List<Certificate> certificateList){
-        this.certificateList = certificateList;
+    public void setCertificateList (List<S3BucketParameters> s3BucketParametersList){
+        this.s3BucketParametersList = s3BucketParametersList;
     }
 
-    public List<Certificate> getCertificateList(){
-        return certificateList;
+    public List<S3BucketParameters> getCertificateList(){
+        return s3BucketParametersList;
     }
   
     public void setAchievementList (List<Achivement> achievementList){

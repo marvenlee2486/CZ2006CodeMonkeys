@@ -21,11 +21,17 @@ import androidx.fragment.app.FragmentTransaction;
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Controller.UserController;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
 import com.google.android.gms.maps.model.Marker;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.Observer;
 
 /***
  * RescuePageFrag created by Wang Tianyu 07/03/2022
@@ -35,29 +41,36 @@ import java.util.Map;
 public class RescuePageFrag extends Fragment implements View.OnClickListener{
 
     private MapPageFrag mapPageFrag;
-    private BusPageFrag busPageFrag = new BusPageFrag();
-    private TrainPageFrag trainPageFrag = new TrainPageFrag();
+    private ChatRoomPageFrag chatRoomPageFrag;
+//    private BusPageFrag busPageFrag;
+//    private TrainPageFrag trainPageFrag;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private Fragment currentFragment = mapPageFrag;
+    private Fragment currentFragment;
     private RelativeLayout mapButton;
-    private RelativeLayout busButton;
-    private RelativeLayout trainButton;
+    private RelativeLayout chatButton;
+//    private RelativeLayout busButton;
+//    private RelativeLayout trainButton;
     private RelativeLayout instrucButton;
     private ImageView currentLine;
     private Context context;
+    private boolean isMap = true;
 
     private FrameLayout mainPageContent;
 
     public RescuePageFrag(Context context){
         this.context = context;
         mapPageFrag = new MapPageFrag(context);
+        chatRoomPageFrag = new ChatRoomPageFrag();
+        chatRoomPageFrag.setPhoneNumber("94489600");
+//        busPageFrag = new BusPageFrag();
+//        trainPageFrag = new TrainPageFrag();
+        currentFragment = mapPageFrag;
     };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -78,20 +91,25 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         //Initiate fragments
         fragmentManager = getChildFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.rescuePageMainContent, mapPageFrag);
+        fragmentTransaction.add(R.id.rescuePageMainContent, chatRoomPageFrag);
+//        fragmentTransaction.add(R.id.rescuePageMainContent, busPageFrag);
+//        fragmentTransaction.add(R.id.rescuePageMainContent, trainPageFrag);
         fragmentTransaction.show(mapPageFrag);
-        fragmentTransaction.hide(busPageFrag);
-        fragmentTransaction.hide(trainPageFrag);
-//        fragmentTransaction.hide(instrucPageFrag);
+        fragmentTransaction.hide(chatRoomPageFrag);
+//        fragmentTransaction.hide(busPageFrag);
+//        fragmentTransaction.hide(trainPageFrag);
         fragmentTransaction.commit();
 
         //Initiate buttons
         mapButton = getView().findViewById(R.id.mapButton);
-        trainButton = getView().findViewById(R.id.trainButton);
-        busButton = getView().findViewById(R.id.busButton);
+//        trainButton = getView().findViewById(R.id.trainButton);
+//        busButton = getView().findViewById(R.id.busButton);
         instrucButton = getView().findViewById(R.id.instructionButton);
+        chatButton = getView().findViewById(R.id.discussButton);
         mapButton.setOnClickListener(this);
-        trainButton.setOnClickListener(this);
-        busButton.setOnClickListener(this);
+        chatButton.setOnClickListener(this);
+//        trainButton.setOnClickListener(this);
+//        busButton.setOnClickListener(this);
         instrucButton.setOnClickListener(this);
 
         mainPageContent = getView().findViewById(R.id.rescuePageMainContent);
@@ -102,14 +120,8 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
     private void fragmentSwitch(Fragment fragment){
         fragmentManager = getChildFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(!fragment.isAdded()){
-            fragmentTransaction.hide(currentFragment);
-            fragmentTransaction.add(R.id.rescuePageMainContent, fragment);
-            fragmentTransaction.show(fragment);
-        }else{
-            fragmentTransaction.hide(currentFragment);
-            fragmentTransaction.show(fragment);
-        }
+        fragmentTransaction.hide(currentFragment);
+        fragmentTransaction.show(fragment);
         currentFragment = fragment;
         fragmentTransaction.commit();
     }
@@ -120,30 +132,47 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.mapButton:
                 mapPageFrag.removeKmlLayer();
-                fragmentSwitch(mapPageFrag);
+                if (!isMap) {
+                    fragmentSwitch(mapPageFrag);
+                    isMap = true;
+                }
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.mapLine);
                 currentLine.setVisibility(View.VISIBLE);
+                EventController.getEventController().getWeather();
                 break;
-            case R.id.trainButton:
+            case R.id.discussButton:
+                isMap = false;
+                fragmentSwitch(chatRoomPageFrag);
+                currentLine.setVisibility(View.GONE);
+                currentLine = getView().findViewById(R.id.discussLine);
+                currentLine.setVisibility(View.VISIBLE);
+                if (EventController.getEventController().getAcceptEvent() == null)
+                    chatRoomPageFrag.notAccept();
+                else
+                    chatRoomPageFrag.hasAccept();
+                break;
+//            case R.id.trainButton:
+//                isMap = false;
 //                fragmentSwitch(trainPageFrag);
 //                currentLine.setVisibility(View.GONE);
 //                currentLine = getView().findViewById(R.id.trainLine);
 //                currentLine.setVisibility(View.VISIBLE);
-                TCPManager.getTCPManager().send("ACCEPTREQ;" + "94489600" + ";"
-                        + UserController.getUserController().getUser().getPhoneNumber());
-                break;
-            case R.id.busButton:
+
+//                break;
+//            case R.id.busButton:
+//                isMap = false;
 //                fragmentSwitch(busPageFrag);
 //                currentLine.setVisibility(View.GONE);
 //                currentLine = getView().findViewById(R.id.busLine);
 //                currentLine.setVisibility(View.VISIBLE);
-                TCPManager.getTCPManager().send("DECLINEREQ;" + "94489600" + ";"
-                    + UserController.getUserController().getUser().getPhoneNumber());
-                break;
+//                break;
             case R.id.instructionButton:
                 mapPageFrag.setKmlLayer();
-                fragmentSwitch(mapPageFrag);
+                if (!isMap) {
+                    fragmentSwitch(mapPageFrag);
+                    isMap = true;
+                }
                 currentLine.setVisibility(View.GONE);
                 currentLine = getView().findViewById(R.id.instructionLine);
                 currentLine.setVisibility(View.VISIBLE);
@@ -151,5 +180,10 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
         }
 
     }
+
+    public void newMessage(String name, String message){
+        chatRoomPageFrag.newMessage(name, message);
+    }
+
 
 }

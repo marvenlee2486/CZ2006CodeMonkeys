@@ -30,7 +30,7 @@ public class AchievementController {
         Log.i("Achievement", UserController.getUserController().getUser().getIsVolunteer());
         Log.i("Achievement", String.valueOf(UserController.getUserController().getUser().getNumberOfRescue()));
 
-        if(UserController.getUserController().getUser().getIsVolunteer().equals("YES")){
+        if(UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED")){
             achievementNameList.add("I am helping!");
         }
         if(UserController.getUserController().getUser().getNumberOfRescue() > 0){

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -54,10 +55,12 @@ public class ConfigPageFrag extends Fragment {
         SignOutButton = view.findViewById(R.id.btnSignOut);
         CertificateButton = view.findViewById(R.id.btnuserCertificate);
 
-        ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                showChangeLanguageModal();
-            }
+        if (UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED") || UserController.getUserController().getUser().getIsVolunteer().equals("YES"))
+            CertificateButton.setVisibility(View.VISIBLE);
+            ChangeLanguageButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    showChangeLanguageModal();
+                }
         });
 
         userProfileButton.setOnClickListener(new View.OnClickListener(){
@@ -83,29 +86,36 @@ public class ConfigPageFrag extends Fragment {
 
         CertificateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                if(UserController.getUserController().getUser().getIsVolunteer().equals("NO")){
-                    Intent intent = new Intent(getActivity(), MainPage.class);
-                    startActivity(intent);
-                }
-                else{
-                    Intent intent = new Intent(getActivity(), CertificatePage.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), CertificatePage.class);
+                startActivity(intent);
             }
         });
 
-        SignOutButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Amplify.Auth.signOut(
-                        AuthSignOutOptions.builder().globalSignOut(true).build(),
-                        () -> {Log.i("Auth", "Signed out successfully");
-                                System.exit(0);},
-                        error -> Log.e("Auth", error.toString())
-                );
-
+        SignOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage(getString(R.string.logoutpopup))
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Amplify.Auth.signOut(
+                                        AuthSignOutOptions.builder().globalSignOut(true).build(),
+                                        () -> {
+                                            Log.i("Auth", "Signed out successfully");
+                                            getActivity().finish();
+                                        },
+                                        error -> Log.e("Auth", error.toString())
+                                );
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
-
         return view;
     }
 
@@ -122,7 +132,7 @@ public class ConfigPageFrag extends Fragment {
                         dialog.dismiss();
 
                         // Re Render main page
-                        Intent intent = new Intent(getActivity(), TestActivity.class);
+                        Intent intent = new Intent(getActivity(), MainPage.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

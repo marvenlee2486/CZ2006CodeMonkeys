@@ -6,7 +6,13 @@ package com.CodeMonkey.saveme.Util;
  */
 public class URLUtil {
 
-    public static final String tcpIP = "54.255.235.80";
+    public static final String dataGovSG = "https://api.data.gov.sg/v1/environment/";
+
+    public static final String humidity = "relative-humidity";
+
+    public static final String temperature = "air-temperature";
+
+    public static final String tcpIP = "54.169.180.107";
 
     public static final int tcpPort = 3391;
 
@@ -23,5 +29,7 @@ public class URLUtil {
     public static final String busArrival = "ltaodataservice/BusArrivalv2";
 
     public static final String validation = "resevent";
+
+    public static final String awsS3Base = "https://volunteercerticatebucket.s3.amazonaws.com/";
 
 }

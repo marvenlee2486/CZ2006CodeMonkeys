@@ -131,8 +131,8 @@ public class TCPManager{
                 while (true){
                     try {
                         location  = LocationUtils.getBestLocation(context, location);
-                        String msg = "LOCATION;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude();
-                        Thread.sleep(3000);
+                        String msg = "LOCATION;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + UserController.getUserController().getUser().getName() + ";" + location.getLatitude() + ";" + location.getLongitude();
+                        Thread.sleep(10000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();

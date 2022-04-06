@@ -1,27 +1,23 @@
 package com.CodeMonkey.saveme.Controller;
 
-import android.os.Debug;
 import android.util.Log;
 
-import com.CodeMonkey.saveme.Entity.Certificate;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class CertificateController{
-    private static CertificateController instance;
 
-    public static CertificateController getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new CertificateController();
+    private volatile static CertificateController instance;
+
+    public static CertificateController getInstance(){
+        if (instance == null){
+            synchronized (CertificateController.class){
+                if (instance == null)
+                    instance = new CertificateController();
+            }
         }
         return instance;
     }
 
     public String getCertificateUrl(){
-        if(UserController.getUserController().getUser().getIsVolunteer().equals("YES")){
+        if(UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED")){
 
             if(UserController.getUserController().getUser().getCertificateUrl() != null){
                 return UserController.getUserController().getUser().getCertificateUrl();

@@ -1,79 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/home_background">
+    android:background="@color/white">
+
 
     <LinearLayout
+        android:id="@+id/morePageMask"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="150dp"
+        android:background="@drawable/more_page_mask"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_marginTop="-150dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/homeProfileTopMargin"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5">
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/homeProfilePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
-
-
-            <ImageView
-                android:id="@+id/userProfileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:srcCompat="@drawable/save_me_logo" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/homeProfileName"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/mainName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="2"
-                android:fontFamily="sans-serif-medium"
-                android:text="Name"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:textColor="@color/black">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/homeProfileTopMargin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/homeProfilePhoto"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+
+                <ImageView
+                    android:id="@+id/userProfileImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/save_me_logo" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/homeProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/mainName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="2"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="20dp">
 
 
                 <RelativeLayout
@@ -88,9 +101,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-medium"
-                        android:text="User Profile"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"/>
+                        android:text="@string/user_profile"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
 
@@ -106,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Name:"
+                        android:text="@string/name"
                         android:textSize="15sp"
                         android:textColor="@color/black"/>
 
@@ -151,67 +164,69 @@
                         android:inputType="number"
                         android:textColor="@color/black"
                         android:paddingLeft="20dp"
-                         />
+                        />
 
                 </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Home Location:"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textView7"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/home_location"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/textView7"
+                        android:layout_weight="1"
+                        android:text="@string/work_location"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Work Location"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <TextView
+                        android:textSize="18sp"
+                        android:id="@+id/homeAddressLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_input_box"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:layout_marginRight="30dp"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
+                        />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                    <TextView
+                        android:textSize="18sp"
+                        android:id="@+id/workAddressLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_input_box"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
+                        />
 
-                <EditText
-                    android:id="@+id/homeAddressLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_input_box"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:layout_marginRight="30dp"
-                    android:textColor="@color/black"
-                    android:paddingLeft="20dp"
-                    />
-
-                <EditText
-                    android:id="@+id/workAddressLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_input_box"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:paddingLeft="20dp"
-                    />
-
-            </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -222,7 +237,7 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Home address:"
+                        android:text="@string/home_address"
                         android:textSize="15sp"
                         android:textColor="@color/black"
                         />
@@ -257,7 +272,7 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Work address:"
+                        android:text="@string/work_address"
                         android:textSize="15sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -290,7 +305,7 @@
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emergency Contact Name:"
+                        android:text="@string/emergency_contact_name"
                         android:textSize="15sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -324,7 +339,7 @@
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emergency Contact Number:"
+                        android:text="@string/emergency_contact_number"
                         android:textSize="15sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -348,16 +363,18 @@
                         />
                 </LinearLayout>
 
-            <Button
-                android:id="@+id/saveBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:text="@string/save" />
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:text="@string/save" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
 
     </LinearLayout>
 

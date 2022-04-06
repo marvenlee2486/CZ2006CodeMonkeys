@@ -20,8 +20,10 @@ public class RetrofitManager {
 
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private volatile static RetrofitManager govRetrofitManager;
     private volatile static RetrofitManager dbRetrofitManager;
     private volatile static RetrofitManager ltaRetrofitManager;
+    private volatile static RetrofitManager s3RetrofitManager;
 
     private RetrofitManager(String requestPath) {
 
@@ -55,6 +57,28 @@ public class RetrofitManager {
             }
         }
         return ltaRetrofitManager;
+    }
+
+    public static RetrofitManager gets3RetrofitManager(){
+        if (s3RetrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (s3RetrofitManager == null){
+                    s3RetrofitManager = new RetrofitManager(URLUtil.awsS3Base);
+                }
+            }
+        }
+        return s3RetrofitManager;
+    }
+
+    public static RetrofitManager getGovRetrofitManager(){
+        if (govRetrofitManager == null){
+            synchronized (RetrofitManager.class){
+                if (govRetrofitManager == null){
+                    govRetrofitManager = new RetrofitManager(URLUtil.dataGovSG);
+                }
+            }
+        }
+        return govRetrofitManager;
     }
 
     public <T> T create(Class<T> service) {

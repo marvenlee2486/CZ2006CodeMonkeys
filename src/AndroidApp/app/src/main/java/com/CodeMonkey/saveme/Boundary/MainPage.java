@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Controller.UserController;
-import com.CodeMonkey.saveme.Entity.User;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Entity.Event;
@@ -36,9 +36,12 @@ import com.CodeMonkey.saveme.Fragment.RescuePageFrag;
 import com.CodeMonkey.saveme.Fragment.SaveMePageFrag;
 import com.CodeMonkey.saveme.Fragment.VolPledgePageFrag;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.RequestUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observer;
 
 
 /***
@@ -120,13 +123,17 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                             break;
                         case "UPDATERESCUERS":
                             EventController.getEventController().getEventList().get(results[1]).setRescueNumber(Integer.parseInt(results[2]));
-                            Toast.makeText(MainPage.this, EventController.getEventController().getEventList().get(results[1]).toString(), Toast.LENGTH_SHORT).show();
+                            break;
+                        case "MSG":
+                            String message = "";
+                            for (int i = 3; i < results.length; i++)
+                                message += results[i];
+                            rescuePageFrag.newMessage(results[2], message);
                             break;
                     }
                 }
             }
         };
-        // TODO : Remove comment
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
         tcpManager.sendLocation(this);
@@ -184,8 +191,9 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
                 fragmentSwitch(regVolPageFrag);
                 break;
             case "PENDING":
+            case "REJECTED":
                 fragmentSwitch(regVolPageFrag);
-                setCertificate();
+                regVolPageFrag.setCertificate();
                 break;
             case "YES":
                 fragmentSwitch(volPledgePageFrag);
@@ -193,11 +201,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
 
             case "PLEDGED":
                 detectEvents();
-                break;
-
-            case "REJECTED":
-                fragmentSwitch(regVolPageFrag);
-
                 break;
 
         }
@@ -215,9 +218,6 @@ public class MainPage extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void setCertificate(){
-
-    }
 
     public void detectEvents(){
         if (EventController.getEventController().getEventList().size() != 0)

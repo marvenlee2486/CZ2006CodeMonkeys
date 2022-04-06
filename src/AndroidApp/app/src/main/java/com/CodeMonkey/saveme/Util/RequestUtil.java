@@ -1,11 +1,16 @@
 package com.CodeMonkey.saveme.Util;
 
 import com.CodeMonkey.saveme.Controller.RetrofitManager;
-import com.CodeMonkey.saveme.Entity.Certificate;
+import com.CodeMonkey.saveme.Entity.CertificateRsp;
+import com.CodeMonkey.saveme.Entity.CertificateURLScheme;
+import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.Entity.User;
 import com.CodeMonkey.saveme.Entity.UserRsp;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -17,9 +22,18 @@ import rx.schedulers.Schedulers;
  */
 public class RequestUtil {
 
+    private static HTTPUtil govService = RetrofitManager.getGovRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil dbService = RetrofitManager.getDBRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil ltaService = RetrofitManager.getLTARetrofitManager().create(HTTPUtil.class);
+    private static HTTPUtil s3Service = RetrofitManager.gets3RetrofitManager().create(HTTPUtil.class);
 
+    public static void getHumidity(Observer<GovDataRsp> observer, String dataTime){
+        setSubscribe(govService.getHumidity(dataTime), observer);
+    }
+
+    public static void getTemperature(Observer<GovDataRsp> observer, String dataTime){
+        setSubscribe(govService.getTemperature(dataTime), observer);
+    }
 
     public static void postUserData(Observer<User> observer, User user, String token){
         setSubscribe(dbService.postUserData(user, token), observer);
@@ -33,12 +47,12 @@ public class RequestUtil {
         setSubscribe(dbService.getUserData(phoneNumber, token), observer);
     }
 
-    public static void postCertData(Observer<ResponseBody> observer, Certificate certificate, String token){
-        setSubscribe(dbService.postCertData(certificate, token), observer);
+    public static void postCertData(Observer<CertificateRsp> observer, CertificateURLScheme certificateURLScheme, String token){
+        setSubscribe(dbService.postCertData(certificateURLScheme, token), observer);
     }
 
-    public static void getCertData(Observer<String> observer, String phoneNumber){
-        setSubscribe(dbService.getCertData(phoneNumber), observer);
+    public static void getCertData(Observer<ResponseBody> observer, String url){
+        setSubscribe(s3Service.getCertData(url), observer);
     }
 
     public static void getBusDataAll(Observer<ResponseBody> observer){
@@ -47,6 +61,12 @@ public class RequestUtil {
 
     public static void checkValidation(Observer<ResponseBody> observer, String phoneNumber, String token){
         setSubscribe(dbService.checkAvailability(phoneNumber, token), observer);
+    }
+
+    public static void postRealCertData(Observer<Completable> observer, MultipartBody.Part key,
+                                        MultipartBody.Part token, MultipartBody.Part accessKey,
+                                        MultipartBody.Part policy, MultipartBody.Part signature, RequestBody file){
+        setSubscribe(s3Service.postRealCertData(key, token, accessKey, policy, signature, file), observer);
     }
 
 

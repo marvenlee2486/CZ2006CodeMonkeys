@@ -1,38 +1,85 @@
 package com.CodeMonkey.saveme.Entity;
 
-import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-import java.sql.Timestamp;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class Certificate {
 
-    private String phoneNumber;
-    private String fileExtension;
-    private String fileData;
+    private String key;
+    private String AWSAccessKeyId;
+    @SerializedName("x-amz-security-token")
+    private String amzToken;
+    private String policy;
+    private String signature;
+    private String file;
 
-    public String getFileExtension(){
-        return fileExtension;
+    public String getKey() {
+        return key;
     }
 
-    public void setFileExtension(String fileExtension) {
-        this.fileExtension = fileExtension;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getAWSAccessKeyId() {
+        return AWSAccessKeyId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAWSAccessKeyId(String AWSAccessKeyId) {
+        this.AWSAccessKeyId = AWSAccessKeyId;
     }
 
-    public String getFileData() {
-        return fileData;
+    public String getAmzToken() {
+        return amzToken;
     }
 
-    public void setFileData(String fileData) {
-        this.fileData = fileData;
+    public void setAmzToken(String amzToken) {
+        this.amzToken = amzToken;
+    }
+
+    public String getPolicy() {
+        return policy;
+    }
+
+    public void setPolicy(String policy) {
+        this.policy = policy;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public void setS3BucketParameters(S3BucketParameters s3BucketParameters){
+        setKey(s3BucketParameters.getKey());
+        setAmzToken(s3BucketParameters.getAmzToken());
+        setPolicy(s3BucketParameters.getPolicy());
+        setAWSAccessKeyId(s3BucketParameters.getAWSAccessKeyId());
+        setSignature(s3BucketParameters.getSignature());
+    }
+
+    @Override
+    public String toString() {
+        return "Certificate{" +
+                "key='" + key + '\'' +
+                ", AWSAccessKeyId='" + AWSAccessKeyId + '\'' +
+                ", amzToken='" + amzToken + '\'' +
+                ", policy='" + policy + '\'' +
+                ", signature='" + signature + '\'' +
+                ", file='" + file + '\'' +
+                '}';
     }
 }
-
