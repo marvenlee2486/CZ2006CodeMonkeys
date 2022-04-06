@@ -8,14 +8,13 @@ function RescueMarker ({ timeStarted , phoneNumber, acceptedVolunteers,color }){
     return(
         <Popover>
         <PopoverTrigger>
-            {/* <Box><HiHeart style={{color: "red", fontSize:"2em"}}/></Box> */}
             <Box><HiLocationMarker style={{color: color, fontSize:"2em"}}/></Box>
         </PopoverTrigger>
         <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverHeader>
-                Volunteers Accepted: {acceptedVolunteers.length}{"\n"}
+                Volunteers Accepted: {acceptedVolunteers}{"\n"}
             </PopoverHeader>
 
             <PopoverBody>
@@ -83,7 +82,7 @@ export default function RescueMap({markers}) {
             )}
             {volmarker.map((data,index)=>
                 // console.log(index, data);
-                <VolunteerMarker lat={data[1]} lng={data[2]} color={colors[index]}/>
+                <VolunteerMarker lat={data[1]} lng={data[2]} color={colors[index]} name={data[0]}/>
             )}
         </GoogleMapReact>
         </div>
