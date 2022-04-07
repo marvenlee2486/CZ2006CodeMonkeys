@@ -63,7 +63,6 @@ class RequestResponseProcessor:
 
 
 def lambda_handler(event, context):
-    log(str(event))
     req = RequestResponseProcessor(event)
     res = req.orchestrate()
     log("[RESPONSE] " + str(res))
