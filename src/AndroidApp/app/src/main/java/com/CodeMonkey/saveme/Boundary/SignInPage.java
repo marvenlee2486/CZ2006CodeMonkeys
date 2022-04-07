@@ -2,6 +2,8 @@ package com.CodeMonkey.saveme.Boundary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CodeMonkey.saveme.Controller.UserController;
@@ -31,7 +34,9 @@ import rx.Observer;
  */
 
 public class SignInPage extends BaseActivity implements View.OnClickListener{
+
     private Button next;
+    private Handler handler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,14 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
     public void onPressLogin(View view) {
             EditText txtPhoneNum = findViewById(R.id.phoneNum);
             EditText txtPassword = findViewById(R.id.password);
+
+            handler = new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message message) {
+                    Toast.makeText(SignInPage.this, "Log in failed, please check your phone number or password", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
 
             Amplify.Auth.signIn(
                     "+65" + txtPhoneNum.getText().toString(),
@@ -94,7 +107,9 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                         intent.putExtra("type", "common");
                         startActivity(intent);
                         finishAll();},
-                    error -> {Log.e("Auth", "Log in failed, please check your phone number or password");}
+                    error -> {
+                        handler.sendMessage(new Message());
+                    }
             );
 
     }

@@ -88,7 +88,7 @@ public class UserProfilePage extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onCompleted() {
                             Toast.makeText(UserProfilePage.this, "Saved", Toast.LENGTH_SHORT).show();
-                            finishAll();
+                            finish();
                         }
 
                         @Override

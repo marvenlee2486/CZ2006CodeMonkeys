@@ -1,6 +1,8 @@
 package com.CodeMonkey.saveme.Boundary;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +11,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.CodeMonkey.saveme.Controller.TCPManager;
+import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class SelectLocationPage extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, View.OnClickListener{
 
@@ -58,31 +66,38 @@ public class SelectLocationPage extends FragmentActivity implements GoogleMap.On
         Toast.makeText(this, "Please tap on map to select your " + type, Toast.LENGTH_LONG).show();
         mMap = googleMap;
 
-        Location location = LocationUtils.getBestLocation(SelectLocationPage.this, null);
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
-
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
-            public void onMapClick(@NonNull LatLng latLng) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(String.format("%.4f", latLng.latitude) + " : " + String.format("%.4f", latLng.longitude));
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-                flag = true;
-                mMap.clear();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
-                mMap.addMarker(markerOptions);
+            public void onSuccess(Location location) {
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(@NonNull LatLng latLng) {
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title(String.format("%.4f", latLng.latitude) + " : " + String.format("%.4f", latLng.longitude));
+                        latitude = latLng.latitude;
+                        longitude = latLng.longitude;
+                        flag = true;
+                        mMap.clear();
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
+                        mMap.addMarker(markerOptions);
+
+                    }
+                });
+
+
+                mMap.setMyLocationEnabled(true);
+                mMap.setOnMyLocationButtonClickListener(SelectLocationPage.this);
+                mMap.setOnMyLocationClickListener(SelectLocationPage.this);
 
             }
         });
-
-
-        mMap.setMyLocationEnabled(true);
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
-
     }
 
     @Override

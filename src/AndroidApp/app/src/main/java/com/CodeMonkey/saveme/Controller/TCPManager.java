@@ -29,11 +29,12 @@ public class TCPManager{
     private Socket mSocket;
     private byte[] mBuffer;
     private boolean isRunning = true;
-    private Thread mThread;
-    private Handler handler;
+    private Handler handler = null;
+    private Context context;
 
-    private TCPManager(Handler handler){
+    private TCPManager(Handler handler, Context context){
         this.handler = handler;
+        this.context = context;
         connect();
     }
 
@@ -52,11 +53,11 @@ public class TCPManager{
         return mTCPManager;
     }
 
-    public static TCPManager getTCPManager(Handler handler) {
+    public static TCPManager getTCPManager(Handler handler, Context context) {
         if (mTCPManager == null) {
             synchronized (TCPManager.class) {
                 if (mTCPManager == null) {
-                    mTCPManager = new TCPManager(handler);
+                    mTCPManager = new TCPManager(handler, context);
                 }
             }
         }
@@ -74,6 +75,8 @@ public class TCPManager{
                     if (mSocket != null) {
                         mOutputStream = mSocket.getOutputStream();
                         mInputStream = mSocket.getInputStream();
+                        if (handler != null)
+                            sendLocation(context);
 //                        receive(mSocket);
                         DataInputStream input = new DataInputStream(mInputStream);
                         while (true) {
@@ -132,11 +135,11 @@ public class TCPManager{
                     try {
                         location  = LocationUtils.getBestLocation(context, location);
                         String msg = "LOCATION;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + UserController.getUserController().getUser().getName() + ";" + location.getLatitude() + ";" + location.getLongitude();
-                        Thread.sleep(10000);
                         mOutputStream = mSocket.getOutputStream();
                         mOutputStream.write(msg.getBytes());
                         mOutputStream.flush();
                         Log.i(TAG, "Sent " + msg);
+                        Thread.sleep(30000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,8 @@ public class ConfigPageFrag extends Fragment {
 
         userProfileButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                final EditText editText = new EditText(getContext());
+                EditText editText = new EditText(getContext());
+                editText.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                         .setTitle("Please input your account password")
                         .setView(editText)

@@ -66,7 +66,10 @@ public class AuthenticationActivity extends BaseActivity{
                         RequestUtil.getUserData(new Observer<UserRsp>() {
                             @Override
                             public void onCompleted() {
-
+                                Intent intent2 = new Intent(getApplicationContext(),  MainPage.class);
+                                intent2.putExtra("type", "common");
+                                startActivity(intent2);
+                                finish();
                             }
 
                             @Override
@@ -79,10 +82,6 @@ public class AuthenticationActivity extends BaseActivity{
                                 UserController.getUserController().setUser(userRsp.getBody());
                                 Log.i("User info", userRsp.getBody().toString());
                                 Log.i("Auth", Amplify.Auth.getCurrentUser().getUsername());
-                                Intent intent2 = new Intent(getApplicationContext(),  MainPage.class);
-                                intent2.putExtra("type", "common");
-                                startActivity(intent2);
-                                finish();
                             }
                         }, currentUser.getUsername().substring(3), token);
                     },

@@ -115,17 +115,11 @@ public class LocationUtils {
         return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    /**
-     * 定位监听
-     */
     public static void addLocationListener(Context context, String provider, ILocationListener locationListener) {
 
         addLocationListener(context, provider, REFRESH_TIME, METER_POSITION, locationListener);
     }
 
-    /**
-     * 定位监听
-     */
     public static void addLocationListener(Context context, String provider, long time, float meter, ILocationListener locationListener) {
         if (locationListener != null) {
             mLocationListener = locationListener;
@@ -141,9 +135,6 @@ public class LocationUtils {
         manager.requestLocationUpdates(provider, time, meter, listener);
     }
 
-    /**
-     * 取消定位监听
-     */
     public static void unRegisterListener(Context context) {
         if (listener != null) {
             LocationManager manager = getLocationManager(context);
@@ -151,7 +142,6 @@ public class LocationUtils {
                     && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            //移除定位监听
             manager.removeUpdates(listener);
         }
     }

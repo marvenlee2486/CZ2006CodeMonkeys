@@ -136,9 +136,10 @@ public class MainPage extends BaseActivity implements View.OnClickListener{
                 return false;
             }
         });
-        TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
-        tcpManager.sendLocation(this);
+        if (UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED"))
+            TCPManager.getTCPManager(handler, this);
+
 
         if (getIntent().getStringExtra("type") == null){
             changeColor(Color.parseColor("#0013C2"));
