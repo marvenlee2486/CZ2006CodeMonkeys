@@ -76,7 +76,7 @@ function Tables() {
                     name={row.name}
                     age={row.age}
                     status={row.isVolunteer}
-                    date={row.date_joined}
+                    date={row.dateJoined}
                   />
                 );
               })}
