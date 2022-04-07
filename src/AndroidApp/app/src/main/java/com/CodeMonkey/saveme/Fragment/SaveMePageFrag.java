@@ -66,7 +66,8 @@ public class SaveMePageFrag extends Fragment {
                 RequestUtil.checkValidation(new Observer<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-
+                        counter = 10;
+                        rescueMe();
                     }
 
                     @Override
@@ -76,8 +77,7 @@ public class SaveMePageFrag extends Fragment {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        counter = 10;
-                        rescueMe();
+
                     }
                 }, UserController.getUserController().getUser().getPhoneNumber(), UserController.getUserController().getToken());
             }
