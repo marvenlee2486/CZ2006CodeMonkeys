@@ -131,7 +131,7 @@ export default function Dashboard() {
 		let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 		let monthsSet = []
 		res.forEach(data=>{
-			let dj = new Date(data.date_joined);
+			let dj = new Date(data.dateJoined);
 			let monthcheck = new Date()
 			monthcheck.setDate(1);
 			monthcheck.setMonth(monthcheck.getMonth() - 8);
