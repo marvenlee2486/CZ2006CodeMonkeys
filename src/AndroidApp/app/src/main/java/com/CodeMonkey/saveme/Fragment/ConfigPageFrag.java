@@ -94,7 +94,7 @@ public class ConfigPageFrag extends Fragment {
                                 dialog.dismiss();
                             }
                         });
-                AlertDialog dialog = builder.create();
+                dialog = builder.create();
                 dialog.show();
             }
         });
@@ -130,6 +130,8 @@ public class ConfigPageFrag extends Fragment {
                                         AuthSignOutOptions.builder().globalSignOut(true).build(),
                                         () -> {
                                             Log.i("Auth", "Signed out successfully");
+                                            Intent intent = new Intent(getActivity(), RegSignPage.class);
+                                            startActivity(intent);
                                             getActivity().finish();
                                         },
                                         error -> Log.e("Auth", error.toString())
@@ -161,9 +163,10 @@ public class ConfigPageFrag extends Fragment {
                         dialog.dismiss();
 
                         // Re Render main page
-                        Intent intent = new Intent(getActivity(), MainPage.class);
+                        Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
 

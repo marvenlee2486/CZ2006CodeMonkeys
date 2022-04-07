@@ -49,7 +49,7 @@ public class LocationUtils {
         }
 
         @Override
-        public void onProviderDisabled(String provider) {//定位状态不可用监听
+        public void onProviderDisabled(String provider) {
 
         }
     }

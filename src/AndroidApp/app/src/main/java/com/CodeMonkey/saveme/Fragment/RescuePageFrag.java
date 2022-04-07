@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Controller.TCPManager;
 import com.CodeMonkey.saveme.Controller.UserController;
+import com.CodeMonkey.saveme.Entity.Event;
 import com.CodeMonkey.saveme.Entity.GovDataRsp;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
@@ -85,7 +86,19 @@ public class RescuePageFrag extends Fragment implements View.OnClickListener{
                         requestListPageFrag.getAdapter().removeEvent((String) message.obj);
                         break;
                     case 4:
+                        mapPageFrag.removeKmlLayer();
+                        if (!isMap) {
+                            fragmentSwitch(mapPageFrag);
+                            isMap = true;
+                        }
+                        currentLine.setVisibility(View.GONE);
+                        currentLine = getView().findViewById(R.id.mapLine);
+                        currentLine.setVisibility(View.VISIBLE);
+                        EventController.getEventController().getWeather();
                         mapPageFrag.moveToEventMarker((String) message.obj);
+                        break;
+                    case 6:
+                        mapPageFrag.updateRescueNumber((Event) message.obj);
                         break;
                 }
                 return false;

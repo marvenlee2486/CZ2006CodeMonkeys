@@ -1,5 +1,7 @@
 package com.CodeMonkey.saveme.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.CodeMonkey.saveme.Controller.TCPManager;
@@ -21,6 +24,10 @@ import com.CodeMonkey.saveme.Controller.UserController;
 import com.CodeMonkey.saveme.R;
 import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.RequestUtil;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import okhttp3.ResponseBody;
 import rx.Observer;
@@ -37,7 +44,8 @@ public class SaveMePageFrag extends Fragment {
     private TextView pressButtonText;
     private int counter;
 
-    public SaveMePageFrag(){}
+    public SaveMePageFrag() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +56,7 @@ public class SaveMePageFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.save_page_fragment, container, false);
+        View view = inflater.inflate(R.layout.save_page_fragment, container, false);
         button = view.findViewById(R.id.button);
         pressedButton = view.findViewById(R.id.pressedButton);
         pressButtonText = view.findViewById(R.id.pressButtonHint);
@@ -84,20 +92,27 @@ public class SaveMePageFrag extends Fragment {
         return view;
     }
 
-    private void rescueMe(){
+    private void rescueMe() {
         pressed = true;
         button.setVisibility(View.GONE);
         pressedButton.setVisibility(View.VISIBLE);
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message message) {
-                if (message.what == 5){
-                    if (pressed){
-                        counter --;
-                        if (counter == 0){
-                            Location location = LocationUtils.getBestLocation(getContext(), null);
-                            TCPManager.getTCPManager().send("RESCUEME;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude());
-                            pressButtonText.setText("Signal is being broadcast.\nDon’t worry, help is on the way.");
+                if (message.what == 5) {
+                    if (pressed) {
+                        counter--;
+                        if (counter == 0) {
+                            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            }
+                            fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    TCPManager.getTCPManager().send("RESCUEME;" + UserController.getUserController().getUser().getPhoneNumber() + ";" + location.getLatitude() + ";" + location.getLongitude());
+                                    pressButtonText.setText("Signal is being broadcast.\nDon’t worry, help is on the way.");
+                                }
+                            });
                         }
                         else {
                             String string = "Signal will be sent to nearby rescuers in\n" + counter;

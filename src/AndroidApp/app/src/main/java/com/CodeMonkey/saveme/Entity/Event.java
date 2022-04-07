@@ -1,6 +1,7 @@
 package com.CodeMonkey.saveme.Entity;
 
 import android.location.Location;
+import android.os.Message;
 
 import com.google.gson.JsonObject;
 
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 
 public class Event {
 
-    private int rescueNumber;
+    private int rescueNumber = 0;
     private User user;
     private double latitude;
     private double longitude;

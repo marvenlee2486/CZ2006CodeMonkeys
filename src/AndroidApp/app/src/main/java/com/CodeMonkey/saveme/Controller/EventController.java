@@ -130,24 +130,7 @@ public class EventController{
             public void onNext(UserRsp userRsp) {
                 Event event = new Event();
                 event.setUser(userRsp.getBody());
-//                String[] addressLocation = event.getUser().getHomeLocation().split(",");
-//                if (Math.abs(Double.parseDouble(addressLocation[0]) - Double.parseDouble(latitude) )+ Math.abs(Double.parseDouble(addressLocation[1]) - Double.parseDouble(longitude)) < 0.001){
-//                    event.setLocation("home");
-//                    event.setLatitude(Double.parseDouble(addressLocation[0]));
-//                    event.setLongitude(Double.parseDouble(addressLocation[1]));
-//                }
-//                else{
-//                    addressLocation = event.getUser().getWorkLocation().split(";");
-//                    if (Math.abs(Double.parseDouble(addressLocation[0]) - Double.parseDouble(latitude) )+ Math.abs(Double.parseDouble(addressLocation[1]) - Double.parseDouble(longitude)) < 0.001){
-//                        event.setLocation("work");
-//                        event.setLatitude(Double.parseDouble(addressLocation[0]));
-//                        event.setLongitude(Double.parseDouble(addressLocation[1]));
-//                    }
-//                    else {
-//                        event.setLatitude(Double.parseDouble(latitude));
-//                        event.setLongitude(Double.parseDouble(longitude));
-//                    }
-//                }
+
                 event.setLatitude(Double.parseDouble(latitude));
                 event.setLongitude(Double.parseDouble(longitude));
                 eventList.put(phoneNumber, event);
@@ -203,5 +186,13 @@ public class EventController{
 
     public RequestListPageFrag.RequestListItemHolder getAcceptHolder() {
         return acceptHolder;
+    }
+
+    public void setRescueNumber(String phoneNumber, int rescueNumber){
+        eventList.get(phoneNumber).setRescueNumber(rescueNumber);
+        Message message = new Message();
+        message.what = 6;
+        message.obj = eventList.get(phoneNumber);
+        handler.sendMessage(message);
     }
 }

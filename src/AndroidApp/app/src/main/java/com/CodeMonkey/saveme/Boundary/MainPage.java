@@ -107,33 +107,35 @@ public class MainPage extends BaseActivity implements View.OnClickListener{
         morePageContainer = findViewById(R.id.morePageContainer);
         morePageMask = findViewById(R.id.morePageMask);
 
-        handler = new Handler(){
+        handler = new Handler(new Handler.Callback() {
             @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == 1) {
-                    String result = (String) msg.obj;
+            public boolean handleMessage(@NonNull Message message) {
+                if (message.what == 1) {
+                    String result = (String) message.obj;
                     String[] results = result.split(";");
                     switch (results[0]) {
                         case "REQUEST":
-                            EventController.getEventController().addNewEvent(results[1], results[2], results[3]);
+                            if (!EventController.getEventController().getEventList().containsKey(results[1]) && UserController.getUserController().getUser().getIsVolunteer().equals("PLEDGED") && !UserController.getUserController().getUser().getPhoneNumber().equals(results[1]))
+                                EventController.getEventController().addNewEvent(results[1], results[2], results[3]);
                             break;
                         case "CANCELRESCUEME":
                             EventController.getEventController().removeEvent(results[1]);
                             break;
                         case "UPDATERESCUERS":
-                            EventController.getEventController().getEventList().get(results[1]).setRescueNumber(Integer.parseInt(results[2]));
+                            if (!UserController.getUserController().getUser().getPhoneNumber().equals(results[1]))
+                                EventController.getEventController().setRescueNumber(results[1], Integer.parseInt(results[2]));
                             break;
                         case "MSG":
-                            String message = "";
+                            String msg = "";
                             for (int i = 3; i < results.length; i++)
-                                message += results[i];
-                            rescuePageFrag.newMessage(results[2], message);
+                                msg += results[i];
+                            rescuePageFrag.newMessage(results[2], msg);
                             break;
                     }
                 }
+                return false;
             }
-        };
+        });
         TCPManager tcpManager = TCPManager.getTCPManager(handler);
 
         tcpManager.sendLocation(this);

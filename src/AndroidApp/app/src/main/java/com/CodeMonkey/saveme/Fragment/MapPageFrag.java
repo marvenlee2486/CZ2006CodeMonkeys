@@ -2,14 +2,19 @@ package com.CodeMonkey.saveme.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,8 +50,7 @@ import java.util.Map;
  * Map information page
  */
 
-public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener
-                                                    , GoogleMap.OnInfoWindowClickListener{
+public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
     private Location gps;
     private Context context;
@@ -90,11 +94,11 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                         addNewMarker(phoneNumber);
                     tempPhones = new ArrayList<>();
                 }
+
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);
                 googleMap.setOnMyLocationClickListener(MapPageFrag.this);
-                googleMap.setOnInfoWindowClickListener(MapPageFrag.this);
                 try {
                     kmlLayer= new KmlLayer(googleMap, R.raw.aed_locations, context);
                 } catch (XmlPullParserException e) {
@@ -109,11 +113,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
         return view;
     }
 
-
-    @Override
-    public void onInfoWindowClick(@NonNull Marker marker) {
-        Log.e("!!!", "!!!!!");
-    }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -138,14 +137,15 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
 
 
     private void addNewMarker(String phoneNumber){
-        LatLng latLng = new LatLng(EventController.getEventController().getEventList().get(phoneNumber).getLatitude(),
-                EventController.getEventController().getEventList().get(phoneNumber).getLongitude());
+        Event event = EventController.getEventController().getEventList().get(phoneNumber);
+        LatLng latLng = new LatLng(event.getLatitude(), event.getLongitude());
         Marker marker = map.addMarker(
                 new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                        .title(phoneNumber)
-                        .snippet(EventController.getEventController().getEventList().get(phoneNumber).getUser().getName()));
+                        .title(event.getUser().getName())
+                        .snippet(getEventInfo(event)));
+        setMarkerAdapter();
         marker.showInfoWindow();
         markers.put(phoneNumber, marker);
 //        map.setInfoWindowAdapter(new MarkerWindowUtil(getActivity()));
@@ -173,8 +173,82 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     public void moveToEventMarker(String phoneNumber){
         Event event = EventController.getEventController().getEventList().get(phoneNumber);
         LatLng latLng = new LatLng(event.getLatitude(), event.getLongitude());
+        setMarkerAdapter();
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
         markers.get(phoneNumber).showInfoWindow();
+    }
+
+    private String getEventInfo(Event event){
+        String result = "";
+        result += ("Phone number: " + event.getUser().getPhoneNumber() + "\n");
+        result += ("Currently " + event.getRescueNumber() + " volunteers are coming\n");
+        String[] addressLocation = event.getUser().getHomeLocation().split(",");
+        if (Math.abs(Double.parseDouble(addressLocation[0]) - event.getLatitude() )+ Math.abs(Double.parseDouble(addressLocation[1]) - event.getLongitude()) < 0.001){
+            result += "User is now near his/her home!\n";
+            result += "Home address: " + event.getUser().getHomeAddress() + "\n";
+        }
+        else {
+            addressLocation = event.getUser().getWorkLocation().split(",");
+            if (Math.abs(Double.parseDouble(addressLocation[0]) - event.getLatitude()) + Math.abs(Double.parseDouble(addressLocation[1]) - event.getLatitude()) < 0.001) {
+                result += "User is now near his/her work place!\n";
+                result += "Work address: " + event.getUser().getWorkAddress() + "\n";
+            }
+        }
+        if (event.getUser().getAge() != null && !event.getUser().getAge().equals(""))
+            result += "Age: " + event.getUser().getAge() + "\n";
+        if (event.getUser().getEmergencyContactName() != null && !event.getUser().getEmergencyContactName().equals(""))
+            result += "Emergency contact name: " + event.getUser().getEmergencyContactName() + "\n";
+        if (event.getUser().getEmergencyContactNumber() != null && !event.getUser().getEmergencyContactNumber().equals(""))
+            result += "Emergency contact phone number: " + event.getUser().getEmergencyContactNumber() + "\n";
+        result += "Temperature: " + event.getTemperature() + "℃\n";
+        result += "Humidity: " + event.getHumidity() + "%\n";
+        if (event.getHumidity() < 50)
+            result += "Very low probably rain";
+        else if (event.getHumidity() >= 50 && event.getHumidity() < 80)
+            result += "Low probably rain";
+        else if (event.getHumidity() >= 80 && event.getHumidity() < 100)
+            result += "High probably rain";
+        else if (event.getHumidity() == 100)
+            result += "Raining";
+        return result;
+    }
+
+    private void setMarkerAdapter(){
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(getContext());
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(getContext());
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(getContext());
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
+
+    }
+
+    public void updateRescueNumber(Event event){
+        markers.get(event.getUser().getPhoneNumber()).remove();
+        addNewMarker(event.getUser().getPhoneNumber());
     }
 
 

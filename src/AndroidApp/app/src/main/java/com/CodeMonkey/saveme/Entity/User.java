@@ -27,6 +27,7 @@ public class User {
     private int numberOfRescue;
     private String name;
     private String age;
+    private String dateJoined;
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -142,6 +143,14 @@ public class User {
         return age;
     }
 
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
+    }
+
+    public String getDateJoined() {
+        return dateJoined;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -159,6 +168,7 @@ public class User {
                 ", numberOfRescue=" + numberOfRescue +
                 ", name='" + name + '\'' +
                 ", age='" + age + '\'' +
+                ", dateJoined='" + dateJoined + '\'' +
                 '}';
     }
 }
