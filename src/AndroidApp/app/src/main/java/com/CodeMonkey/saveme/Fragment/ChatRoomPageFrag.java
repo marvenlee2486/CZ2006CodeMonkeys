@@ -32,7 +32,6 @@ public class ChatRoomPageFrag extends Fragment {
     private String phoneNumber;
     private ImageView img;
     private LinearLayout mainPage;
-    private String tempMessage = "";
 
     public ChatRoomPageFrag(){
     };
@@ -64,9 +63,6 @@ public class ChatRoomPageFrag extends Fragment {
         });
         textBox = view.findViewById(R.id.textBox);
 
-        if (!tempMessage.equals(""))
-            textBox.setText(tempMessage);
-
         textInputBox = view.findViewById(R.id.inputBox);
         textInputBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,11 +86,7 @@ public class ChatRoomPageFrag extends Fragment {
     }
 
     public void newMessage(String name, String msg){
-        if (textBox == null){
-            tempMessage += name + ":" + msg + "\n";
-        }
-        else
-            textBox.setText(textBox.getText() + name + ":" + msg + "\n");
+        textBox.setText(textBox.getText() + name + ":" + msg + "\n");
     }
 
     public void notAccept(){
