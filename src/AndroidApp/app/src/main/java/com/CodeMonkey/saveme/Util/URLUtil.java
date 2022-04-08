@@ -22,12 +22,6 @@ public class URLUtil {
 
     public static final String certData = "cert";
 
-    public static final String LTABase = "http://datamall2.mytransport.sg/";
-
-    public static final String LTAKey = "kaRQH9KmShGh/UZK30+rnw==";
-
-    public static final String busArrival = "ltaodataservice/BusArrivalv2";
-
     public static final String validation = "resevent";
 
     public static final String awsS3Base = "https://volunteercerticatebucket.s3.amazonaws.com/";

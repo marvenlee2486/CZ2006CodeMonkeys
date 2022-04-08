@@ -24,7 +24,6 @@ public class RequestUtil {
 
     private static HTTPUtil govService = RetrofitManager.getGovRetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil dbService = RetrofitManager.getDBRetrofitManager().create(HTTPUtil.class);
-    private static HTTPUtil ltaService = RetrofitManager.getLTARetrofitManager().create(HTTPUtil.class);
     private static HTTPUtil s3Service = RetrofitManager.gets3RetrofitManager().create(HTTPUtil.class);
 
     public static void getHumidity(Observer<GovDataRsp> observer, String dataTime){
@@ -53,10 +52,6 @@ public class RequestUtil {
 
     public static void getCertData(Observer<ResponseBody> observer, String url){
         setSubscribe(s3Service.getCertData(url), observer);
-    }
-
-    public static void getBusDataAll(Observer<ResponseBody> observer){
-        setSubscribe(ltaService.getBusArrivals("83139"), observer);
     }
 
     public static void checkValidation(Observer<ResponseBody> observer, String phoneNumber, String token){

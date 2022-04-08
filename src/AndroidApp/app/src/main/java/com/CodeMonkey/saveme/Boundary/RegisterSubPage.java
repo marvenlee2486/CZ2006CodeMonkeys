@@ -178,19 +178,17 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
         user.setDateJoined(time);
         if (!age.getText().toString().equals(""))
             user.setAge(age.getText().toString());
-        if (!emergencyContactName.getText().toString().equals(""))
-            user.setEmergencyContactName(emergencyContactName.getText().toString());
-        if (!emergencyContactNumber.getText().toString().equals(""))
-            user.setEmergencyContactNumber(emergencyContactNumber.getText().toString());
+        user.setEmergencyContactName(emergencyContactName.getText().toString());
+        user.setEmergencyContactNumber(emergencyContactNumber.getText().toString());
     }
 
     public boolean locationCheck(){
         String[] location =  homeAddressLocation.getText().toString().trim().split(",");
-        if(Integer.parseInt(location[0]) <1.23 || Integer.parseInt(location[0])> 1.47){
+        if(Double.parseDouble(location[0]) <1.23 || Double.parseDouble(location[0])> 1.47){
             Toast.makeText(this, "Not qualified latitude, the place must be in singapore", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(Integer.parseInt(location[1])<103.6  || Integer.parseInt(location[1])> 104.3){
+        else if(Double.parseDouble(location[1])<103.6  || Double.parseDouble(location[1])> 104.3){
             Toast.makeText(this, "Not qualified longtitude, the place must be in singapore", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -199,8 +197,7 @@ public class RegisterSubPage extends BaseActivity implements View.OnClickListene
 
     public boolean ageCheckPrint(){
         if (age.getText().toString().equals("")){
-            Toast.makeText(this, "You have not input age!", Toast.LENGTH_SHORT).show();
-            return false;
+            return true;
         }
         else if (Integer.parseInt(age.getText().toString()) < 0 ){
             Toast.makeText(this, "The input age cannot be negative! Please input a non-negative integer", Toast.LENGTH_SHORT).show();

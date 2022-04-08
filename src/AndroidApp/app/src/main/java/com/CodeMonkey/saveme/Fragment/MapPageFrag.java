@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.CodeMonkey.saveme.Controller.EventController;
 import com.CodeMonkey.saveme.Entity.Event;
 import com.CodeMonkey.saveme.R;
+import com.CodeMonkey.saveme.Util.LocationUtils;
 import com.CodeMonkey.saveme.Util.NotificationUtil;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -71,16 +72,6 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        }
-        fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                latLng = new LatLng(gps.getLatitude(), gps.getLongitude());
-                gps = location;
-            }
-        });
     }
 
     @Override
@@ -101,7 +92,8 @@ public class MapPageFrag extends Fragment implements GoogleMap.OnMyLocationButto
                         addNewMarker(phoneNumber);
                     tempPhones = new ArrayList<>();
                 }
-
+                Location location = LocationUtils.getBestLocation(getContext(), null);
+                latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setOnMyLocationButtonClickListener(MapPageFrag.this);

@@ -42,6 +42,7 @@ public class TCPManager{
         connect();
     }
 
+
     public static TCPManager getTCPManager() {
         if (mTCPManager == null) {
             synchronized (TCPManager.class) {

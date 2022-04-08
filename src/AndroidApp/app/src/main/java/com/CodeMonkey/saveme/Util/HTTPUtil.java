@@ -59,8 +59,5 @@ public interface HTTPUtil {
     @GET(URLUtil.validation)
     Observable<ResponseBody> checkAvailability(@Query("phoneNumber") String phoneNumber, @Header("Authorization") String token);
 
-    @Headers("AccountKey:"+ URLUtil.LTAKey)
-    @GET(URLUtil.busArrival)
-    Observable<ResponseBody> getBusArrivals(@Query("BusStopCode") String busStopCode);
-    
+
 }

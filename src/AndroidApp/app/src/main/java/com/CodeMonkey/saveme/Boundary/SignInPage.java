@@ -88,6 +88,10 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                                         @Override
                                         public void onCompleted() {
 
+                                            Intent intent = new Intent(SignInPage.this, MainPage.class);
+                                            intent.putExtra("type", "common");
+                                            startActivity(intent);
+                                            finishAll();
                                         }
 
                                         @Override
@@ -103,10 +107,7 @@ public class SignInPage extends BaseActivity implements View.OnClickListener{
                                 },
                                 error -> Log.e("Auth token failed", error.toString())
                         );
-                        Intent intent = new Intent(this, MainPage.class);
-                        intent.putExtra("type", "common");
-                        startActivity(intent);
-                        finishAll();},
+                        },
                     error -> {
                         handler.sendMessage(new Message());
                     }

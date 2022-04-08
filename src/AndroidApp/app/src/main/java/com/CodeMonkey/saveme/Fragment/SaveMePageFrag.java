@@ -135,6 +135,8 @@ public class SaveMePageFrag extends Fragment {
             }
         };
 
+        TCPManager.getTCPManager();
+
         for (; time >= 0; time--){
             handler.postDelayed(runnable, 1000 * (10 - time));
         }

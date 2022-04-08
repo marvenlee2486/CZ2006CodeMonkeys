@@ -84,10 +84,12 @@ public class EventController{
         RequestUtil.getHumidity(new Observer<GovDataRsp>() {
             @Override
             public void onCompleted() {
+
             }
 
             @Override
             public void onError(Throwable e) {
+
             }
 
             @Override

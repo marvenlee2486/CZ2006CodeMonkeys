@@ -22,7 +22,6 @@ public class RetrofitManager {
     private Retrofit retrofit;
     private volatile static RetrofitManager govRetrofitManager;
     private volatile static RetrofitManager dbRetrofitManager;
-    private volatile static RetrofitManager ltaRetrofitManager;
     private volatile static RetrofitManager s3RetrofitManager;
 
     private RetrofitManager(String requestPath) {
@@ -46,17 +45,6 @@ public class RetrofitManager {
             }
         }
         return dbRetrofitManager;
-    }
-
-    public static RetrofitManager getLTARetrofitManager(){
-        if (ltaRetrofitManager == null){
-            synchronized (RetrofitManager.class){
-                if (ltaRetrofitManager == null){
-                    ltaRetrofitManager = new RetrofitManager(URLUtil.LTABase);
-                }
-            }
-        }
-        return ltaRetrofitManager;
     }
 
     public static RetrofitManager gets3RetrofitManager(){
