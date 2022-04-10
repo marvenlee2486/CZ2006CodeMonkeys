@@ -1,7 +1,6 @@
 // Chakra imports
 import {
 Box,
-Button,
 Flex,
 Grid,
 Icon,
@@ -31,7 +30,6 @@ import IconBox from "components/Icons/IconBox";
 import RescueMap from "components/Map/RescueMap";
 // Custom icons
 import {
-DocumentIcon,
 RocketIcon,
 } from "components/Icons/Icons.js";
 import DashboardTableRow from "components/Tables/DashboardTableRow";
@@ -50,8 +48,6 @@ Amplify.configure(awsconfig);
 
 export default function Dashboard() {
 	//variables--------------------------------------------------------------
-	const [locationdata, setLocationData] = useState({state:"disconnected",data:[]});
-
 	// Chakra Color Mode
 	const { colorMode, toggleColorMode } = useColorMode();
 	const iconTeal = useColorModeValue("teal.300", "teal.300");
@@ -76,6 +72,7 @@ export default function Dashboard() {
 	const [barChartOptionsnew, setBarChartOptions] = useState(barChartOptions);
 	const [totalRescues, setTotalRescues] = useState({"No Response":0,"Responded":0})
 	const [pendingcerts, setPendingCerts] = useState(0);
+	const [locationdata, setLocationData] = useState({state:"disconnected",data:[]});
 
 	//Functions-----------------------------------------------------------------
 	useEffect(() => {
@@ -110,7 +107,6 @@ export default function Dashboard() {
 			setLocationData({"state":"disconnected","data":[]});
 		};
 	}
-
 
 	const setUsersInfo = async() => {
 		//fetch data
@@ -252,7 +248,6 @@ export default function Dashboard() {
 					>
 						({lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0]>=0?"+":"-"}
 						{
-							// lineChartData[0].data.slice(-2)[1]==0?0:1
 							(lineChartData[0].data.slice(-2)[1]==0?0:(lineChartData[0].data.slice(-2)[1]-lineChartData[0].data.slice(-2)[0])/lineChartData[0].data.slice(-2)[1]*100)
 						}%)
 					</StatHelpText>

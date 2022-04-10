@@ -1,26 +1,18 @@
 // import
-import Dashboard from "views/Dashboard/Dashboard.js";
-import Tables from "views/Dashboard/Tables.js";
-import Billing from "views/Dashboard/Billing.js";
-import RTLPage from "views/RTL/RTLPage.js";
-import Profile from "views/Dashboard/Profile.js";
-import SignIn from "views/Pages/SignIn.js";
-import SignUp from "views/Pages/SignUp.js";
-import NewPassword from "views/Pages/NewPassword";
+import Dashboard from "views/Dashboard.js";
+import Administrative from "views/Tables.js";
+import SignIn from "views/SignIn.js";
+import NewPassword from "views/NewPassword";
 
 import {
   HomeIcon,
-  StatsIcon,
-  CreditIcon,
-  PersonIcon,
   DocumentIcon,
-  RocketIcon,
   SupportIcon,
 } from "components/Icons/Icons";
 
 var dashRoutes = [
   {
-    path: "/dashboard",
+    path: "/pages",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
     icon: <HomeIcon color="inherit" />,
@@ -28,11 +20,11 @@ var dashRoutes = [
     layout: "/admin",
   },
   {
-    path: "/tables",
+    path: "/pages",
     name: "Administrative",
     rtlName: "لوحة القيادة",
     icon: <SupportIcon color="inherit" />,
-    component: Tables,
+    component: Administrative,
     layout: "/admin",
   },
   {
