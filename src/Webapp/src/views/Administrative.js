@@ -16,12 +16,11 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import TablesProjectRow from "components/Tables/TablesProjectRow";
 import TablesTableRow from "components/Tables/TablesTableRow";
-import { certificatesTableData, tablesTableData } from "variables/general";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
 
-function Tables() {
+export default Administrative = () => {
   const textColor = useColorModeValue("gray.700", "white");
   const [usersData, setusersData] = useState([]);
   const [pendingData, setPendingData] = useState([]);
@@ -125,4 +124,3 @@ function Tables() {
   );
 }
 
-export default Tables;
